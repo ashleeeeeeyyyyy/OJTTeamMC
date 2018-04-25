@@ -196,11 +196,17 @@ public final class UserLogin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,13 +235,13 @@ public final class UserLogin extends javax.swing.JFrame {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             if ("Practicum 1".equals(purposeComboBox.getSelectedItem().toString())) {
-                rs = stmt.executeQuery("select * from log_practicum");
-                logOutValidator(Integer.parseInt(idNumber.getText()), userPassword.getText(), con, stmt, rs);
+                rs = stmt.executeQuery("select * from student_practicum");
+                pracLogValidator(Integer.parseInt(idNumber.getText()), String.valueOf(userPassword.getPassword()), stmt, rs);
             } else {
                 rs = stmt.executeQuery("select * from student_itproject");
             }
-        } catch (NumberFormatException | SQLException e) {
-            JOptionPane.showMessageDialog(this, "Invalid ID number", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_logOutButtonActionPerformed
 
@@ -256,34 +262,61 @@ public final class UserLogin extends javax.swing.JFrame {
         reg.setVisible(true);
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void logOutValidator(int id, String pass, Connection con, Statement stmt, ResultSet rs) throws SQLException {
+    private void pracLogValidator(int id, String pass, Statement stmt, ResultSet rs) throws SQLException {
         while (rs.next()) {
             int idnumber = rs.getInt(1);
             String password = rs.getString("password");
             if (idnumber == id) {
                 if (password.equals(pass)) {
-                    String time_out = "";
-                    while (rs.next()) {
-                        time_out = rs.getString("time_out");
-                    }
-                    if (idnumber == id) {
-                        if (time_out == null) {
-                            rs = timeOut(id, stmt, con);
-                            JOptionPane.showMessageDialog(this, "You are already log in");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Log In Success!");
-                        }
-                    }
-                    idNumber.setText("");
-                    userPassword.setText("");
-                    purposeComboBox.setSelectedIndex(-1);
+                    rs = validateLogOut(id, idnumber, stmt);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid Password", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid Password", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
+    private ResultSet validateLogOut(int idnumber, int id, Statement stmt) throws SQLException, HeadlessException {
+        ResultSet rs;
+        String secondQuery = "select * from log_practicum where "
+                + " idnumber = " + id + " ORDER by logid desc LIMIT 1;";
+        rs = stmt.executeQuery(secondQuery);
+        rs.beforeFirst();
+        String time_out = "";
+        while (rs.next()) {
+            time_out = rs.getString("time_out");
+        }
+        if (idnumber == id) {
+            if (time_out == null) {
+                rs = timeOut(idnumber, rs, stmt);
+                JOptionPane.showMessageDialog(this, "Logout Complete");
+                idNumber.setText("");
+                userPassword.setText("");
+                purposeComboBox.setSelectedIndex(-1);
+            } else {
+                JOptionPane.showMessageDialog(this, "You haven't logged in yet", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        return rs;
+    }
+
+    private ResultSet timeOut(int idnumber, ResultSet rs, Statement stmt) throws SQLException {
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd h:m:s");
+        String timeOutQuery = "select * from log_practicum where time_out is null "
+                + "AND idnumber = " + idnumber + " limit 1";
+        rs = stmt.executeQuery(timeOutQuery);
+
+        rs.beforeFirst();
+        String timeOut;
+        rs.first();
+        timeOut = dateFormat.format(now);
+        rs.updateString(4, timeOut);
+        rs.updateRow();
+        return rs;
+    }
+
+    /*
     private ResultSet timeOut(int id, Statement stmt, Connection con) throws SQLException {
         CallableStatement callsp;
         ResultSet rs;
@@ -310,7 +343,7 @@ public final class UserLogin extends javax.swing.JFrame {
         }
         return rs;
     }
-
+     */
     private ResultSet recordPracLog(int id, String office, Statement stmt, Connection con) throws SQLException {
         CallableStatement callsp;
         ResultSet rs;
