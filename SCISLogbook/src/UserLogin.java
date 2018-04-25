@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -221,8 +222,39 @@ public final class UserLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_idNumberActionPerformed
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
-        LogInPopUp liPopUp = new LogInPopUp(Integer.parseInt(idNumber.getText()), String.valueOf(userPassword.getPassword()), purposeComboBox.getSelectedItem().toString());
-        liPopUp.setVisible(true);
+        Connection con;
+        Statement stmt;
+        ResultSet rs;
+        PreparedStatement ps;
+        try {
+            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
+            con = DriverManager.getConnection(conStr);
+            ps = con.prepareStatement("SELECT `idnumber`, `password` FROM `student_practicum` WHERE `idnumber` = ? AND `password` = ?");
+            ps.setString(1, idNumber.getText());
+            ps.setString(2, String.valueOf(userPassword.getPassword()));
+            ResultSet result = ps.executeQuery();
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            if (result.next()) {
+                if ("Practicum 1".equals(purposeComboBox.getSelectedItem().toString())) {
+                    if (checkIfLoggedIn(Integer.parseInt(idNumber.getText()))) {
+                        JOptionPane.showMessageDialog(this, "You are still logged in", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        rs = stmt.executeQuery("select * from student_practicum");
+                        LogInPopUp liPopUp = new LogInPopUp(Integer.parseInt(idNumber.getText()), String.valueOf(userPassword.getPassword()), purposeComboBox.getSelectedItem().toString());
+                        liPopUp.setVisible(true);
+                    }
+                } else {
+                    rs = stmt.executeQuery("select * from student_itproject");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Username Or Password", "ERROR", JOptionPane.ERROR_MESSAGE);
+                resetFields();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_logInButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
@@ -262,6 +294,30 @@ public final class UserLogin extends javax.swing.JFrame {
         reg.setVisible(true);
     }//GEN-LAST:event_registerButtonActionPerformed
 
+    private Boolean checkIfLoggedIn(int id) {
+        Connection con;
+        PreparedStatement ps;
+        Boolean result = false;
+        String time_out = "";
+        try {
+            String conStr = "jdbc:mysql://localhost:3306/logbook?user=root&password=";
+            con = DriverManager.getConnection(conStr);
+            ps = con.prepareStatement("SELECT * FROM `log_practicum` WHERE `idnumber` = ?");
+            ps.setInt(1, Integer.parseInt(idNumber.getText()));
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                time_out = rs.getString("time_out");
+
+                if (time_out == null) {
+                    result = true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
     private void pracLogValidator(int id, String pass, Statement stmt, ResultSet rs) throws SQLException {
         while (rs.next()) {
             int idnumber = rs.getInt(1);
@@ -290,14 +346,18 @@ public final class UserLogin extends javax.swing.JFrame {
             if (time_out == null) {
                 rs = timeOut(idnumber, rs, stmt);
                 JOptionPane.showMessageDialog(this, "Logout Complete");
-                idNumber.setText("");
-                userPassword.setText("");
-                purposeComboBox.setSelectedIndex(-1);
+                resetFields();
             } else {
                 JOptionPane.showMessageDialog(this, "You haven't logged in yet", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         return rs;
+    }
+
+    private void resetFields() {
+        idNumber.setText("");
+        userPassword.setText("");
+        purposeComboBox.setSelectedIndex(-1);
     }
 
     private ResultSet timeOut(int idnumber, ResultSet rs, Statement stmt) throws SQLException {

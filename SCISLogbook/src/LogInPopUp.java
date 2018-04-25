@@ -124,7 +124,13 @@ public class LogInPopUp extends javax.swing.JFrame {
                     ResultSet.CONCUR_UPDATABLE);
             if ("Practicum 1".equals(subj)) {
                 rs = stmt.executeQuery("select * from student_practicum");
-                pracLogValidator(idNumber, passwd, con, stmt, rs);
+                while (rs.next()) {
+                    int idnumber = rs.getInt(1);
+                    rs = validateLogIn(idNumber, idnumber, stmt, con);
+                    LogInPopUp.this.dispose();
+                    resetFields();
+                }
+
             } else {
                 rs = stmt.executeQuery("select * from student_itproject");
             }
@@ -134,22 +140,10 @@ public class LogInPopUp extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_confirmButtonActionPerformed
 
-    private void pracLogValidator(int id, String pass, Connection con, Statement stmt, ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            int idnumber = rs.getInt(1);
-            String password = rs.getString("password");
-            if (idnumber == id) {
-                if (password.equals(pass)) {
-                    rs = validateLogIn(idnumber, id, stmt, con);
-                    LogInPopUp.this.dispose();
-                    UserLogin.idNumber.setText("");
-                    UserLogin.userPassword.setText("");
-                    UserLogin.purposeComboBox.setSelectedIndex(-1);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Invalid Password", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
+    private void resetFields() {
+        UserLogin.idNumber.setText("");
+        UserLogin.userPassword.setText("");
+        UserLogin.purposeComboBox.setSelectedIndex(-1);
     }
 
     private ResultSet validateLogIn(int idnumber, int id, Statement stmt, Connection con) throws SQLException, HeadlessException {
@@ -209,16 +203,24 @@ public class LogInPopUp extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LogInPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPopUp.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LogInPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPopUp.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LogInPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPopUp.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LogInPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogInPopUp.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
