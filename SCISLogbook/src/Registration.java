@@ -228,25 +228,32 @@ public class Registration extends javax.swing.JFrame {
         Connection con;
         Statement stmt;
         ResultSet rs;
+        String query;
+        String proc;
         try {
             String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
             con = DriverManager.getConnection(conStr);
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             if ("Practicum 1".equals(purposeComboBox.getSelectedItem().toString())) {
-                String query = "select * from student_practicum";
+                query = "select * from student_practicum";
+                proc = "regPracAccount";
                 rs = stmt.executeQuery(query);
-                registerPracAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
+                registerAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
                         lNameTextField.getText(), courseYearTextField.getText(), purposeComboBox.getSelectedItem().toString(),
-                        codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), query, stmt, con);
+                        codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), query, proc, stmt, con);
                 JOptionPane.showMessageDialog(this, "Registration Complete!");
-
                 Registration.this.dispose();
-            } else {
-                rs = stmt.executeQuery("select * from student_itproject");
-                registerITProjAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
-                        lNameTextField.getText(), purposeComboBox.getSelectedItem().toString(),
-                        adviserComboBox.getSelectedItem().toString(), passwordField.getText(), rs, con);
+            } else if ("IT Project".equals(purposeComboBox.getSelectedItem().toString())) {
+                
+                query = "select * from student_itproject";
+                proc = "regITProjAccount";
+                rs = stmt.executeQuery(query);
+                registerAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
+                        lNameTextField.getText(), courseYearTextField.getText(), purposeComboBox.getSelectedItem().toString(),
+                        codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), query, proc, stmt, con);
+                JOptionPane.showMessageDialog(this, "Registration Complete!");
+                Registration.this.dispose();
             }
 
         } catch (SQLException ex) {
@@ -267,13 +274,13 @@ public class Registration extends javax.swing.JFrame {
         passwordField.setText("");
     }
 
-    private ResultSet registerPracAccount(int ID, String fName, String lName, String subject, String course_year, String code,
-            String adviser, String password, String query, Statement stmt, Connection con) throws SQLException {
+    private ResultSet registerAccount(int ID, String fName, String lName, String subject, String course_year, String code,
+            String adviser, String password, String query, String proc, Statement stmt, Connection con) throws SQLException {
         CallableStatement callsp;
         ResultSet rs;
         rs = stmt.executeQuery(query);
         rs.beforeFirst();
-        String callLog = "{call regPracAccount(?,?,?,?,?,?,?,?)}";
+        String callLog = "{call "+proc+"(?,?,?,?,?,?,?,?)}";
         callsp = con.prepareCall(callLog);
         callsp.setInt(1, ID);
         callsp.setString(2, fName);
@@ -286,23 +293,6 @@ public class Registration extends javax.swing.JFrame {
         callsp.executeUpdate();
         return rs;
     }
-
-    private ResultSet registerITProjAccount(int ID, String fName, String lName, String subject,
-            String adviser, String password, ResultSet rs, Connection con) throws SQLException {
-        CallableStatement callsp;
-        rs.beforeFirst();
-        String callLog = "{call regITProjAccount(?,?,?,?,?,?)}";
-        callsp = con.prepareCall(callLog);
-        callsp.setInt(1, ID);
-        callsp.setString(2, fName);
-        callsp.setString(3, lName);
-        callsp.setString(4, subject);
-        callsp.setString(5, adviser);
-        callsp.setString(6, password);
-        callsp.executeUpdate();
-        return rs;
-    }
-
     /**
      * @param args the command line arguments
      */

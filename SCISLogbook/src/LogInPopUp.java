@@ -119,6 +119,7 @@ public class LogInPopUp extends javax.swing.JFrame {
         Connection con;
         Statement stmt;
         ResultSet rs;
+        String secondQuery;
         try {
             String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
             con = DriverManager.getConnection(conStr);
@@ -129,7 +130,19 @@ public class LogInPopUp extends javax.swing.JFrame {
                         + " idnumber = " + idNumber + ";");
                 rs.beforeFirst();
                 if (rs.next()) {
-                    rs = validateLogIn(idNumber, stmt, con);
+                    secondQuery = "select * from log_practicum where "
+                            + " idnumber = " + idNumber + " ORDER by logid desc LIMIT 1;";
+                    rs = validateLogIn(idNumber, secondQuery, stmt, con);
+                    LogInPopUp.this.dispose();
+                }
+            } else if ("IT Project".equals(subj)) {
+                rs = stmt.executeQuery("select * from student_itproject where"
+                        + " idnum = " + idNumber + ";");
+                rs.beforeFirst();
+                if (rs.next()) {
+                    secondQuery = "select * from log_itproject where "
+                            + " idnum = " + idNumber + " ORDER by logid desc LIMIT 1;";
+                    rs = validateLogIn(idNumber, secondQuery, stmt, con);
                     LogInPopUp.this.dispose();
                 }
             }
@@ -144,55 +157,40 @@ public class LogInPopUp extends javax.swing.JFrame {
         UserLogin.purposeComboBox.setSelectedIndex(-1);
     }
 
-    private ResultSet validateLogIn(int id, Statement stmt, Connection con) throws SQLException, HeadlessException {
+    private ResultSet validateLogIn(int id, String secondQuery, Statement stmt, Connection con) throws SQLException, HeadlessException {
         ResultSet rs;
-        String secondQuery = "select * from log_practicum where "
-                + " idnumber = " + id + " ORDER by logid desc LIMIT 1;";
         rs = stmt.executeQuery(secondQuery);
         rs.beforeFirst();
-
-        rs = recordPracLog(id, officeComboBox.getSelectedItem().toString(), stmt, con);
+        String proc = "";
+        switch (subj) {
+            case "Practicum 1":
+                secondQuery = "select * from log_practicum;";
+                proc = "addPracLog";
+                break;
+            case "IT Project":
+                secondQuery = "select * from log_itproject;";
+                proc = "addITProjLog";
+                break;
+            default:
+        }
+        rs = recordLog(id, officeComboBox.getSelectedItem().toString(), secondQuery, proc, stmt, con);
         JOptionPane.showMessageDialog(this, "Log In Success!");
 
         resetFields();
         return rs;
     }
 
-    private Boolean checkIfLoggedIn(int id) {
-        Connection con;
-        PreparedStatement ps;
-        Boolean result = false;
-        String time_out = "";
-        try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
-            ps = con.prepareStatement("select * from log_practicum where idnumber = " + id + ";");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                time_out = rs.getString("time_out");
-            }
-
-            if (time_out == null) {
-                result = true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
-    }
-
-    private ResultSet recordPracLog(int id, String office, Statement stmt, Connection con) throws SQLException {
+    private ResultSet recordLog(int id, String office, String secondQuery, String proc, Statement stmt, Connection con) throws SQLException {
         CallableStatement callsp;
         ResultSet rs;
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
         Date now = new Date();
-        String secondQuery = "select * from log_practicum;";
         rs = stmt.executeQuery(secondQuery);
         rs.beforeFirst();
         String time_in = timeFormat.format(now);
         String date = dateFormat.format(now);
-        String callLog = "{call addPracLog(?,?,?,?)}";
+        String callLog = "{call "+proc+"(?,?,?,?)}";
         callsp = con.prepareCall(callLog);
         callsp.setString(1, date);
         callsp.setString(2, time_in);
