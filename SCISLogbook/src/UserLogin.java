@@ -323,7 +323,7 @@ public final class UserLogin extends javax.swing.JFrame {
             String password = rs.getString("password");
             if (idnumber == id) {
                 if (password.equals(pass)) {
-                    rs = validateLogOut(id, idnumber, stmt);
+                    rs = validateLogOut(id, stmt);
                 } else {
                     JOptionPane.showMessageDialog(this, "Invalid Password", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -331,7 +331,7 @@ public final class UserLogin extends javax.swing.JFrame {
         }
     }
 
-    private ResultSet validateLogOut(int idnumber, int id, Statement stmt) throws SQLException, HeadlessException {
+    private ResultSet validateLogOut(int id, Statement stmt) throws SQLException, HeadlessException {
         ResultSet rs;
         String secondQuery = "select * from log_practicum where "
                 + " idnumber = " + id + " ORDER by logid desc LIMIT 1;";
@@ -341,15 +341,13 @@ public final class UserLogin extends javax.swing.JFrame {
         while (rs.next()) {
             time_out = rs.getString("time_out");
         }
-        if (idnumber == id) {
             if (time_out == null) {
-                rs = timeOut(idnumber, rs, stmt);
+                rs = timeOut(id, rs, stmt);
                 JOptionPane.showMessageDialog(this, "Logout Complete");
                 resetFields();
             } else {
                 JOptionPane.showMessageDialog(this, "You haven't logged in yet", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
         return rs;
     }
 
