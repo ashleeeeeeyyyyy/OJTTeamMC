@@ -125,16 +125,9 @@ public class LogInPopUp extends javax.swing.JFrame {
             if ("Practicum 1".equals(subj)) {
                 rs = stmt.executeQuery("select * from student_practicum");
                 while (rs.next()) {
-                    int idnumber = rs.getInt(1);
-                    rs = validateLogIn(idNumber, idnumber, stmt, con);
-                    LogInPopUp.this.dispose();
-                    resetFields();
+                    rs = validateLogIn(idNumber, stmt, con);
                 }
-
-            } else {
-                rs = stmt.executeQuery("select * from student_itproject");
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:
@@ -146,7 +139,7 @@ public class LogInPopUp extends javax.swing.JFrame {
         UserLogin.purposeComboBox.setSelectedIndex(-1);
     }
 
-    private ResultSet validateLogIn(int idnumber, int id, Statement stmt, Connection con) throws SQLException, HeadlessException {
+    private ResultSet validateLogIn(int id, Statement stmt, Connection con) throws SQLException, HeadlessException {
         ResultSet rs;
         String secondQuery = "select * from log_practicum where "
                 + " idnumber = " + id + " ORDER by logid desc LIMIT 1;";
@@ -156,15 +149,16 @@ public class LogInPopUp extends javax.swing.JFrame {
         while (rs.next()) {
             time_out = rs.getString("time_out");
         }
-        if (idnumber == id) {
-            if (time_out == null) {
-                JOptionPane.showMessageDialog(this, "You are already log in");
-            } else if (time_out != null) {
-                rs = recordPracLog(id, officeComboBox.getSelectedItem().toString(), stmt, con);
-                JOptionPane.showMessageDialog(this, "Log In Success!");
 
-            }
+        if (time_out == null) {
+            JOptionPane.showMessageDialog(this, "You are already log in");
+        } else {
+            rs = recordPracLog(id, officeComboBox.getSelectedItem().toString(), stmt, con);
+            JOptionPane.showMessageDialog(this, "Log In Success!");
+            LogInPopUp.this.dispose();
         }
+
+        resetFields();
         return rs;
     }
 

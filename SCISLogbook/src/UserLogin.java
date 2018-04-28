@@ -240,7 +240,6 @@ public final class UserLogin extends javax.swing.JFrame {
                     if (checkIfLoggedIn(Integer.parseInt(idNumber.getText()))) {
                         JOptionPane.showMessageDialog(this, "You are still logged in", "ERROR", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        rs = stmt.executeQuery("select * from student_practicum");
                         LogInPopUp liPopUp = new LogInPopUp(Integer.parseInt(idNumber.getText()), String.valueOf(userPassword.getPassword()), purposeComboBox.getSelectedItem().toString());
                         liPopUp.setVisible(true);
                     }
@@ -300,10 +299,10 @@ public final class UserLogin extends javax.swing.JFrame {
         Boolean result = false;
         String time_out = "";
         try {
-            String conStr = "jdbc:mysql://localhost:3306/logbook?user=root&password=";
+            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
             con = DriverManager.getConnection(conStr);
             ps = con.prepareStatement("SELECT * FROM `log_practicum` WHERE `idnumber` = ?");
-            ps.setInt(1, Integer.parseInt(idNumber.getText()));
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 time_out = rs.getString("time_out");
