@@ -309,6 +309,7 @@ public final class UserLogin extends javax.swing.JFrame {
 
                 if (time_out == null) {
                     result = true;
+                    JOptionPane.showMessageDialog(this, "You are already log in");
                 }
             }
         } catch (SQLException ex) {

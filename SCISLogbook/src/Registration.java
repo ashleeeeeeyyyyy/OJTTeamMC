@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -216,6 +217,9 @@ public class Registration extends javax.swing.JFrame {
                 registerPracAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
                         lNameTextField.getText(), purposeComboBox.getSelectedItem().toString(),
                         codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), rs, con);
+                JOptionPane.showMessageDialog(this, "Registration Complete!");
+
+                Registration.this.dispose();
             } else {
                 rs = stmt.executeQuery("select * from student_itproject");
                 registerITProjAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),

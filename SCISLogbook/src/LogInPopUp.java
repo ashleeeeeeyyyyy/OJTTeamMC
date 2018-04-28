@@ -3,6 +3,7 @@ import java.awt.HeadlessException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -68,6 +69,7 @@ public class LogInPopUp extends javax.swing.JFrame {
             }
         });
 
+        confirmButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         confirmButton.setText("Confirm");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,29 +81,29 @@ public class LogInPopUp extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(confirmButton)
+                .addGap(48, 48, 48))
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(officeLabel))
-                .addContainerGap(122, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(confirmButton)
-                .addGap(100, 100, 100))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addContainerGap(139, Short.MAX_VALUE)
                 .addComponent(officeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
+                .addGap(31, 31, 31)
                 .addComponent(confirmButton)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         officeComboBox.setSelectedIndex(-1);
@@ -123,9 +125,16 @@ public class LogInPopUp extends javax.swing.JFrame {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             if ("Practicum 1".equals(subj)) {
-                rs = stmt.executeQuery("select * from student_practicum");
-                while (rs.next()) {
-                    rs = validateLogIn(idNumber, stmt, con);
+                rs = stmt.executeQuery("select * from student_practicum where"
+                        + " idnumber = " + idNumber + ";");
+                rs.beforeFirst();
+                if (rs.next()) {
+                    if (checkIfLoggedIn(idNumber)) {
+                        JOptionPane.showMessageDialog(this, "You are already log in");
+                    } else {
+                        rs = validateLogIn(idNumber, stmt, con);
+                        LogInPopUp.this.dispose();
+                    }
                 }
             }
         } catch (SQLException ex) {
@@ -145,21 +154,36 @@ public class LogInPopUp extends javax.swing.JFrame {
                 + " idnumber = " + id + " ORDER by logid desc LIMIT 1;";
         rs = stmt.executeQuery(secondQuery);
         rs.beforeFirst();
-        String time_out = "";
-        while (rs.next()) {
-            time_out = rs.getString("time_out");
-        }
 
-        if (time_out == null) {
-            JOptionPane.showMessageDialog(this, "You are already log in");
-        } else {
-            rs = recordPracLog(id, officeComboBox.getSelectedItem().toString(), stmt, con);
-            JOptionPane.showMessageDialog(this, "Log In Success!");
-            LogInPopUp.this.dispose();
-        }
+        rs = recordPracLog(id, officeComboBox.getSelectedItem().toString(), stmt, con);
+        JOptionPane.showMessageDialog(this, "Log In Success!");
 
         resetFields();
         return rs;
+    }
+
+    private Boolean checkIfLoggedIn(int id) {
+        Connection con;
+        PreparedStatement ps;
+        Boolean result = false;
+        String time_out = "";
+        try {
+            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
+            con = DriverManager.getConnection(conStr);
+            ps = con.prepareStatement("SELECT * FROM `log_practicum` WHERE `idnumber` = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                time_out = rs.getString("time_out");
+
+                if (time_out == null) {
+                    result = true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
     private ResultSet recordPracLog(int id, String office, Statement stmt, Connection con) throws SQLException {
