@@ -33,6 +33,8 @@ public class LogInPopUp extends javax.swing.JFrame {
         this.idNumber = usr;
         this.passwd = pas;
         this.subj = sub;
+        
+        showNameCourseYear();
         //define the components here
     }
 
@@ -41,6 +43,47 @@ public class LogInPopUp extends javax.swing.JFrame {
      */
     public LogInPopUp() {
         initComponents();
+    }
+
+    void showNameCourseYear() {
+        Connection con;
+        Statement stmt;
+        ResultSet rs;
+        String secondQuery = null;
+        String fName = "";
+        String lName = "";
+        String courseYear = "";
+
+        switch (subj) {
+            case "Practicum 1":
+                secondQuery = "select * from student_practicum where "
+                        + " idnumber = " + idNumber + ";";
+                break;
+            case "IT Project":
+                secondQuery = "select * from student_itproject where "
+                        + " idnum = " + idNumber + ";";
+                break;
+            default:
+        }
+        try {
+            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
+            con = DriverManager.getConnection(conStr);
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(secondQuery);
+            rs.beforeFirst();
+            while (rs.next()) {
+                fName = rs.getString("fName");
+                lName = rs.getString("lName");
+                courseYear = rs.getString("course_year");
+            }
+            
+            nameLabel.setText("Name: "+lName+", "+fName);
+            courseYearLabel.setText("Course & Year: "+courseYear);
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -55,6 +98,8 @@ public class LogInPopUp extends javax.swing.JFrame {
         officeLabel = new javax.swing.JLabel();
         officeComboBox = new javax.swing.JComboBox<>();
         confirmButton = new javax.swing.JButton();
+        nameLabel = new javax.swing.JLabel();
+        courseYearLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +122,12 @@ public class LogInPopUp extends javax.swing.JFrame {
             }
         });
 
+        nameLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        nameLabel.setText("Name:");
+
+        courseYearLabel.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        courseYearLabel.setText("course_year:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,18 +137,29 @@ public class LogInPopUp extends javax.swing.JFrame {
                 .addComponent(confirmButton)
                 .addGap(48, 48, 48))
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(officeLabel))
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(officeLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(courseYearLabel)
+                            .addComponent(nameLabel))))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(nameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(courseYearLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(officeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(officeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,7 +252,7 @@ public class LogInPopUp extends javax.swing.JFrame {
         rs.beforeFirst();
         String time_in = timeFormat.format(now);
         String date = dateFormat.format(now);
-        String callLog = "{call "+proc+"(?,?,?,?)}";
+        String callLog = "{call " + proc + "(?,?,?,?)}";
         callsp = con.prepareCall(callLog);
         callsp.setString(1, date);
         callsp.setString(2, time_in);
@@ -250,6 +312,8 @@ public class LogInPopUp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmButton;
+    private javax.swing.JLabel courseYearLabel;
+    private javax.swing.JLabel nameLabel;
     private javax.swing.JComboBox<String> officeComboBox;
     private javax.swing.JLabel officeLabel;
     // End of variables declaration//GEN-END:variables

@@ -274,7 +274,7 @@ public class Registration extends javax.swing.JFrame {
         passwordField.setText("");
     }
 
-    private ResultSet registerAccount(int ID, String fName, String lName, String subject, String course_year, String code,
+    private ResultSet registerAccount(int ID, String fName, String lName, String course_year, String subject, String code,
             String adviser, String password, String query, String proc, Statement stmt, Connection con) throws SQLException {
         CallableStatement callsp;
         ResultSet rs;
