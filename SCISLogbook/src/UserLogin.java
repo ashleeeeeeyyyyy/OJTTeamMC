@@ -348,6 +348,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 resetFields();
             } else {
                 JOptionPane.showMessageDialog(this, "You haven't logged in yet", "Error", JOptionPane.ERROR_MESSAGE);
+                resetFields();
             }
         return rs;
     }

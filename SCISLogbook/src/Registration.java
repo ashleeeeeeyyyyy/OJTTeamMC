@@ -52,6 +52,8 @@ public class Registration extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         idNumberLabel1 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
+        courseYearLabel = new javax.swing.JLabel();
+        courseYearTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +104,9 @@ public class Registration extends javax.swing.JFrame {
         idNumberLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         idNumberLabel1.setText("ID Number:");
 
+        courseYearLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        courseYearLabel.setText("Course & Year");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,8 +136,10 @@ public class Registration extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(codeTextField)
                                     .addComponent(classCodeLabel))
-                                .addGap(107, 107, 107)
-                                .addComponent(registerButton))
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(courseYearLabel)
+                                    .addComponent(courseYearTextField)))
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
@@ -145,6 +152,10 @@ public class Registration extends javax.swing.JFrame {
                                     .addComponent(lNameLabel)
                                     .addComponent(passwordLabel))))
                         .addContainerGap(48, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(registerButton)
+                .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +164,7 @@ public class Registration extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(fNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,20 +184,25 @@ public class Registration extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(adviserLabel)
-                        .addGap(101, 101, 101)
-                        .addComponent(registerButton))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(subjectLabel)
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(purposeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(adviserLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(classCodeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(195, 195, 195))
+                        .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(courseYearLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(courseYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(183, 183, 183)
+                .addComponent(registerButton)
+                .addGap(74, 74, 74))
         );
 
         purposeComboBox.setSelectedIndex(-1);
@@ -215,7 +231,7 @@ public class Registration extends javax.swing.JFrame {
             if ("Practicum 1".equals(purposeComboBox.getSelectedItem().toString())) {
                 rs = stmt.executeQuery("select * from student_practicum");
                 registerPracAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
-                        lNameTextField.getText(), purposeComboBox.getSelectedItem().toString(),
+                        lNameTextField.getText(), courseYearTextField.getText(), purposeComboBox.getSelectedItem().toString(),
                         codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), rs, con);
                 JOptionPane.showMessageDialog(this, "Registration Complete!");
 
@@ -232,19 +248,20 @@ public class Registration extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private ResultSet registerPracAccount(int ID, String fName, String lName, String subject, String code,
+    private ResultSet registerPracAccount(int ID, String fName, String lName, String subject, String course_year, String code,
             String adviser, String password, ResultSet rs, Connection con) throws SQLException {
         CallableStatement callsp;
         rs.beforeFirst();
-        String callLog = "{call regPracAccount(?,?,?,?,?,?,?)}";
+        String callLog = "{call regPracAccount(?,?,?,?,?,?,?,?)}";
         callsp = con.prepareCall(callLog);
         callsp.setInt(1, ID);
         callsp.setString(2, fName);
         callsp.setString(3, lName);
-        callsp.setString(4, subject);
-        callsp.setString(5, code);
-        callsp.setString(6, adviser);
-        callsp.setString(7, password);
+        callsp.setString(4, course_year);
+        callsp.setString(5, subject);
+        callsp.setString(6, code);
+        callsp.setString(7, adviser);
+        callsp.setString(8, password);
         callsp.executeUpdate();
         return rs;
     }
@@ -305,6 +322,8 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel adviserLabel;
     private javax.swing.JLabel classCodeLabel;
     private javax.swing.JTextField codeTextField;
+    private javax.swing.JLabel courseYearLabel;
+    private javax.swing.JTextField courseYearTextField;
     private javax.swing.JLabel fNameLabel;
     private javax.swing.JTextField fNameTextField;
     private javax.swing.JLabel idNumberLabel1;

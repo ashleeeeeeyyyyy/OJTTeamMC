@@ -206,6 +206,11 @@ public class LogInPopUp extends javax.swing.JFrame {
         callsp.executeUpdate();
         return rs;
     }
+    
+    private String[] getStudentInfo() {
+        String[] info = null;
+        return info;
+    }
 
     /**
      * @param args the command line arguments
