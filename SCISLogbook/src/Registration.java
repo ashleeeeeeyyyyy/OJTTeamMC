@@ -49,15 +49,17 @@ public class Registration extends javax.swing.JFrame {
         lNameLabel = new javax.swing.JLabel();
         lNameTextField = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         idNumberLabel1 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         courseYearLabel = new javax.swing.JLabel();
         courseYearTextField = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         subjectLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        subjectLabel.setForeground(new java.awt.Color(51, 51, 51));
         subjectLabel.setText("Subject:");
 
         purposeComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
@@ -69,6 +71,7 @@ public class Registration extends javax.swing.JFrame {
         });
 
         adviserLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        adviserLabel.setForeground(new java.awt.Color(51, 51, 51));
         adviserLabel.setText("Adviser:");
 
         adviserComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
@@ -80,17 +83,22 @@ public class Registration extends javax.swing.JFrame {
         });
 
         classCodeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        classCodeLabel.setForeground(new java.awt.Color(51, 51, 51));
         classCodeLabel.setText("Class Code");
 
         passwordLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        passwordLabel.setForeground(new java.awt.Color(51, 51, 51));
         passwordLabel.setText("Password");
 
         fNameLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        fNameLabel.setForeground(new java.awt.Color(51, 51, 51));
         fNameLabel.setText("First Name:");
 
         lNameLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        lNameLabel.setForeground(new java.awt.Color(51, 51, 51));
         lNameLabel.setText("Last Name:");
 
+        registerButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         registerButton.setText("Register");
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,111 +106,108 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 48)); // NOI18N
-        jLabel1.setText("Create an Account");
-
         idNumberLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        idNumberLabel1.setForeground(new java.awt.Color(51, 51, 51));
         idNumberLabel1.setText("ID Number:");
 
         courseYearLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        courseYearLabel.setForeground(new java.awt.Color(51, 51, 51));
         courseYearLabel.setText("Course & Year");
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 0));
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 60)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("Create an Account");
+        jPanel1.add(jLabel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(idNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(courseYearLabel)
+                                .addGap(54, 54, 54)
+                                .addComponent(subjectLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(classCodeLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(courseYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(purposeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(subjectLabel)
-                                    .addComponent(purposeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(adviserLabel)
-                                    .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(idNumberLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(idNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lNameLabel)
+                                            .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(adviserLabel)
+                                            .addComponent(fNameLabel)
+                                            .addComponent(idNumberLabel1))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(passwordLabel)
+                                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(fNameTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                                        .addComponent(lNameTextField, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(71, 71, 71))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(codeTextField)
-                                    .addComponent(classCodeLabel))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(courseYearLabel)
-                                    .addComponent(courseYearTextField)))
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(fNameLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fNameTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lNameLabel)
-                                    .addComponent(passwordLabel))))
-                        .addContainerGap(48, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(registerButton)
-                .addGap(71, 71, 71))
+                        .addGap(395, 395, 395)
+                        .addComponent(registerButton)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(fNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idNumberLabel1)
-                    .addComponent(passwordLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(subjectLabel)
-                        .addGap(12, 12, 12)
+                        .addComponent(lNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(purposeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(adviserLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(classCodeLabel)
+                            .addComponent(idNumberLabel1)
+                            .addComponent(passwordLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(courseYearLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(courseYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(183, 183, 183)
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3))
+                    .addComponent(idNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(courseYearLabel)
+                    .addComponent(subjectLabel)
+                    .addComponent(classCodeLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(courseYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(purposeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(adviserLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(registerButton)
-                .addGap(74, 74, 74))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         purposeComboBox.setSelectedIndex(-1);
@@ -229,10 +234,11 @@ public class Registration extends javax.swing.JFrame {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             if ("Practicum 1".equals(purposeComboBox.getSelectedItem().toString())) {
-                rs = stmt.executeQuery("select * from student_practicum");
+                String query = "select * from student_practicum";
+                rs = stmt.executeQuery(query);
                 registerPracAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
                         lNameTextField.getText(), courseYearTextField.getText(), purposeComboBox.getSelectedItem().toString(),
-                        codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), rs, con);
+                        codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), query, stmt, con);
                 JOptionPane.showMessageDialog(this, "Registration Complete!");
 
                 Registration.this.dispose();
@@ -244,13 +250,28 @@ public class Registration extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "ID Number " + idNumberTextField.getText() + " is already registered in the\n " + purposeComboBox.getSelectedItem().toString() + " accounts database.", "Error", JOptionPane.ERROR_MESSAGE);
+            resetFields();
+            Registration.this.dispose();
         }
     }//GEN-LAST:event_registerButtonActionPerformed
 
+    private void resetFields() {
+        idNumberTextField.setText("");
+        fNameTextField.setText("");
+        lNameTextField.setText("");
+        courseYearTextField.setText("");
+        purposeComboBox.setSelectedIndex(-1);
+        codeTextField.setText("");
+        adviserComboBox.setSelectedIndex(-1);
+        passwordField.setText("");
+    }
+
     private ResultSet registerPracAccount(int ID, String fName, String lName, String subject, String course_year, String code,
-            String adviser, String password, ResultSet rs, Connection con) throws SQLException {
+            String adviser, String password, String query, Statement stmt, Connection con) throws SQLException {
         CallableStatement callsp;
+        ResultSet rs;
+        rs = stmt.executeQuery(query);
         rs.beforeFirst();
         String callLog = "{call regPracAccount(?,?,?,?,?,?,?,?)}";
         callsp = con.prepareCall(callLog);
@@ -329,6 +350,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel idNumberLabel1;
     private javax.swing.JTextField idNumberTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lNameLabel;
     private javax.swing.JTextField lNameTextField;
     private javax.swing.JPasswordField passwordField;

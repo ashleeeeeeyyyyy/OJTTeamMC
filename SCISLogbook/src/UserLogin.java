@@ -75,10 +75,10 @@ public final class UserLogin extends javax.swing.JFrame {
         timeLabel = new javax.swing.JLabel();
         purposeLabel = new javax.swing.JLabel();
         purposeComboBox = new javax.swing.JComboBox<>();
-        SCISLogo = new javax.swing.JLabel();
-        headTitle = new javax.swing.JLabel();
         registerButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        SCISLogo = new javax.swing.JLabel();
+        headTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,7 +101,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 idNumberActionPerformed(evt);
             }
         });
-        jPanel3.add(idNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 330, 40));
+        jPanel3.add(idNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 330, 40));
 
         logInButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
         logInButton.setForeground(new java.awt.Color(51, 51, 51));
@@ -111,7 +111,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 logInButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(logInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 550, 160, -1));
+        jPanel3.add(logInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 160, -1));
 
         logOutButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
         logOutButton.setForeground(new java.awt.Color(51, 51, 51));
@@ -122,18 +122,18 @@ public final class UserLogin extends javax.swing.JFrame {
                 logOutButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(logOutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 550, 150, -1));
+        jPanel3.add(logOutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 510, 150, -1));
 
         passwordLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(51, 51, 51));
         passwordLabel.setText("Password:");
-        jPanel3.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 110, 20));
+        jPanel3.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 110, 20));
 
         IDLabel.setBackground(new java.awt.Color(255, 255, 255));
         IDLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         IDLabel.setForeground(new java.awt.Color(51, 51, 51));
         IDLabel.setText("ID Number:");
-        jPanel3.add(IDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 130, 20));
+        jPanel3.add(IDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 130, 20));
 
         userPassword.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         userPassword.setForeground(new java.awt.Color(51, 51, 51));
@@ -148,21 +148,21 @@ public final class UserLogin extends javax.swing.JFrame {
                 userPasswordActionPerformed(evt);
             }
         });
-        jPanel3.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, 330, 40));
+        jPanel3.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 330, 40));
 
         dateLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(51, 51, 51));
         dateLabel.setText("Date:");
-        jPanel3.add(dateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jPanel3.add(dateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
 
         timeLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         timeLabel.setForeground(new java.awt.Color(51, 51, 51));
         timeLabel.setText("Time: ");
-        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
+        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
 
         purposeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         purposeLabel.setText("Subject:");
-        jPanel3.add(purposeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
+        jPanel3.add(purposeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
 
         purposeComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
         purposeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Practicum 1", "IT Project" }));
@@ -171,27 +171,31 @@ public final class UserLogin extends javax.swing.JFrame {
                 purposeComboBoxActionPerformed(evt);
             }
         });
-        jPanel3.add(purposeComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 220, -1));
+        jPanel3.add(purposeComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 220, -1));
         purposeComboBox.setSelectedIndex(-1);
 
-        SCISLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/SCIS Logo.png"))); // NOI18N
-        jPanel3.add(SCISLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 90, 100));
-
-        headTitle.setFont(new java.awt.Font("Bebas", 0, 55)); // NOI18N
-        headTitle.setForeground(new java.awt.Color(204, 204, 204));
-        headTitle.setText("SCIS Student logbook");
-        jPanel3.add(headTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
-
+        registerButton.setBackground(new java.awt.Color(51, 51, 0));
+        registerButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
+        registerButton.setForeground(new java.awt.Color(204, 204, 204));
         registerButton.setText("Create an Account");
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 630, -1, -1));
+        jPanel3.add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 590, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 0));
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 120));
+
+        SCISLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/SCIS Logo.png"))); // NOI18N
+        jPanel1.add(SCISLogo);
+
+        headTitle.setFont(new java.awt.Font("Bebas", 0, 45)); // NOI18N
+        headTitle.setForeground(new java.awt.Color(204, 204, 204));
+        headTitle.setText("SCIS Student logbook");
+        jPanel1.add(headTitle);
+
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,14 +203,14 @@ public final class UserLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -239,6 +243,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 if ("Practicum 1".equals(purposeComboBox.getSelectedItem().toString())) {
                     if (checkIfLoggedIn(Integer.parseInt(idNumber.getText()))) {
                         JOptionPane.showMessageDialog(this, "You are still logged in", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        resetFields();
                     } else {
                         LogInPopUp liPopUp = new LogInPopUp(Integer.parseInt(idNumber.getText()), String.valueOf(userPassword.getPassword()), purposeComboBox.getSelectedItem().toString());
                         liPopUp.setVisible(true);
@@ -301,16 +306,14 @@ public final class UserLogin extends javax.swing.JFrame {
         try {
             String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
             con = DriverManager.getConnection(conStr);
-            ps = con.prepareStatement("SELECT * FROM `log_practicum` WHERE `idnumber` = ?");
-            ps.setInt(1, id);
+            ps = con.prepareStatement("select * from log_practicum where idnumber = " +id+ ";");
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 time_out = rs.getString("time_out");
+            }
 
-                if (time_out == null) {
-                    result = true;
-                    JOptionPane.showMessageDialog(this, "You are already log in");
-                }
+            if (time_out == null) {
+                result = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -361,7 +364,7 @@ public final class UserLogin extends javax.swing.JFrame {
 
     private ResultSet timeOut(int idnumber, ResultSet rs, Statement stmt) throws SQLException {
         Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd h:m:s");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
         String timeOutQuery = "select * from log_practicum where time_out is null "
                 + "AND idnumber = " + idnumber + " limit 1";
         rs = stmt.executeQuery(timeOutQuery);
@@ -370,7 +373,7 @@ public final class UserLogin extends javax.swing.JFrame {
         String timeOut;
         rs.first();
         timeOut = dateFormat.format(now);
-        rs.updateString(4, timeOut);
+        rs.updateString("time_out", timeOut);
         rs.updateRow();
         return rs;
     }

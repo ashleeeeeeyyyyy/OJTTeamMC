@@ -129,12 +129,8 @@ public class LogInPopUp extends javax.swing.JFrame {
                         + " idnumber = " + idNumber + ";");
                 rs.beforeFirst();
                 if (rs.next()) {
-                    if (checkIfLoggedIn(idNumber)) {
-                        JOptionPane.showMessageDialog(this, "You are already log in");
-                    } else {
-                        rs = validateLogIn(idNumber, stmt, con);
-                        LogInPopUp.this.dispose();
-                    }
+                    rs = validateLogIn(idNumber, stmt, con);
+                    LogInPopUp.this.dispose();
                 }
             }
         } catch (SQLException ex) {
@@ -170,15 +166,14 @@ public class LogInPopUp extends javax.swing.JFrame {
         try {
             String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
             con = DriverManager.getConnection(conStr);
-            ps = con.prepareStatement("SELECT * FROM `log_practicum` WHERE `idnumber` = ?");
-            ps.setInt(1, id);
+            ps = con.prepareStatement("select * from log_practicum where idnumber = " + id + ";");
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 time_out = rs.getString("time_out");
+            }
 
-                if (time_out == null) {
-                    result = true;
-                }
+            if (time_out == null) {
+                result = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,8 +184,8 @@ public class LogInPopUp extends javax.swing.JFrame {
     private ResultSet recordPracLog(int id, String office, Statement stmt, Connection con) throws SQLException {
         CallableStatement callsp;
         ResultSet rs;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
         Date now = new Date();
         String secondQuery = "select * from log_practicum;";
         rs = stmt.executeQuery(secondQuery);
@@ -206,7 +201,7 @@ public class LogInPopUp extends javax.swing.JFrame {
         callsp.executeUpdate();
         return rs;
     }
-    
+
     private String[] getStudentInfo() {
         String[] info = null;
         return info;
