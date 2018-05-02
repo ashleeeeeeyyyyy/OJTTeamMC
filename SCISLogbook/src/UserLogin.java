@@ -47,7 +47,7 @@ public final class UserLogin extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Date date = new Date();
-                SimpleDateFormat s = new SimpleDateFormat("hh:mm a");
+                SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss a");
                 timeLabel.setText(s.format(date));
             }
 
@@ -158,7 +158,7 @@ public final class UserLogin extends javax.swing.JFrame {
         timeLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         timeLabel.setForeground(new java.awt.Color(51, 51, 51));
         timeLabel.setText("Time: ");
-        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, -1, -1));
+        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
 
         purposeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         purposeLabel.setText("Subject:");
@@ -405,55 +405,6 @@ public final class UserLogin extends javax.swing.JFrame {
         timeOut = dateFormat.format(now);
         rs.updateString("time_out", timeOut);
         rs.updateRow();
-        return rs;
-    }
-
-    /*
-    private ResultSet timeOut(int id, Statement stmt, Connection con) throws SQLException {
-        CallableStatement callsp;
-        ResultSet rs;
-        Date now = new Date();
-        String secondQuery = "select * from log_practicum where "
-                + " idnumber = " + id + " ORDER by logid desc LIMIT 1;";
-        rs = stmt.executeQuery(secondQuery);
-        rs.beforeFirst();
-        String time_out = "";
-        while (rs.next()) {
-            time_out = rs.getString("time_out");
-        }
-        if (time_out != null) {
-            JOptionPane.showMessageDialog(this, "You haven't Log in yet");
-        } else if (time_out == null) {
-            SimpleDateFormat timeFormat = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss");
-            time_out = timeFormat.format(now);
-            String callLog = "{call timeOutPrac(?)}";
-            callsp = con.prepareCall(callLog);
-            callsp.setString(1, time_out);
-            callsp.executeUpdate();
-
-            JOptionPane.showMessageDialog(this, "Logout Complete");
-        }
-        return rs;
-    }
-     */
-    private ResultSet recordPracLog(int id, String office, Statement stmt, Connection con) throws SQLException {
-        CallableStatement callsp;
-        ResultSet rs;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
-        Date now = new Date();
-        String secondQuery = "select * from log_practicum;";
-        rs = stmt.executeQuery(secondQuery);
-        rs.beforeFirst();
-        String time_in = timeFormat.format(now);
-        String date = dateFormat.format(now);
-        String callLog = "{call addPracLog(?,?,?,?)}";
-        callsp = con.prepareCall(callLog);
-        callsp.setString(1, date);
-        callsp.setString(2, time_in);
-        callsp.setInt(3, id);
-        callsp.setString(4, office);
-        callsp.executeUpdate();
         return rs;
     }
 
