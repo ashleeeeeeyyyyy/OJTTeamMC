@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +28,8 @@ import javax.swing.Timer;
  * @author Earl
  */
 public final class UserLogin extends javax.swing.JFrame {
+
+    private final String office = "Open Laboratory (D424)";
 
     /**
      * Creates new form UserLogin
@@ -55,6 +59,49 @@ public final class UserLogin extends javax.swing.JFrame {
         ).start();
     }
 
+    private String[] showNameCourseYear() {
+        String[] info = null;
+        Connection con;
+        Statement stmt;
+        ResultSet rs;
+        String secondQuery = null;
+        String fName = "";
+        String lName = "";
+        String courseYear = "";
+
+        switch (purposeComboBox.getSelectedItem().toString()) {
+            case "Practicum 1":
+                secondQuery = "select * from student_practicum where "
+                        + " idnumber = " + idNumber + ";";
+                break;
+            case "IT Project":
+                secondQuery = "select * from student_itproject where "
+                        + " idnum = " + idNumber + ";";
+                break;
+            default:
+        }
+        try {
+            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
+            con = DriverManager.getConnection(conStr);
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(secondQuery);
+            rs.beforeFirst();
+            while (rs.next()) {
+                fName = rs.getString("fName");
+                lName = rs.getString("lName");
+                courseYear = rs.getString("course_year");
+            }
+
+            info[0] = lName + ", " + fName;
+            info[1] = courseYear;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return info;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,6 +126,7 @@ public final class UserLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         SCISLogo = new javax.swing.JLabel();
         headTitle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,12 +201,12 @@ public final class UserLogin extends javax.swing.JFrame {
         dateLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(51, 51, 51));
         dateLabel.setText("Date:");
-        jPanel3.add(dateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+        jPanel3.add(dateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         timeLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         timeLabel.setForeground(new java.awt.Color(51, 51, 51));
         timeLabel.setText("Time: ");
-        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
+        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, -1, -1));
 
         purposeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         purposeLabel.setText("Subject:");
@@ -197,6 +245,11 @@ public final class UserLogin extends javax.swing.JFrame {
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 100));
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Open Laboratory (D424)");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -228,9 +281,11 @@ public final class UserLogin extends javax.swing.JFrame {
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         Connection con;
         Statement stmt;
-        ResultSet rs;
+        ResultSet rs = null;
         PreparedStatement ps;
         String query = null;
+        String student = "";
+        String course_year = "";
         try {
             String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
             con = DriverManager.getConnection(conStr);
@@ -243,10 +298,10 @@ public final class UserLogin extends javax.swing.JFrame {
 
             switch (purposeComboBox.getSelectedItem().toString()) {
                 case "Practicum 1":
-                    query = "select * from log_practicum where idnumber = " + Integer.parseInt(idNumber.getText()) + ";";
+                    query = "select * from log_practicum where idnumber = " + Integer.parseInt(idNumber.getText()) + " ORDER by logid desc LIMIT 1;";
                     break;
                 case "IT Project":
-                    query = "select * from log_itproject where idnum = " + Integer.parseInt(idNumber.getText()) + ";";
+                    query = "select * from log_itproject where idnum = " + Integer.parseInt(idNumber.getText()) + " ORDER by logid desc LIMIT 1;";
                     break;
                 default:
             }
@@ -256,8 +311,14 @@ public final class UserLogin extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "You are still logged in", "ERROR", JOptionPane.ERROR_MESSAGE);
                     resetFields();
                 } else {
-                    LogInPopUp liPopUp = new LogInPopUp(Integer.parseInt(idNumber.getText()), String.valueOf(userPassword.getPassword()), purposeComboBox.getSelectedItem().toString());
-                    liPopUp.setVisible(true);
+                    rs = stmt.executeQuery("SELECT * FROM student_practicum WHERE idnumber = " + Integer.parseInt(idNumber.getText()));
+                    rs.beforeFirst();
+                    while (rs.next()) {
+                        student = rs.getString("lName") + ", " + rs.getString("fName");
+                        course_year = rs.getString("course_year");
+                    }
+                    rs = validateLogIn(Integer.parseInt(idNumber.getText()), query, stmt, con);
+                    JOptionPane.showMessageDialog(this, "Successfully Logged In!\n" + student + "\n" + course_year);
                 }
             }
 
@@ -328,6 +389,49 @@ public final class UserLogin extends javax.swing.JFrame {
         return result;
     }
 
+    private ResultSet validateLogIn(int id, String secondQuery, Statement stmt, Connection con) throws SQLException, HeadlessException {
+        ResultSet rs;
+        rs = stmt.executeQuery(secondQuery);
+        rs.beforeFirst();
+        String proc = "";
+        switch (purposeComboBox.getSelectedItem().toString()) {
+            case "Practicum 1":
+                secondQuery = "select * from log_practicum;";
+                proc = "addPracLog";
+                break;
+            case "IT Project":
+                secondQuery = "select * from log_itproject;";
+                proc = "addITProjLog";
+                break;
+            default:
+        }
+        rs = recordLog(id, office, secondQuery, proc, stmt, con);
+
+        resetFields();
+        return rs;
+    }
+
+    private ResultSet recordLog(int id, String office, String secondQuery, String proc, Statement stmt, Connection con) throws SQLException {
+        CallableStatement callsp;
+        ResultSet rs;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+        Calendar calendar = Calendar.getInstance();
+        Timestamp time_in = new java.sql.Timestamp(calendar.getTime().getTime());
+        Date now = new Date();
+        rs = stmt.executeQuery(secondQuery);
+        rs.beforeFirst();
+        String date = dateFormat.format(now);
+        String callLog = "{call " + proc + "(?,?,?,?)}";
+        callsp = con.prepareCall(callLog);
+        callsp.setString(1, date);
+        callsp.setTimestamp(2, time_in);
+        callsp.setInt(3, id);
+        callsp.setString(4, office);
+        callsp.executeUpdate();
+        return rs;
+    }
+
     private void logValidator(int id, String pass, String query, Statement stmt) throws SQLException {
         ResultSet rs;
         rs = stmt.executeQuery(query);
@@ -395,15 +499,12 @@ public final class UserLogin extends javax.swing.JFrame {
     }
 
     private ResultSet timeOut(String query, ResultSet rs, Statement stmt) throws SQLException {
-        Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
         rs = stmt.executeQuery(query);
-
         rs.beforeFirst();
-        String timeOut;
         rs.first();
-        timeOut = dateFormat.format(now);
-        rs.updateString("time_out", timeOut);
+        Calendar calendar = Calendar.getInstance();
+        Timestamp time_out = new java.sql.Timestamp(calendar.getTime().getTime());
+        rs.updateTimestamp("time_out", time_out);
         rs.updateRow();
         return rs;
     }
@@ -457,6 +558,7 @@ public final class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel headTitle;
     public static javax.swing.JTextField idNumber;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton logInButton;

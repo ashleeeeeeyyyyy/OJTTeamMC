@@ -55,6 +55,7 @@ public class Registration extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         confirmPasswordLabel = new javax.swing.JLabel();
         confirmPasswordField = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +126,10 @@ public class Registration extends javax.swing.JFrame {
         confirmPasswordLabel.setForeground(new java.awt.Color(51, 51, 51));
         confirmPasswordLabel.setText("Confirm Password");
 
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("* Password should contain at least 8 characters, upper & lowercase letters, and at least one number.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,21 +142,6 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordLabel))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(courseYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(purposeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(courseYearLabel)
-                                .addGap(54, 54, 54)
-                                .addComponent(subjectLabel))
-                            .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adviserLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lNameLabel)
@@ -166,11 +156,29 @@ public class Registration extends javax.swing.JFrame {
                             .addComponent(lNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(395, 395, 395)
+                                .addComponent(registerButton)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(courseYearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(purposeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(courseYearLabel)
+                                .addGap(54, 54, 54)
+                                .addComponent(subjectLabel))
+                            .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adviserLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(395, 395, 395)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(classCodeLabel)
-                                    .addComponent(registerButton)
-                                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +204,9 @@ public class Registration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(courseYearLabel)
                     .addComponent(subjectLabel)
@@ -211,9 +221,9 @@ public class Registration extends javax.swing.JFrame {
                 .addComponent(adviserLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(registerButton)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         purposeComboBox.setSelectedIndex(-1);
@@ -246,14 +256,26 @@ public class Registration extends javax.swing.JFrame {
                 proc = "regPracAccount";
                 rs = stmt.executeQuery(query);
 
-                if (passwordValidator(passwordField.getText())) {
+                if (passwordValidator(passwordField.getText()) && idValidator(idNumberTextField.getText()) && codeValidator(codeTextField.getText())) {
                     registerAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
                             lNameTextField.getText(), courseYearTextField.getText(), purposeComboBox.getSelectedItem().toString(),
                             codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), query, proc, stmt, con);
                     JOptionPane.showMessageDialog(this, "Registration Complete!");
                     Registration.this.dispose();
+                } else if ("".equals(codeTextField.getText()) || "".equals(idNumberTextField.getText())
+                        || "".equals(fNameTextField.getText()) || "".equals(lNameTextField.getText())
+                        || "".equals(courseYearTextField.getText()) || "".equals(purposeComboBox.getSelectedItem().toString())
+                        || "".equals(adviserComboBox.getSelectedItem().toString()) || "".equals(passwordField.getText())
+                        || "".equals(confirmPasswordField.getText())) {
+                    JOptionPane.showMessageDialog(this, "Fill out all fields!", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
                     JOptionPane.showMessageDialog(this, "Passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (!idValidator(idNumberTextField.getText())) {
+                    JOptionPane.showMessageDialog(this, "Invalid SLU ID Number", "Error", JOptionPane.ERROR_MESSAGE);
+                    idNumberTextField.setText("");
+                } else if (!codeValidator(codeTextField.getText())) {
+                    JOptionPane.showMessageDialog(this, "Invalid SCIS Classcode", "Error", JOptionPane.ERROR_MESSAGE);
+                    idNumberTextField.setText("");
                 } else {
                     JOptionPane.showMessageDialog(this, "Password should contain:\n1. At least 8 characters\n2. Upper & Lowercase Letters\n3. At least one number", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -263,16 +285,15 @@ public class Registration extends javax.swing.JFrame {
                 proc = "regITProjAccount";
                 rs = stmt.executeQuery(query);
 
-                if (passwordValidator(passwordField.getText())) {
+                if (passwordValidator(passwordField.getText()) && idValidator(idNumberTextField.getText()) && codeValidator(codeTextField.getText())) {
                     registerAccount(Integer.parseInt(idNumberTextField.getText()), fNameTextField.getText(),
                             lNameTextField.getText(), courseYearTextField.getText(), purposeComboBox.getSelectedItem().toString(),
                             codeTextField.getText(), adviserComboBox.getSelectedItem().toString(), passwordField.getText(), query, proc, stmt, con);
                     JOptionPane.showMessageDialog(this, "Registration Complete!");
                     Registration.this.dispose();
-                } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
-                    JOptionPane.showMessageDialog(this, "Passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
-                    passwordField.setText("");
-                    confirmPasswordField.setText("");
+                } else if (!idValidator(idNumberTextField.getText())) {
+                    JOptionPane.showMessageDialog(this, "Invalid SLU ID Number", "Error", JOptionPane.ERROR_MESSAGE);
+                    idNumberTextField.setText("");
                 } else {
                     JOptionPane.showMessageDialog(this, "Password should contain:\n1. At least 8 characters\n2. Upper & Lowercase Letters\n3. At least one number", "Error", JOptionPane.ERROR_MESSAGE);
                     passwordField.setText("");
@@ -306,7 +327,34 @@ public class Registration extends javax.swing.JFrame {
             }
         }
 
-        if (upperCase > 0 && lowerCase > 0 && digitCount > 0 && pass.length() > 8) {
+        if (upperCase > 0 && lowerCase > 0 && digitCount > 0 && pass.length() >= 8) {
+            return true;
+        }
+
+        return flag;
+    }
+
+    private Boolean idValidator(String id) {
+        boolean flag = false;
+        int digitCount = 0;
+
+        for (int i = 0; i < id.length(); i++) {
+            if (Character.isDigit(id.charAt(i))) {
+                digitCount++;
+            }
+        }
+
+        if (digitCount == 7 && id.charAt(0) == '2') {
+            return true;
+        }
+
+        return flag;
+    }
+
+    private Boolean codeValidator(String code) {
+        boolean flag = false;
+
+        if (code.length() == 4 && code.charAt(0) == '9') {
             return true;
         }
 
@@ -393,6 +441,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel idNumberLabel1;
     private javax.swing.JTextField idNumberTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lNameLabel;
     private javax.swing.JTextField lNameTextField;
