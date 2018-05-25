@@ -48,9 +48,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         itproject_log = new javax.swing.JRadioButton();
         StudPrac_List = new javax.swing.JRadioButton();
         practicum_log = new javax.swing.JRadioButton();
@@ -59,27 +59,33 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Select Filter:");
-
         jLabel2.setFont(new java.awt.Font("Caviar Dreams", 0, 36)); // NOI18N
         jLabel2.setText("SCIS LOGBOOK");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Select Filter:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(85, 85, 85))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         itproject_log.setText("IT Project Log");
@@ -113,31 +119,26 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(itproject_log)
-                            .addComponent(practicum_log))
+                        .addComponent(itproject_log)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Student_log)
-                            .addComponent(StudPrac_List))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(StudPrac_List))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(practicum_log)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Student_log)))
+                .addContainerGap(181, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(52, 52, 52))
+                .addGap(71, 71, 71))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(itproject_log)
@@ -146,9 +147,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(practicum_log)
                     .addComponent(Student_log))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,7 +160,9 @@ public class MainWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -182,26 +185,28 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
         /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "OFFICE"};
+                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "ADVISER", "OFFICE", "CLASS CODE"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {                
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT * FROM log_itproject");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, date, time_in, time_out, adviser, office, code FROM logs natural join accounts where subject = 'IT Project';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
                 /* Populate data into the Map */
                 while (query_set.next()) {
                     row_counter = row_counter + 1;
-                    String idnum = query_set.getString("idnum");
+                    String idnum = query_set.getString("idnumber");
                     String date = query_set.getString("date");
                     String time_in = query_set.getString("time_in");
                     String time_out = query_set.getString("time_out");
+                    String adviser = query_set.getString("adviser");  
                     String office = query_set.getString("office");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, date, time_in, time_out, office});
+                    String class_code = query_set.getString("code");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, date, time_in, time_out, adviser, office, class_code});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -236,14 +241,14 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "OFFICE"};
+                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "ADVISER", "OFFICE", "CODE"};
                 int rownumber = 0;
                  Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT * FROM log_practicum");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, date, time_in, time_out, adviser, office, code FROM logs natural join accounts where subject = 'Practicum 1';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -254,8 +259,10 @@ public class MainWindow extends javax.swing.JFrame {
                     String date = query_set.getString("date");
                     String time_in = query_set.getString("time_in");
                     String time_out = query_set.getString("time_out");
+                    String adviser = query_set.getString("adviser");
                     String office = query_set.getString("office");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, date, time_in, time_out, office});
+                    String code = query_set.getString("code");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, date, time_in, time_out, adviser, office, code});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -290,29 +297,29 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "FIRST NAME", "LAST NAME", "COURSE AND YEAR", 
-                    "OFFICE", "SUBJECT", "CODE", "ADVISER"};
+                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR", 
+                     "SUBJECT", "CODE", "ADVISER"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT * FROM student_itproject");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subject, code, adviser FROM accounts natural join students WHERE subject = 'Practicum 1'");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
                 /* Populate data into the Map */
                 while (query_set.next()) {
                     row_counter = row_counter + 1;
-                    String idnum = query_set.getString("idnum");
-                    String fname = query_set.getString("fname");
-                    String lname = query_set.getString("lname");
-                    String course_year = query_set.getString("course_year");
+                    String idnum = query_set.getString("idnumber");
+                    String name = query_set.getString("name");
+                    String course_year = query_set.getString("course_year");       
                     String subject = query_set.getString("subject");
                     String code = query_set.getString("code");
                     String adviser = query_set.getString("adviser");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, course_year, subject, code, adviser});
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, name, course_year, 
+                        subject, code, adviser});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -344,15 +351,15 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "FIRST NAME", "LAST NAME", 
-                 "COURSE AND YEAR", "OFFICE", "SUBJECT", "CODE", "ADVISER"};
+                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR", 
+                     "SUBJECT", "CODE", "ADVISER"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT * FROM student_practicum");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subject, code, adviser FROM accounts natural join students WHERE subject = 'IT Project';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -360,13 +367,13 @@ public class MainWindow extends javax.swing.JFrame {
                 while (query_set.next()) {
                     row_counter = row_counter + 1;
                     String idnumber = query_set.getString("idnumber");
-                    String fname = query_set.getString("fname");
-                    String lname = query_set.getString("lname");
+                    String name = query_set.getString("name");         
                     String course_year = query_set.getString("course_year");
                     String subject = query_set.getString("subject");
                     String code = query_set.getString("code");
                     String adviser = query_set.getString("adviser");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, fname, lname, course_year, subject, code, adviser});
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year, 
+                        subject, code, adviser});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -394,7 +401,7 @@ public class MainWindow extends javax.swing.JFrame {
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
             }
-            JOptionPane.showMessageDialog(this, "Generated Successfully.");
+            JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
         } catch (SQLException x) {
             x.printStackTrace();
         } catch (IOException ex) {
