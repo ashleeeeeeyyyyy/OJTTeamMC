@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package generate_excel1;
-
 /**
  *
  * @author janxienemaniti
@@ -18,5 +17,4 @@ public class Generate_Excel1 {
         MainWindow filter = new MainWindow();
         filter.setVisible(true);
     }
-    
 }

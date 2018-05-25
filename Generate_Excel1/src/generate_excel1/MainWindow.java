@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -172,7 +173,7 @@ public class MainWindow extends javax.swing.JFrame {
         Connection conn;
         try {
             // Connection for the Database.
-            String conStr = "jdbc:mysql://localhost:8889/scislog?user=root&password=";
+            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
             conn = DriverManager.getConnection(conStr);
             Statement stmt = conn.createStatement();
 
@@ -181,14 +182,12 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
         /* Define the SQL query */
-                String[] headers = new String[]{"IDNUM", "DATE", "TIME_IN", "TIME_OUT", "OFFICE"};
-                int cellnumB = 0;
+                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "OFFICE"};
                 int rownumber = 0;
-                for (int rn = 0; rn < headers.length; rn++) {
-                    Row r = sheet.createRow(rownumber);
-                    Cell cell = r.createCell(cellnumB++);
+                Row r = sheet.createRow(rownumber);
+                for (int rn = 0; rn < headers.length; rn++) {                
+                    Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
-
                 }
                 ResultSet query_set = stmt.executeQuery("SELECT * FROM log_itproject");
                 /* Create Map for Excel Data */
@@ -226,11 +225,10 @@ public class MainWindow extends javax.swing.JFrame {
                         }
                     }
                 }
-
-                FileOutputStream output_file = new FileOutputStream(new File("GeneratedReports.xlsx")); //create XLS file
+                
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject_Logs.xls")); //create XLS file
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
-
             }
 
             // Filtering the log for the practicum
@@ -238,14 +236,12 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"IDNUM", "DATE", "TIME_IN", "TIME_OUT", "OFFICE"};
-                int cellnumB = 0;
+                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "OFFICE"};
                 int rownumber = 0;
+                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
-                    Row r = sheet.createRow(rownumber);
-                    Cell cell = r.createCell(cellnumB++);
+                    Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
-
                 }
                 ResultSet query_set = stmt.executeQuery("SELECT * FROM log_practicum");
                 /* Create Map for Excel Data */
@@ -284,10 +280,9 @@ public class MainWindow extends javax.swing.JFrame {
                     }
                 }
 
-                FileOutputStream output_file = new FileOutputStream(new File("GeneratedReports_for_practicum.xlsx")); //create XLS file
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/Practicum_Logs.xls")); //create XLS file
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
-
             }
 
             // Filtering the List of Student Enrolled in Practicum 1
@@ -295,14 +290,13 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"idnum", "fname", "lname", "course_year", "office, subject", "code", "adviser"};
-                int cellnumB = 0;
+                String[] headers = new String[]{"ID NUMBER", "FIRST NAME", "LAST NAME", "COURSE AND YEAR", 
+                    "OFFICE", "SUBJECT", "CODE", "ADVISER"};
                 int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
-                    Row r = sheet.createRow(rownumber);
-                    Cell cell = r.createCell(cellnumB++);
+                    Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
-
                 }
                 ResultSet query_set = stmt.executeQuery("SELECT * FROM student_itproject");
                 /* Create Map for Excel Data */
@@ -329,7 +323,6 @@ public class MainWindow extends javax.swing.JFrame {
                 Set<String> keyset = excel_data.keySet();
                 int rownum = 1;
                 for (String key : keyset) { //loop through the data and add them to the cell
-
                     Row row = sheet.createRow(rownum++);
                     Object[] objArr = excel_data.get(key);
                     int cellnum = 0;
@@ -343,23 +336,21 @@ public class MainWindow extends javax.swing.JFrame {
                     }
                 }
 
-                FileOutputStream output_file = new FileOutputStream(new File("StudentList_Practicum.xlsx")); //create XLS file
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_Practicum.xls")); //create XLS file
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
-
             }
             if (Student_log.isSelected()) {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"idnumber", "fname", "lname", "course_year", "office, subject", "code", "adviser"};
-                int cellnumB = 0;
+                String[] headers = new String[]{"ID NUMBER", "FIRST NAME", "LAST NAME", 
+                 "COURSE AND YEAR", "OFFICE", "SUBJECT", "CODE", "ADVISER"};
                 int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
-                    Row r = sheet.createRow(rownumber);
-                    Cell cell = r.createCell(cellnumB++);
+                    Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
-
                 }
                 ResultSet query_set = stmt.executeQuery("SELECT * FROM student_practicum");
                 /* Create Map for Excel Data */
@@ -386,7 +377,6 @@ public class MainWindow extends javax.swing.JFrame {
                 Set<String> keyset = excel_data.keySet();
                 int rownum = 1;
                 for (String key : keyset) { //loop through the data and add them to the cell
-
                     Row row = sheet.createRow(rownum++);
                     Object[] objArr = excel_data.get(key);
                     int cellnum = 0;
@@ -400,11 +390,11 @@ public class MainWindow extends javax.swing.JFrame {
                     }
                 }
 
-                FileOutputStream output_file = new FileOutputStream(new File("StudentList_ITproject.xlsx")); //create XLS file
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_ITproject.xls")); //create XLS file
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
-
             }
+            JOptionPane.showMessageDialog(this, "Generated Successfully.");
         } catch (SQLException x) {
             x.printStackTrace();
         } catch (IOException ex) {
