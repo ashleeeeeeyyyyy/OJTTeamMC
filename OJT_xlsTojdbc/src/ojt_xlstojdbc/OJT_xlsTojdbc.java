@@ -28,7 +28,7 @@ public class OJT_xlsTojdbc {
     public static void main(String[] args) throws Exception {
 
         /* Create Connection objects */
-        String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
+        String conStr = "jdbc:mysql://localhost:8889/scislog?user=root&password=";
         Connection conn = DriverManager.getConnection(conStr);
         Statement stmt = conn.createStatement();
         /* Create Workbook and Worksheet objects */
