@@ -33,7 +33,7 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`account_id`),
   KEY `idnumber_idx` (`idnumber`),
   CONSTRAINT `idnumber` FOREIGN KEY (`idnumber`) REFERENCES `students` (`idnumber`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (4,2165522,'Practicum 1','9365','Ma. Concepcion Clemente');
+INSERT INTO `accounts` VALUES (4,2165522,'Practicum 1','9365','Ma. Concepcion Clemente'),(6,2166167,'Practicum 1','9635','Ma. Concepcion Clemente'),(7,2166167,'IT Project','9632','Cecilia Mercado'),(10,2163227,'IT Project','9876','Ma. Concepcion Clemente');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,14 +56,15 @@ DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(11) NOT NULL,
+  `office` varchar(45) NOT NULL,
   `date` varchar(45) NOT NULL,
   `time_in` time NOT NULL,
   `time_out` time DEFAULT NULL,
-  `office` varchar(45) NOT NULL,
+  `hours_rendered` time DEFAULT NULL,
   PRIMARY KEY (`log_id`),
   KEY `account_id_idx` (`account_id`),
   CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +73,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES (2,4,'May 25, 2018','15:17:36','15:17:46','Open Laboratory (D424)'),(3,4,'May 25, 2018','15:35:04',NULL,'Open Laboratory (D424)');
+INSERT INTO `logs` VALUES (12,10,'Open Laboratory (D424)','May 26, 2018','09:39:46','11:39:56','00:00:10');
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +101,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES (2165522,'Earl','Rimando','BSCS-3','password');
+INSERT INTO `students` VALUES (2163227,'Ray Oliver','Servidad','BSIT-3','Password1234'),(2164631,'JESSIE','TABILISMA','BSIT-3','jessieT'),(2165522,'Earl','Rimando','BSCS-3','password'),(2166167,'Janxiene','Maniti','BSIT-3','Password');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +198,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-25 15:52:42
+-- Dump completed on 2018-05-26 11:46:24

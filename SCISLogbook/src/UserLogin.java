@@ -320,6 +320,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 resetFields();
             } else {
                 recordTimeOut(idNumber.getText(), subjectComboBox.getSelectedItem().toString());
+                setRenderedHours(idNumber.getText(), subjectComboBox.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Successfully Logged Out.");
                 resetFields();
             }
@@ -344,6 +345,7 @@ public final class UserLogin extends javax.swing.JFrame {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         Registration reg = new Registration();
         reg.setVisible(true);
+        dispose();
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private Boolean validateAccount(String id, String password, String subject) throws SQLException {
@@ -447,7 +449,43 @@ public final class UserLogin extends javax.swing.JFrame {
 
         ps.executeUpdate();
     }
-    
+
+    public void setRenderedHours(String idnumber, String subject) throws SQLException {
+        Connection con;
+        PreparedStatement ps;
+        Time time_in = null;
+        Time time_out = null;
+        Time rendered_hours = null;
+
+        String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
+        con = DriverManager.getConnection(conStr);
+
+        String query = "SELECT time_in, time_out, TIMEDIFF(time_out, time_in) as rendered from logs natural join accounts where account_id = ?";
+
+        ps = con.prepareStatement(query);
+
+        ps.setString(1, getAccountID(idnumber, subject));
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            rendered_hours = rs.getTime("rendered");
+            time_in = rs.getTime("time_in");
+            time_out = rs.getTime("time_out");
+        }
+        ps.close();
+        
+        PreparedStatement ps2;
+        query = "UPDATE logs SET hours_rendered = ? where account_id = ? order by log_id desc limit 1";
+        ps2 = con.prepareStatement(query);
+        
+        ps2.setTime(1, rendered_hours);
+        ps2.setString(2, getAccountID(idnumber,subject));
+        ps2.executeUpdate();
+        ps2.close();
+        con.close();
+        
+    }
+
     private void recordTimeOut(String idnumber, String subject) throws SQLException {
         Connection con;
         PreparedStatement ps;
@@ -460,7 +498,7 @@ public final class UserLogin extends javax.swing.JFrame {
         String query = "UPDATE logs SET time_out = ? where account_id = ?";
         ps = con.prepareStatement(query);
 
-        ps.setInt(2, Integer.parseInt(getAccountID(idnumber, subject)));
+        ps.setString(2, getAccountID(idnumber, subject));
         ps.setTime(1, time_out);
 
         ps.executeUpdate();

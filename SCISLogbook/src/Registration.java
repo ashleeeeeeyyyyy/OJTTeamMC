@@ -242,6 +242,7 @@ public class Registration extends javax.swing.JFrame {
             } else {
                 ConfirmPassword cp = new ConfirmPassword();
                 cp.setVisible(true);
+                dispose();
             }
 
         } catch (SQLException ex) {
@@ -364,6 +365,10 @@ public class Registration extends javax.swing.JFrame {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
+    }
+    
+    public void close() {
+        Registration.this.dispose();
     }
 
     /**

@@ -107,7 +107,8 @@ public class ConfirmPassword extends javax.swing.JFrame {
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Registered Successfully");
                 ConfirmPassword.this.dispose();
-                resetFields();               
+                UserLogin newLogin = new UserLogin();
+                newLogin.setVisible(true);
             }
 
         } catch (SQLException ex) {
