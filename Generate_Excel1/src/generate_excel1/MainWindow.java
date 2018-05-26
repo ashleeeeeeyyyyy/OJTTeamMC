@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package generate_excel1;
 
 import java.io.File;
@@ -69,27 +64,30 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(85, 85, 85))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        buttonGroup1.add(itproject_log);
         itproject_log.setText("IT Project Log");
 
+        buttonGroup1.add(StudPrac_List);
         StudPrac_List.setText("Student List (Practicum 1)");
         StudPrac_List.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +95,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(practicum_log);
         practicum_log.setText("Practicum Log");
         practicum_log.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +103,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(Student_log);
         Student_log.setText("Student List( IT Project)");
 
         jButton1.setText("Generate Excel File");
@@ -176,7 +176,7 @@ public class MainWindow extends javax.swing.JFrame {
         Connection conn;
         try {
             // Connection for the Database.
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
+            String conStr = "jdbc:mysql://localhost:8889/scislog?user=root&password=";
             conn = DriverManager.getConnection(conStr);
             Statement stmt = conn.createStatement();
 
@@ -185,14 +185,15 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
         /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "ADVISER", "OFFICE", "CLASS CODE"};
+                String[] headers = new String[]{"ID NUMBER","First Name","Last Name","ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT",};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
-                for (int rn = 0; rn < headers.length; rn++) {                
+                for (int rn = 0; rn < headers.length; rn++) {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT idnumber, date, time_in, time_out, adviser, office, code FROM logs natural join accounts where subject = 'IT Project';");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname, adviser, office, code, date,"
+                        + " time_in, time_out FROM logs natural join accounts natural join students where subject = 'IT Project';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -200,13 +201,15 @@ public class MainWindow extends javax.swing.JFrame {
                 while (query_set.next()) {
                     row_counter = row_counter + 1;
                     String idnum = query_set.getString("idnumber");
+                    String fname = query_set.getString("fname");
+                    String lname = query_set.getString("lname");
+                    String adviser = query_set.getString("adviser");
+                    String office = query_set.getString("office");
+                    String class_code = query_set.getString("code");
                     String date = query_set.getString("date");
                     String time_in = query_set.getString("time_in");
                     String time_out = query_set.getString("time_out");
-                    String adviser = query_set.getString("adviser");  
-                    String office = query_set.getString("office");
-                    String class_code = query_set.getString("code");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, date, time_in, time_out, adviser, office, class_code});
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum,fname,lname, adviser, office, class_code, date, time_in, time_out});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -230,7 +233,7 @@ public class MainWindow extends javax.swing.JFrame {
                         }
                     }
                 }
-                
+
                 FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject_Logs.xls")); //create XLS file
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
@@ -241,14 +244,14 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "DATE", "TIME IN", "TIME OUT", "ADVISER", "OFFICE", "CODE"};
+                String[] headers = new String[]{"ID NUMBER","First Name","Last Name","ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT"};
                 int rownumber = 0;
-                 Row r = sheet.createRow(rownumber);
+                Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT idnumber, date, time_in, time_out, adviser, office, code FROM logs natural join accounts where subject = 'Practicum 1';");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname, adviser, office, code,date, time_in, time_out FROM logs natural join accounts natural join students where subject = 'Practicum 1';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -256,13 +259,15 @@ public class MainWindow extends javax.swing.JFrame {
                 while (query_set.next()) {
                     row_counter = row_counter + 1;
                     String idnum = query_set.getString("idnumber");
-                    String date = query_set.getString("date");
-                    String time_in = query_set.getString("time_in");
-                    String time_out = query_set.getString("time_out");
+                    String fname = query_set.getString("fname");
+                    String lname = query_set.getString("lname");
                     String adviser = query_set.getString("adviser");
                     String office = query_set.getString("office");
                     String code = query_set.getString("code");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, date, time_in, time_out, adviser, office, code});
+                    String date = query_set.getString("date");
+                    String time_in = query_set.getString("time_in");
+                    String time_out = query_set.getString("time_out");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum,fname,lname, adviser, office, code, date, time_in, time_out});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -297,8 +302,8 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR", 
-                     "SUBJECT", "CODE", "ADVISER"};
+                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
+                    "SUBJECT", "CODE", "ADVISER"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
@@ -314,11 +319,11 @@ public class MainWindow extends javax.swing.JFrame {
                     row_counter = row_counter + 1;
                     String idnum = query_set.getString("idnumber");
                     String name = query_set.getString("name");
-                    String course_year = query_set.getString("course_year");       
+                    String course_year = query_set.getString("course_year");
                     String subject = query_set.getString("subject");
                     String code = query_set.getString("code");
                     String adviser = query_set.getString("adviser");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, name, course_year, 
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, name, course_year,
                         subject, code, adviser});
                 }
                 /* Close all DB related objects */
@@ -351,8 +356,8 @@ public class MainWindow extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR", 
-                     "SUBJECT", "CODE", "ADVISER"};
+                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
+                    "SUBJECT", "CODE", "ADVISER"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
@@ -367,12 +372,12 @@ public class MainWindow extends javax.swing.JFrame {
                 while (query_set.next()) {
                     row_counter = row_counter + 1;
                     String idnumber = query_set.getString("idnumber");
-                    String name = query_set.getString("name");         
+                    String name = query_set.getString("name");
                     String course_year = query_set.getString("course_year");
                     String subject = query_set.getString("subject");
                     String code = query_set.getString("code");
                     String adviser = query_set.getString("adviser");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year, 
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year,
                         subject, code, adviser});
                 }
                 /* Close all DB related objects */
