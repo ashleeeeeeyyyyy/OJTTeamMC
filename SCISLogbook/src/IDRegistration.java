@@ -1,6 +1,5 @@
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -252,12 +251,10 @@ public class IDRegistration extends javax.swing.JFrame {
     private void registerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerIDActionPerformed
         Connection con;
         PreparedStatement ps;
-        ResultSet rs;
         String query;
 
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
+            con = jdbc.connection.DBConnection.connectDB();
             
             if (!isFilledOut()) {
                 JOptionPane.showMessageDialog(this, "Fill out all fields", "Error", JOptionPane.ERROR_MESSAGE);
@@ -298,8 +295,7 @@ public class IDRegistration extends javax.swing.JFrame {
         String query;
 
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
+            con = jdbc.connection.DBConnection.connectDB();
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             query = "SELECT idnumber from students where idnumber = " + idnumber;

@@ -1,11 +1,10 @@
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,8 +23,10 @@ public class Registration extends javax.swing.JFrame {
     /**
      * Creates new form Registration
      */
-    public Registration() {
+    public Registration() throws SQLException {
         initComponents();
+        adviserComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
+        adviserComboBox.setSelectedIndex(-1);
     }
 
     /**
@@ -66,7 +67,6 @@ public class Registration extends javax.swing.JFrame {
         adviserLabel.setText("Adviser:");
 
         adviserComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
-        adviserComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ma. Concepcion Clemente", "Cecilia Mercado", "Jonathan Ramirez", "Ria Andrea Nana", "Gerry Paul Genove", "Randy Domantay", "Bench Bacani", "Jo Montes", "Alodia Rei Leung", "Landley Bernardo" }));
         adviserComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adviserComboBoxActionPerformed(evt);
@@ -169,9 +169,7 @@ public class Registration extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(registerButton)
                         .addGap(46, 46, 46))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,33 +219,23 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_adviserComboBoxActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        Connection con;
-        Statement stmt;
-        ResultSet rs;
-        String query;
-        try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
 
-            if (!isFilledOut()) {
-                JOptionPane.showMessageDialog(this, "Fill out all fields", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (!idNumberExists(IDTextField.getText())) {
-                JOptionPane.showMessageDialog(this, "ID Number is not yet Registered", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (!codeValidator(codeTextField.getText())) {
-                JOptionPane.showMessageDialog(this, "Enter a valid class code", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (IDIsExisting(IDTextField.getText(), subjectComboBox.getSelectedItem().toString())) {
-                JOptionPane.showMessageDialog(this, "ID Number "+IDTextField.getText()+" is already registered"
-                        + "\nin the subject "+subjectComboBox.getSelectedItem().toString()+".", "Error", JOptionPane.ERROR_MESSAGE);
-                resetFields();
-            } else {
-                ConfirmPassword cp = new ConfirmPassword();
-                cp.setVisible(true);
-                dispose();
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        if (!isFilledOut()) {
+            JOptionPane.showMessageDialog(this, "Fill out all fields", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!idNumberExists(IDTextField.getText())) {
+            JOptionPane.showMessageDialog(this, "ID Number is not yet Registered", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!codeValidator(codeTextField.getText())) {
+            JOptionPane.showMessageDialog(this, "Enter a valid class code", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (IDIsExisting(IDTextField.getText(), subjectComboBox.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(this, "ID Number " + IDTextField.getText() + " is already registered"
+                    + "\nin the subject " + subjectComboBox.getSelectedItem().toString() + ".", "Error", JOptionPane.ERROR_MESSAGE);
+            resetFields();
+        } else {
+            ConfirmPassword cp = new ConfirmPassword();
+            cp.setVisible(true);
+            dispose();
         }
+
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void instructionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instructionsActionPerformed
@@ -276,8 +264,7 @@ public class Registration extends javax.swing.JFrame {
         String query;
 
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
+            con = jdbc.connection.DBConnection.connectDB();
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             query = "SELECT idnumber from students where idnumber = " + idnumber;
@@ -290,23 +277,6 @@ public class Registration extends javax.swing.JFrame {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
-    }
-
-    private Boolean idValidator(String id) {
-        boolean flag = false;
-        int digitCount = 0;
-
-        for (int i = 0; i < id.length(); i++) {
-            if (Character.isDigit(id.charAt(i))) {
-                digitCount++;
-            }
-        }
-
-        if (digitCount == 7 && id.charAt(0) == '2') {
-            return true;
-        }
-
-        return flag;
     }
 
     private Boolean codeValidator(String code) {
@@ -345,19 +315,19 @@ public class Registration extends javax.swing.JFrame {
         String query;
 
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
+            con = jdbc.connection.DBConnection.connectDB();
+
             query = "SELECT * from `accounts` where `idnumber` = ? and `subject` = ?";
-            
+
             ps = con.prepareStatement(query);
             ps.setString(1, id);
             ps.setString(2, subject);
-            
+
             rs = ps.executeQuery();
             if (rs.next()) {
                 res = true;
             }
-            
+
             rs.close();
             ps.close();
             con.close();
@@ -366,7 +336,27 @@ public class Registration extends javax.swing.JFrame {
         }
         return res;
     }
-    
+
+    public String[] faculty() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+
+        String query = "SELECT fac_name from faculty";
+        ResultSet rs = stmt.executeQuery(query);
+
+        ArrayList list = new ArrayList();
+
+        while (rs.next()) {
+            list.add(rs.getString("fac_name"));
+        }
+        String[] fac = new String[list.size()];
+        list.toArray(fac);
+
+        return fac;
+    }
+
     public void close() {
         Registration.this.dispose();
     }
@@ -401,7 +391,11 @@ public class Registration extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Registration().setVisible(true);
+                try {
+                    new Registration().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

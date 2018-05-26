@@ -1,10 +1,8 @@
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -87,11 +85,9 @@ public class ConfirmPassword extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection con;
         PreparedStatement ps;
-        ResultSet rs;
         String query;
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
+            con = jdbc.connection.DBConnection.connectDB();
             
             if (!validateID(Registration.IDTextField.getText(), passwordField.getText())) {
                 JOptionPane.showMessageDialog(this, "Invalid Password", "Error", JOptionPane.ERROR_MESSAGE);
@@ -124,8 +120,7 @@ public class ConfirmPassword extends javax.swing.JFrame {
         String query;
 
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
+            con = jdbc.connection.DBConnection.connectDB();
             query = "SELECT idnumber, password from students where idnumber = ? and password = ?";
             ps = con.prepareStatement(query);
             
@@ -144,13 +139,6 @@ public class ConfirmPassword extends javax.swing.JFrame {
         }
 
         return res;
-    }
-
-    private void resetFields() {
-        Registration.IDTextField.setText("");
-        Registration.codeTextField.setText("");
-        Registration.adviserComboBox.setSelectedIndex(-1);
-        Registration.subjectComboBox.setSelectedIndex(-1);
     }
     /**
      * @param args the command line arguments

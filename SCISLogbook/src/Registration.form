@@ -152,18 +152,7 @@
           <Font name="Yu Gothic Light" size="18" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="10">
-            <StringItem index="0" value="Ma. Concepcion Clemente"/>
-            <StringItem index="1" value="Cecilia Mercado"/>
-            <StringItem index="2" value="Jonathan Ramirez"/>
-            <StringItem index="3" value="Ria Andrea Nana"/>
-            <StringItem index="4" value="Gerry Paul Genove"/>
-            <StringItem index="5" value="Randy Domantay"/>
-            <StringItem index="6" value="Bench Bacani"/>
-            <StringItem index="7" value="Jo Montes"/>
-            <StringItem index="8" value="Alodia Rei Leung"/>
-            <StringItem index="9" value="Landley Bernardo"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <Events>

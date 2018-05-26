@@ -1,16 +1,11 @@
 
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,49 +53,6 @@ public final class UserLogin extends javax.swing.JFrame {
 
         }
         ).start();
-    }
-
-    private String[] showNameCourseYear() {
-        String[] info = null;
-        Connection con;
-        Statement stmt;
-        ResultSet rs;
-        String secondQuery = null;
-        String fName = "";
-        String lName = "";
-        String courseYear = "";
-
-        switch (subjectComboBox.getSelectedItem().toString()) {
-            case "Practicum 1":
-                secondQuery = "select * from student_practicum where "
-                        + " idnumber = " + idNumber + ";";
-                break;
-            case "IT Project":
-                secondQuery = "select * from student_itproject where "
-                        + " idnum = " + idNumber + ";";
-                break;
-            default:
-        }
-        try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
-            rs = stmt.executeQuery(secondQuery);
-            rs.beforeFirst();
-            while (rs.next()) {
-                fName = rs.getString("fName");
-                lName = rs.getString("lName");
-                courseYear = rs.getString("course_year");
-            }
-
-            info[0] = lName + ", " + fName;
-            info[1] = courseYear;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return info;
     }
 
     /**
@@ -280,13 +232,7 @@ public final class UserLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_idNumberActionPerformed
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
-        Connection con;
-        ResultSet rs;
-        PreparedStatement ps;
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
-
             if (!validateAccount(idNumber.getText(), userPassword.getText(), subjectComboBox.getSelectedItem().toString())) {
                 JOptionPane.showMessageDialog(this, "Invalid " + subjectComboBox.getSelectedItem().toString() + " Account", "Error", JOptionPane.ERROR_MESSAGE);
                 resetFields();
@@ -298,20 +244,13 @@ public final class UserLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Successfully Logged In.");
                 resetFields();
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_logInButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        Connection con;
-        ResultSet rs;
-        PreparedStatement ps;
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
-
             if (!validateAccount(idNumber.getText(), userPassword.getText(), subjectComboBox.getSelectedItem().toString())) {
                 JOptionPane.showMessageDialog(this, "Invalid " + subjectComboBox.getSelectedItem().toString() + " Account", "Error", JOptionPane.ERROR_MESSAGE);
                 resetFields();
@@ -320,11 +259,9 @@ public final class UserLogin extends javax.swing.JFrame {
                 resetFields();
             } else {
                 recordTimeOut(idNumber.getText(), subjectComboBox.getSelectedItem().toString());
-                setRenderedHours(idNumber.getText(), subjectComboBox.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Successfully Logged Out.");
                 resetFields();
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -343,7 +280,12 @@ public final class UserLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_subjectComboBoxActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        Registration reg = new Registration();
+        Registration reg = null;
+        try {
+            reg = new Registration();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         reg.setVisible(true);
         dispose();
     }//GEN-LAST:event_registerButtonActionPerformed
@@ -353,8 +295,7 @@ public final class UserLogin extends javax.swing.JFrame {
         Connection con;
         PreparedStatement ps;
 
-        String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-        con = DriverManager.getConnection(conStr);
+        con = jdbc.connection.DBConnection.connectDB();
         String query = "SELECT idnumber, password, subject from accounts natural "
                 + "join students where idnumber = ? and password = ? and subject = ?";
         ps = con.prepareStatement(query);
@@ -382,8 +323,7 @@ public final class UserLogin extends javax.swing.JFrame {
         Connection con;
         PreparedStatement ps;
 
-        String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-        con = DriverManager.getConnection(conStr);
+        con = jdbc.connection.DBConnection.connectDB();
         String query = "select account_id from accounts where idnumber = ? and subject = ?";
         ps = con.prepareStatement(query);
 
@@ -409,8 +349,7 @@ public final class UserLogin extends javax.swing.JFrame {
         Boolean result = false;
         String time_out = "";
         try {
-            String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-            con = DriverManager.getConnection(conStr);
+            con = jdbc.connection.DBConnection.connectDB();
             String query = "SELECT idnumber, time_out from accounts natural join logs where idnumber = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, idnumber);
@@ -437,8 +376,7 @@ public final class UserLogin extends javax.swing.JFrame {
         Time time_in = new java.sql.Time(now.getTime());
         String date = dateFormat.format(now);
 
-        String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-        con = DriverManager.getConnection(conStr);
+        con = jdbc.connection.DBConnection.connectDB();
         String query = "INSERT into logs (account_id, time_in, date, office) VALUES (?,?,?,?)";
         ps = con.prepareStatement(query);
 
@@ -450,107 +388,42 @@ public final class UserLogin extends javax.swing.JFrame {
         ps.executeUpdate();
     }
 
-    public void setRenderedHours(String idnumber, String subject) throws SQLException {
-        Connection con;
-        PreparedStatement ps;
-        Time time_in = null;
-        Time time_out = null;
-        Time rendered_hours = null;
-
-        String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-        con = DriverManager.getConnection(conStr);
-
-        String query = "SELECT time_in, time_out, TIMEDIFF(time_out, time_in) as rendered from logs natural join accounts where account_id = ?";
-
-        ps = con.prepareStatement(query);
-
-        ps.setString(1, getAccountID(idnumber, subject));
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            rendered_hours = rs.getTime("rendered");
-            time_in = rs.getTime("time_in");
-            time_out = rs.getTime("time_out");
-        }
-        ps.close();
-        
-        PreparedStatement ps2;
-        query = "UPDATE logs SET hours_rendered = ? where account_id = ? order by log_id desc limit 1";
-        ps2 = con.prepareStatement(query);
-        
-        ps2.setTime(1, rendered_hours);
-        ps2.setString(2, getAccountID(idnumber,subject));
-        ps2.executeUpdate();
-        ps2.close();
-        con.close();
-        
-    }
-
     private void recordTimeOut(String idnumber, String subject) throws SQLException {
         Connection con;
         PreparedStatement ps;
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
         Time time_out = new java.sql.Time(now.getTime());
+        Time time_in = null;
 
-        String conStr = "jdbc:mysql://localhost:3306/scislog?user=root&password=";
-        con = DriverManager.getConnection(conStr);
-        String query = "UPDATE logs SET time_out = ? where account_id = ?";
+        con = jdbc.connection.DBConnection.connectDB();
+
+        String query = "SELECT time_in from logs natural join accounts where account_id = ? order by log_id desc limit 1";
+        ps = con.prepareStatement(query);
+        ps.setString(1, getAccountID(idnumber, subject));
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            time_in = rs.getTime("time_in");
+        }
+        ps.close();
+
+        query = "UPDATE logs SET time_out = ?, hours_rendered = TIMEDIFF(?,time_in) where account_id = ? and time_in = ? order by log_id desc limit 1";
         ps = con.prepareStatement(query);
 
-        ps.setString(2, getAccountID(idnumber, subject));
         ps.setTime(1, time_out);
+        ps.setTime(2, time_out);
+        ps.setString(3, getAccountID(idnumber, subject));
+        ps.setTime(4, time_in);
 
         ps.executeUpdate();
+        ps.close();
     }
-
-    private ResultSet validateLogOut(int id, String secondQuery, Statement stmt) throws SQLException, HeadlessException {
-        ResultSet rs;
-        rs = stmt.executeQuery(secondQuery);
-        rs.beforeFirst();
-        String time_out = "";
-        while (rs.next()) {
-            time_out = rs.getString("time_out");
-        }
-
-        switch (subjectComboBox.getSelectedItem().toString()) {
-            case "Practicum 1":
-                secondQuery = "select * from log_practicum where time_out is null "
-                        + "AND idnumber = " + id + " limit 1";
-                break;
-            case "IT Project":
-                secondQuery = "select * from log_itproject where time_out is null "
-                        + "AND idnum = " + id + " limit 1";
-                break;
-            default:
-        }
-
-        if (time_out == null) {
-            rs = timeOut(secondQuery, rs, stmt);
-            JOptionPane.showMessageDialog(this, "Logout Complete");
-            resetFields();
-        } else {
-            JOptionPane.showMessageDialog(this, "You haven't logged in yet", "Error", JOptionPane.ERROR_MESSAGE);
-            resetFields();
-        }
-        return rs;
-    }
-
+    
     private void resetFields() {
         idNumber.setText("");
         userPassword.setText("");
         subjectComboBox.setSelectedIndex(-1);
-    }
-
-    private ResultSet timeOut(String query, ResultSet rs, Statement stmt) throws SQLException {
-        rs = stmt.executeQuery(query);
-        rs.beforeFirst();
-        rs.first();
-        Calendar calendar = Calendar.getInstance();
-        Timestamp time_out = new java.sql.Timestamp(calendar.getTime().getTime());
-        rs.updateTimestamp("time_out", time_out);
-        rs.updateRow();
-        return rs;
     }
 
     /**
