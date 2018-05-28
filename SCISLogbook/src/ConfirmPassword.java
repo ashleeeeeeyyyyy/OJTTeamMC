@@ -23,6 +23,7 @@ public class ConfirmPassword extends javax.swing.JFrame {
      */
     public ConfirmPassword() {
         initComponents();
+        setResizable(false);
     }
 
     /**
@@ -37,11 +38,12 @@ public class ConfirmPassword extends javax.swing.JFrame {
         pLabel = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        pLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pLabel.setFont(new java.awt.Font("Yu Gothic", 0, 24)); // NOI18N
-        pLabel.setText("Confirm Password:");
+        pLabel.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        pLabel.setText("Verify your ID.");
 
         jButton1.setFont(new java.awt.Font("Yu Gothic UI", 0, 20)); // NOI18N
         jButton1.setText("Register");
@@ -50,6 +52,9 @@ public class ConfirmPassword extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        pLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        pLabel1.setText("Enter password:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,7 +69,10 @@ public class ConfirmPassword extends javax.swing.JFrame {
                             .addComponent(pLabel))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(53, 53, 53)
-                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(31, 31, 31)
+                            .addComponent(pLabel1))))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -72,11 +80,13 @@ public class ConfirmPassword extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(pLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -103,8 +113,7 @@ public class ConfirmPassword extends javax.swing.JFrame {
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Registered Successfully");
                 ConfirmPassword.this.dispose();
-                UserLogin newLogin = new UserLogin();
-                newLogin.setVisible(true);
+                new UserLogin().setVisible(true);
             }
 
         } catch (SQLException ex) {
@@ -121,7 +130,7 @@ public class ConfirmPassword extends javax.swing.JFrame {
 
         try {
             con = jdbc.connection.DBConnection.connectDB();
-            query = "SELECT idnumber, password from students where idnumber = ? and password = ?";
+            query = "SELECT idnumber, password from students where idnumber = ? and password = aes_encrypt(?,'scis2018')";
             ps = con.prepareStatement(query);
             
             ps.setString(1, id);
@@ -178,6 +187,7 @@ public class ConfirmPassword extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel pLabel;
+    private javax.swing.JLabel pLabel1;
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,6 +24,7 @@ public class IDRegistration extends javax.swing.JFrame {
      */
     public IDRegistration() {
         initComponents();
+        setResizable(false);
     }
 
     /**
@@ -269,7 +270,7 @@ public class IDRegistration extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "ID Number is already Existing", "Error", JOptionPane.ERROR_MESSAGE);
                 resetFields();
             } else {
-                query = "INSERT into students (idnumber, fname, lname, course_year, password) VALUES (?, ?, ?, ?, ?)";
+                query = "INSERT into students (idnumber, fname, lname, course_year, password) VALUES (?, ?, ?, ?, aes_encrypt(?,'scis2018'))";
                 ps = con.prepareStatement(query);
                 ps.setString(1, IDTextField.getText());
                 ps.setString(2, fNameTextField.getText());

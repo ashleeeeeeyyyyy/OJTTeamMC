@@ -32,6 +32,7 @@ public final class UserLogin extends javax.swing.JFrame {
      */
     public UserLogin() {
         initComponents();
+        setResizable(false);
         showDate();
         showTime();
     }
@@ -102,7 +103,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 idNumberActionPerformed(evt);
             }
         });
-        jPanel3.add(idNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 330, 40));
+        jPanel3.add(idNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 330, 40));
 
         logInButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
         logInButton.setForeground(new java.awt.Color(51, 51, 51));
@@ -112,7 +113,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 logInButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(logInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 160, -1));
+        jPanel3.add(logInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 510, 160, -1));
 
         logOutButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
         logOutButton.setForeground(new java.awt.Color(51, 51, 51));
@@ -123,18 +124,18 @@ public final class UserLogin extends javax.swing.JFrame {
                 logOutButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(logOutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 510, 150, -1));
+        jPanel3.add(logOutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 150, -1));
 
         passwordLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(51, 51, 51));
         passwordLabel.setText("Password:");
-        jPanel3.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 110, 20));
+        jPanel3.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 110, 20));
 
         IDLabel.setBackground(new java.awt.Color(255, 255, 255));
         IDLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         IDLabel.setForeground(new java.awt.Color(51, 51, 51));
         IDLabel.setText("ID Number:");
-        jPanel3.add(IDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 130, 20));
+        jPanel3.add(IDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 130, 20));
 
         userPassword.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         userPassword.setForeground(new java.awt.Color(51, 51, 51));
@@ -149,7 +150,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 userPasswordActionPerformed(evt);
             }
         });
-        jPanel3.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 330, 40));
+        jPanel3.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, 330, 40));
 
         dateLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(51, 51, 51));
@@ -163,7 +164,7 @@ public final class UserLogin extends javax.swing.JFrame {
 
         purposeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         purposeLabel.setText("Subject:");
-        jPanel3.add(purposeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+        jPanel3.add(purposeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
 
         subjectComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
         subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Practicum 1", "IT Project" }));
@@ -172,7 +173,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 subjectComboBoxActionPerformed(evt);
             }
         });
-        jPanel3.add(subjectComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 220, -1));
+        jPanel3.add(subjectComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 220, -1));
         subjectComboBox.setSelectedIndex(-1);
 
         registerButton.setBackground(new java.awt.Color(51, 51, 0));
@@ -196,7 +197,7 @@ public final class UserLogin extends javax.swing.JFrame {
         headTitle.setText("SCIS Student logbook");
         jPanel1.add(headTitle);
 
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 100));
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 100));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
@@ -207,17 +208,11 @@ public final class UserLogin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 580, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 680, Short.MAX_VALUE)
         );
 
         pack();
@@ -297,7 +292,7 @@ public final class UserLogin extends javax.swing.JFrame {
 
         con = jdbc.connection.DBConnection.connectDB();
         String query = "SELECT idnumber, password, subject from accounts natural "
-                + "join students where idnumber = ? and password = ? and subject = ?";
+                + "join students where idnumber = ? and password = aes_encrypt(?,'scis2018') and subject = ?";
         ps = con.prepareStatement(query);
 
         ps.setString(1, id);
@@ -372,7 +367,6 @@ public final class UserLogin extends javax.swing.JFrame {
         PreparedStatement ps;
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-        Calendar calendar = Calendar.getInstance();
         Time time_in = new java.sql.Time(now.getTime());
         String date = dateFormat.format(now);
 
@@ -392,7 +386,6 @@ public final class UserLogin extends javax.swing.JFrame {
         Connection con;
         PreparedStatement ps;
         Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
         Time time_out = new java.sql.Time(now.getTime());
         Time time_in = null;
 

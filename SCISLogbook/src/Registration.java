@@ -25,6 +25,7 @@ public class Registration extends javax.swing.JFrame {
      */
     public Registration() throws SQLException {
         initComponents();
+        setResizable(false);
         adviserComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
         adviserComboBox.setSelectedIndex(-1);
     }
@@ -49,6 +50,7 @@ public class Registration extends javax.swing.JFrame {
         RegisterID = new javax.swing.JButton();
         subjectLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        adviserNotListed = new javax.swing.JLabel();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -134,24 +136,19 @@ public class Registration extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 0, 0));
         jLabel4.setText("ID Number not yet Registered?");
 
+        adviserNotListed.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        adviserNotListed.setForeground(new java.awt.Color(255, 0, 0));
+        adviserNotListed.setText("Adviser not listed? Click here...");
+        adviserNotListed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adviserNotListedMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(subjectLabel)
-                    .addComponent(IDLabel)
-                    .addComponent(adviserLabel)
-                    .addComponent(classCodeLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,13 +160,26 @@ public class Registration extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(instructions)
                         .addGap(79, 79, 79))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(registerButton)
+                .addGap(46, 46, 46))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(subjectLabel)
+                    .addComponent(IDLabel)
+                    .addComponent(adviserLabel)
+                    .addComponent(classCodeLabel))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(registerButton)
-                        .addGap(46, 46, 46))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(adviserNotListed)
+                    .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +191,7 @@ public class Registration extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(RegisterID)
-                .addGap(45, 45, 45)
+                .addGap(18, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(subjectLabel)
@@ -199,7 +209,9 @@ public class Registration extends javax.swing.JFrame {
                         .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adviserNotListed)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(registerButton)
                 .addGap(32, 32, 32))
         );
@@ -231,8 +243,7 @@ public class Registration extends javax.swing.JFrame {
                     + "\nin the subject " + subjectComboBox.getSelectedItem().toString() + ".", "Error", JOptionPane.ERROR_MESSAGE);
             resetFields();
         } else {
-            ConfirmPassword cp = new ConfirmPassword();
-            cp.setVisible(true);
+            new ConfirmPassword().setVisible(true);
             dispose();
         }
 
@@ -243,8 +254,7 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_instructionsActionPerformed
 
     private void RegisterIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterIDActionPerformed
-        IDRegistration regID = new IDRegistration();
-        regID.setVisible(true);
+        new IDRegistration().setVisible(true);
     }//GEN-LAST:event_RegisterIDActionPerformed
 
     private void codeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeTextFieldActionPerformed
@@ -254,6 +264,11 @@ public class Registration extends javax.swing.JFrame {
     private void IDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IDTextFieldActionPerformed
+
+    private void adviserNotListedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adviserNotListedMouseClicked
+        this.dispose();
+        new NewAdviser().setVisible(true);
+    }//GEN-LAST:event_adviserNotListedMouseClicked
 
     private Boolean idNumberExists(String idnumber) {
         boolean res = false;
@@ -406,6 +421,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JButton RegisterID;
     protected static final javax.swing.JComboBox<String> adviserComboBox = new javax.swing.JComboBox<>();
     private javax.swing.JLabel adviserLabel;
+    private javax.swing.JLabel adviserNotListed;
     private javax.swing.JLabel classCodeLabel;
     protected static final javax.swing.JTextField codeTextField = new javax.swing.JTextField();
     private javax.swing.JButton instructions;
