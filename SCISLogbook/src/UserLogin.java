@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -31,8 +32,10 @@ public final class UserLogin extends javax.swing.JFrame {
      * Creates new form UserLogin
      */
     public UserLogin() {
+        setUndecorated(true);
         initComponents();
         setResizable(false);
+        setLocationRelativeTo(null);
         showDate();
         showTime();
     }
@@ -65,6 +68,8 @@ public final class UserLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         jPanel3 = new javax.swing.JPanel();
         idNumber = new javax.swing.JTextField();
         logInButton = new javax.swing.JButton();
@@ -76,15 +81,19 @@ public final class UserLogin extends javax.swing.JFrame {
         timeLabel = new javax.swing.JLabel();
         purposeLabel = new javax.swing.JLabel();
         subjectComboBox = new javax.swing.JComboBox<>();
-        registerButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         SCISLogo = new javax.swing.JLabel();
         headTitle = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+
+        jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(1024, 600));
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setForeground(new java.awt.Color(51, 51, 51));
         jPanel3.setMinimumSize(new java.awt.Dimension(1336, 768));
         jPanel3.setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -103,7 +112,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 idNumberActionPerformed(evt);
             }
         });
-        jPanel3.add(idNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 330, 40));
+        jPanel3.add(idNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, 330, 40));
 
         logInButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
         logInButton.setForeground(new java.awt.Color(51, 51, 51));
@@ -113,7 +122,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 logInButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(logInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 510, 160, -1));
+        jPanel3.add(logInButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 490, 160, -1));
 
         logOutButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
         logOutButton.setForeground(new java.awt.Color(51, 51, 51));
@@ -124,18 +133,18 @@ public final class UserLogin extends javax.swing.JFrame {
                 logOutButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(logOutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 150, -1));
+        jPanel3.add(logOutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 490, 150, -1));
 
         passwordLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(51, 51, 51));
         passwordLabel.setText("Password:");
-        jPanel3.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 110, 20));
+        jPanel3.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 380, 110, 20));
 
         IDLabel.setBackground(new java.awt.Color(255, 255, 255));
         IDLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         IDLabel.setForeground(new java.awt.Color(51, 51, 51));
         IDLabel.setText("ID Number:");
-        jPanel3.add(IDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 130, 20));
+        jPanel3.add(IDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 130, 20));
 
         userPassword.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         userPassword.setForeground(new java.awt.Color(51, 51, 51));
@@ -150,21 +159,21 @@ public final class UserLogin extends javax.swing.JFrame {
                 userPasswordActionPerformed(evt);
             }
         });
-        jPanel3.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, 330, 40));
+        jPanel3.add(userPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 410, 330, 40));
 
         dateLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         dateLabel.setForeground(new java.awt.Color(51, 51, 51));
         dateLabel.setText("Date:");
-        jPanel3.add(dateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+        jPanel3.add(dateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, -1));
 
         timeLabel.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         timeLabel.setForeground(new java.awt.Color(51, 51, 51));
         timeLabel.setText("Time: ");
-        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, -1, -1));
+        jPanel3.add(timeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, -1, -1));
 
         purposeLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         purposeLabel.setText("Subject:");
-        jPanel3.add(purposeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
+        jPanel3.add(purposeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, -1, -1));
 
         subjectComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
         subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Practicum 1", "IT Project" }));
@@ -173,42 +182,80 @@ public final class UserLogin extends javax.swing.JFrame {
                 subjectComboBoxActionPerformed(evt);
             }
         });
-        jPanel3.add(subjectComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 220, -1));
+        jPanel3.add(subjectComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 210, 220, -1));
         subjectComboBox.setSelectedIndex(-1);
 
-        registerButton.setBackground(new java.awt.Color(51, 51, 0));
-        registerButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        registerButton.setForeground(new java.awt.Color(204, 204, 204));
-        registerButton.setText("Create an Account");
-        registerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerButtonActionPerformed(evt);
-            }
-        });
-        jPanel3.add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 590, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(51, 51, 0));
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
         SCISLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/SCIS Logo.png"))); // NOI18N
-        jPanel1.add(SCISLogo);
 
-        headTitle.setFont(new java.awt.Font("Bebas", 0, 45)); // NOI18N
+        headTitle.setFont(new java.awt.Font("Bebas", 0, 80)); // NOI18N
         headTitle.setForeground(new java.awt.Color(204, 204, 204));
-        headTitle.setText("SCIS Student logbook");
-        jPanel1.add(headTitle);
+        headTitle.setText("scis");
 
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 100));
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setText("STUDENT LOGBOOK");
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Open Laboratory (D424)");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setText("Create an Account");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(SCISLogo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(headTitle)
+                        .addGap(121, 121, 121))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(54, 54, 54))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(headTitle)
+                    .addComponent(SCISLogo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(22, 22, 22))
+        );
+
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 690));
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("X");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 30, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 580, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,7 +321,7 @@ public final class UserLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_subjectComboBoxActionPerformed
 
-    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Registration reg = null;
         try {
             reg = new Registration();
@@ -283,7 +330,11 @@ public final class UserLogin extends javax.swing.JFrame {
         }
         reg.setVisible(true);
         dispose();
-    }//GEN-LAST:event_registerButtonActionPerformed
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     private Boolean validateAccount(String id, String password, String subject) throws SQLException {
         boolean res = false;
@@ -412,7 +463,7 @@ public final class UserLogin extends javax.swing.JFrame {
         ps.executeUpdate();
         ps.close();
     }
-    
+
     private void resetFields() {
         idNumber.setText("");
         userPassword.setText("");
@@ -468,14 +519,17 @@ public final class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel headTitle;
     public static javax.swing.JTextField idNumber;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logInButton;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel purposeLabel;
-    private javax.swing.JButton registerButton;
     public static javax.swing.JComboBox<String> subjectComboBox;
     private javax.swing.JLabel timeLabel;
     public static javax.swing.JPasswordField userPassword;
