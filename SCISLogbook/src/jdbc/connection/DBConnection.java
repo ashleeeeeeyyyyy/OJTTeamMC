@@ -21,7 +21,7 @@ public class DBConnection {
 
     public static Connection connectDB() {
         String dbDriver = "com.mysql.jdbc.Driver";
-        String connStr = "jdbc:mysql://localhost:3306/scislog?user=root&pwd=";
+        String connStr = "jdbc:mysql://localhost:8889/scislog?user=root&pwd=";
         try {
             Class.forName(dbDriver);
             con = DriverManager.getConnection(connStr);

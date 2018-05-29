@@ -14,7 +14,10 @@ public class Instructions extends javax.swing.JFrame {
      * Creates new form Instructions
      */
     public Instructions() {
+        setUndecorated(true);
         initComponents();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
