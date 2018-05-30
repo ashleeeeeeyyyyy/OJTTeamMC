@@ -22,7 +22,9 @@ public class NewAdviser extends javax.swing.JFrame {
      * Creates new form NewAdviser
      */
     public NewAdviser() {
+        setResizable(false);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

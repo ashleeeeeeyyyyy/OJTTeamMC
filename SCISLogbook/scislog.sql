@@ -32,8 +32,8 @@ CREATE TABLE `accounts` (
   `adviser` varchar(45) NOT NULL,
   PRIMARY KEY (`account_id`),
   KEY `idnumber_idx` (`idnumber`),
-  CONSTRAINT `idnumber` FOREIGN KEY (`idnumber`) REFERENCES `students` (`idnumber`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  CONSTRAINT `idnumber` FOREIGN KEY (`idnumber`) REFERENCES `students` (`idnumber`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,8 +42,32 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (4,2165522,'Practicum 1','9365','Ma. Concepcion Clemente'),(6,2166167,'Practicum 1','9635','Ma. Concepcion Clemente'),(7,2166167,'IT Project','9632','Cecilia Mercado'),(10,2163227,'IT Project','9876','Ma. Concepcion Clemente');
+INSERT INTO `accounts` VALUES (15,2167978,'Practicum 1','9412','Ma. Concepcion Clemente'),(16,2162322,'Practicum 1','9412','Ma. Concepcion Clemente'),(17,2166167,'Practicum 1','9412','Ma. Concepcion Clemente'),(18,2165775,'Practicum 1','9412','Ma. Concepcion Clemente');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `faculty`
+--
+
+DROP TABLE IF EXISTS `faculty`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `faculty` (
+  `fac_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fac_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`fac_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `faculty`
+--
+
+LOCK TABLES `faculty` WRITE;
+/*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
+INSERT INTO `faculty` VALUES (1,'Ma. Concepcion Clemente'),(2,'Dr. Cecilia Mercado'),(3,'Jonathan Ramirez'),(4,'Ria Andrea Nana'),(5,'Dr. Gerry Paul Genove'),(6,'Randy Domantay'),(7,'Bench Bacani'),(8,'Carlos Ben Montes'),(9,'Landley Bernardo'),(14,'Maam Kasima'),(13,'Earl Jethro');
+/*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -63,8 +87,8 @@ CREATE TABLE `logs` (
   `hours_rendered` time DEFAULT NULL,
   PRIMARY KEY (`log_id`),
   KEY `account_id_idx` (`account_id`),
-  CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +97,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES (12,10,'Open Laboratory (D424)','May 26, 2018','09:39:46','11:39:56','00:00:10');
+INSERT INTO `logs` VALUES (19,15,'Open Laboratory (D424)','May 30, 2018','10:50:00',NULL,NULL),(20,16,'Open Laboratory (D424)','May 30, 2018','10:52:02',NULL,NULL),(21,17,'Open Laboratory (D424)','May 30, 2018','10:56:54',NULL,NULL),(22,18,'Open Laboratory (D424)','May 30, 2018','11:00:12',NULL,NULL);
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +125,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES (2163227,'Ray Oliver','Servidad','BSIT-3','Password1234'),(2164631,'JESSIE','TABILISMA','BSIT-3','jessieT'),(2165522,'Earl','Rimando','BSCS-3','password'),(2166167,'Janxiene','Maniti','BSIT-3','Password');
+INSERT INTO `students` VALUES (2162322,'Ashley Chester','Pua Phee','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2165522,'Earl','Rimando','BSIT-3','Z‚öa³™†O\rsÑ½VAþC'),(2165775,'Bill Lenard','Hilarion','BSIT-3','ð±âÿ+üN Œ˜E5'),(2166167,'Janxiene Azly','Maniti','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2167978,'Genrie','Gayaso','BSIT-3','xõŸ³ªÇ dZf¯´2DÑ');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,4 +222,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-26 11:46:24
+-- Dump completed on 2018-05-30 11:05:39

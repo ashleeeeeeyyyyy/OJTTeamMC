@@ -22,8 +22,9 @@ public class ConfirmPassword extends javax.swing.JFrame {
      * Creates new form ConfirmPassword
      */
     public ConfirmPassword() {
-        initComponents();
         setResizable(false);
+        initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

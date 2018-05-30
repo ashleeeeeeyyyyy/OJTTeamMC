@@ -1,17 +1,16 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -32,9 +31,9 @@ public final class UserLogin extends javax.swing.JFrame {
      * Creates new form UserLogin
      */
     public UserLogin() {
-        setUndecorated(true);
-        initComponents();
+//        setUndecorated(true);
         setResizable(false);
+        initComponents();
         setLocationRelativeTo(null);
         showDate();
         showTime();
@@ -71,7 +70,7 @@ public final class UserLogin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         jPanel3 = new javax.swing.JPanel();
-        idNumber = new javax.swing.JTextField();
+        idNumber = new javax.swing.JTextField(10);
         logInButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
         passwordLabel = new javax.swing.JLabel();
@@ -86,14 +85,14 @@ public final class UserLogin extends javax.swing.JFrame {
         headTitle = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1024, 600));
 
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.setBackground(new java.awt.Color(180, 180, 180));
         jPanel3.setForeground(new java.awt.Color(51, 51, 51));
         jPanel3.setMinimumSize(new java.awt.Dimension(1336, 768));
         jPanel3.setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -241,15 +240,9 @@ public final class UserLogin extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 690));
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("X");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 30, -1));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText(" v1.0");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 650, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -288,6 +281,8 @@ public final class UserLogin extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException err) {
+            JOptionPane.showMessageDialog(this, "Please select a subject.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_logInButtonActionPerformed
 
@@ -331,10 +326,6 @@ public final class UserLogin extends javax.swing.JFrame {
         reg.setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel4MouseClicked
 
     private Boolean validateAccount(String id, String password, String subject) throws SQLException {
         boolean res = false;
@@ -470,6 +461,12 @@ public final class UserLogin extends javax.swing.JFrame {
         subjectComboBox.setSelectedIndex(-1);
     }
 
+    private void textFieldKeyTyped(KeyEvent evt) {
+        if (idNumber.getText().length() >= 4) {
+            evt.consume();
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -520,9 +517,9 @@ public final class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel headTitle;
     public static javax.swing.JTextField idNumber;
     private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

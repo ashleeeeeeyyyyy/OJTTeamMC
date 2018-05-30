@@ -24,8 +24,10 @@ public class Registration extends javax.swing.JFrame {
      * Creates new form Registration
      */
     public Registration() throws SQLException {
-        initComponents();
+//        setUndecorated(true);
         setResizable(false);
+        initComponents();
+        setLocationRelativeTo(null);
         adviserComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
         adviserComboBox.setSelectedIndex(-1);
     }
@@ -50,7 +52,6 @@ public class Registration extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         adviserNotListed = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        headTitle = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -58,39 +59,28 @@ public class Registration extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        headTitle = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         popupMenu1.setLabel("popupMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1024, 680));
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(180, 180, 180));
 
         subjectComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
-        subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Practicum 1", "IT Project" }));
+        subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Practicum 1", "IT Project" }));
         subjectComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subjectComboBoxActionPerformed(evt);
@@ -165,10 +155,6 @@ public class Registration extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
 
-        headTitle.setFont(new java.awt.Font("Bebas", 0, 36)); // NOI18N
-        headTitle.setForeground(new java.awt.Color(204, 204, 204));
-        headTitle.setText("Account Registration");
-
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("INSTRUCTIONS:");
@@ -197,190 +183,91 @@ public class Registration extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
         jLabel8.setText("using your registered ID number. ");
 
+        jLabel9.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel9.setText("fields blank.");
+
         jLabel10.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel10.setText("b.Make sure that the ID number to be");
-
-        jLabel11.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel11.setText("registered is your SLU ID number.");
-
-        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel12.setText("c.Fill out the forms and dont leave ");
-
-        jLabel13.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel13.setText("any fields blank.");
-
-        jLabel14.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(204, 204, 204));
-
-        jLabel15.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel15.setText("d.Your password should contain atleast");
-
-        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel16.setText("8 minimum characters.Consists of");
-
-        jLabel17.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel17.setText("uppercase and lowercase characters,");
-
-        jLabel18.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel18.setText("and a number.");
-
-        jLabel19.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel19.setText("e. Once done,Click 'Register and proceed");
-
-        jLabel20.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel20.setText("to the registration for the subject.");
+        jLabel10.setText("a.Fill out the forms and don't leave any");
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel21.setText("a.Fill out the forms and dont leave ");
+        jLabel21.setText("b.Input the Class Code where you are ");
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel22.setText("any fields blank.");
+        jLabel22.setText("currently enrolled in and select your");
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel23.setText("b.Input the Class Code where you are");
+        jLabel23.setText(" adviser for the course.");
 
         jLabel24.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel24.setText("currently enrolled in and select your");
+        jLabel24.setText("c.If you are unable to find your adviser for");
 
         jLabel25.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel25.setText("adviser for the course.");
+        jLabel25.setText("the subject,click the text \"adviser not ");
 
-        jLabel26.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel26.setText("If you are unable ");
+        jLabel50.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel50.setText("listed and insert your adviser's name.");
 
-        jLabel27.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel27.setText("If you are unable to find your adviser");
+        jLabel51.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel51.setText("d.Click \"submit\" to complete your ");
 
-        jLabel28.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel28.setText("for the subject,click the text \"adviser");
-
-        jLabel29.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel29.setText("not listed\",and insert your ");
-
-        jLabel30.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel30.setText("account.");
-
-        jLabel31.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel31.setText("name and click \"Submit\" to create your");
-
-        jLabel32.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel32.setText("adviser's");
+        jLabel52.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel52.setText("registration.");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel5))
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel6))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel7)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel24)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel21)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(headTitle)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel14)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(25, 25, 25)
-                                                .addComponent(jLabel11))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(22, 22, 22)
-                                                .addComponent(jLabel13))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(29, 29, 29)
-                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel17)
-                                                    .addComponent(jLabel16)
-                                                    .addComponent(jLabel18)))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addComponent(jLabel19))))))
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel22)))
+                            .addComponent(jLabel51)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
+                                .addGap(10, 10, 10)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel15)))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel23)
-                                            .addComponent(jLabel21)))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(jLabel22)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel25)
+                                    .addComponent(jLabel50)
+                                    .addComponent(jLabel52))))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30)
-                    .addComponent(jLabel31)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel20)
-                            .addGap(54, 54, 54))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel25)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29)))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(343, Short.MAX_VALUE)
-                    .addComponent(jLabel32)
-                    .addGap(31, 31, 31)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(headTitle)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -391,63 +278,44 @@ public class Registration extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel7))))
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel21)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel26))
+                .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel27)
+                .addComponent(jLabel50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel51)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel30)
-                .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(765, Short.MAX_VALUE)
-                    .addComponent(jLabel32)
-                    .addGap(82, 82, 82)))
+                .addComponent(jLabel52)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
+
+        headTitle.setFont(new java.awt.Font("Bebas", 0, 48)); // NOI18N
+        headTitle.setForeground(new java.awt.Color(51, 51, 51));
+        headTitle.setText("account registration");
+
+        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel12.setText("Go back to Log in page...");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -455,12 +323,9 @@ public class Registration extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(RegisterID)
-                        .addGap(341, 341, 341))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(registerButton)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -475,20 +340,33 @@ public class Registration extends javax.swing.JFrame {
                                     .addComponent(subjectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(IDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(88, 88, 88))
+                                    .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(RegisterID)
+                                    .addGap(89, 89, 89))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(headTitle)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)))
+                .addGap(0, 53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addGap(36, 36, 36)
+                .addComponent(headTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RegisterID)
-                .addGap(62, 62, 62)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(subjectLabel)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -508,10 +386,12 @@ public class Registration extends javax.swing.JFrame {
                     .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(adviserNotListed)
-                .addGap(58, 58, 58)
+                .addGap(40, 40, 40)
                 .addComponent(registerButton)
-                .addContainerGap(348, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         subjectComboBox.setSelectedIndex(-1);
@@ -525,9 +405,7 @@ public class Registration extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -542,7 +420,6 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_adviserComboBoxActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-
         if (!isFilledOut()) {
             JOptionPane.showMessageDialog(this, "Fill out all fields", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (!idNumberExists(IDTextField.getText())) {
@@ -557,11 +434,12 @@ public class Registration extends javax.swing.JFrame {
             new ConfirmPassword().setVisible(true);
             dispose();
         }
-
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void RegisterIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterIDActionPerformed
         new IDRegistration().setVisible(true);
+        this.dispose();
+        resetFields();
     }//GEN-LAST:event_RegisterIDActionPerformed
 
     private void codeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeTextFieldActionPerformed
@@ -576,6 +454,12 @@ public class Registration extends javax.swing.JFrame {
         this.dispose();
         new NewAdviser().setVisible(true);
     }//GEN-LAST:event_adviserNotListedMouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+       new UserLogin().setVisible(true);
+       this.dispose();
+       resetFields();
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     private Boolean idNumberExists(String idnumber) {
         boolean res = false;
@@ -726,7 +610,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel IDLabel;
     protected static final javax.swing.JTextField IDTextField = new javax.swing.JTextField();
     private javax.swing.JButton RegisterID;
-    protected static final javax.swing.JComboBox<String> adviserComboBox = new javax.swing.JComboBox<String>();
+    protected static final javax.swing.JComboBox<String> adviserComboBox = new javax.swing.JComboBox<>();
     private javax.swing.JLabel adviserLabel;
     private javax.swing.JLabel adviserNotListed;
     private javax.swing.JLabel classCodeLabel;
@@ -734,40 +618,28 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel headTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JButton registerButton;
-    protected static final javax.swing.JComboBox<String> subjectComboBox = new javax.swing.JComboBox<String>();
+    protected static final javax.swing.JComboBox<String> subjectComboBox = new javax.swing.JComboBox<>();
     private javax.swing.JLabel subjectLabel;
     // End of variables declaration//GEN-END:variables
 }
