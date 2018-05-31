@@ -46,11 +46,8 @@ public class GenerateExcel extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        itproject_log = new javax.swing.JRadioButton();
-        StudPrac_List = new javax.swing.JRadioButton();
-        practicum_log = new javax.swing.JRadioButton();
-        Student_log = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +69,7 @@ public class GenerateExcel extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(112, 112, 112)
                         .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,32 +81,17 @@ public class GenerateExcel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        buttonGroup1.add(itproject_log);
-        itproject_log.setText("IT Project Log");
-
-        buttonGroup1.add(StudPrac_List);
-        StudPrac_List.setText("Student List (Practicum 1)");
-        StudPrac_List.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StudPrac_ListActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(practicum_log);
-        practicum_log.setText("Practicum Log");
-        practicum_log.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                practicum_logActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(Student_log);
-        Student_log.setText("Student List( IT Project)");
-
         jButton1.setText("Generate Excel File");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IT Project Log", "Practicum Log", "Student List(Practicum 1)", "Student List(IT Project)" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -118,36 +100,22 @@ public class GenerateExcel extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(itproject_log)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(StudPrac_List))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(practicum_log)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Student_log)))
-                .addContainerGap(181, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(71, 71, 71))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(itproject_log)
-                    .addComponent(StudPrac_List))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(practicum_log)
-                    .addComponent(Student_log))
-                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -168,18 +136,13 @@ public class GenerateExcel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void practicum_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_practicum_logActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_practicum_logActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection conn;
         try {
             conn = jdbc.connection.DBConnection.connectDB();
             Statement stmt = conn.createStatement();
-
             //Filtering for the Log of IT Project
-            if (itproject_log.isSelected()) {
+            if (jComboBox1.getSelectedItem().toString() == "IT Project Log") {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
         /* Define the SQL query */
@@ -238,7 +201,7 @@ public class GenerateExcel extends javax.swing.JFrame {
             }
 
             // Filtering the log for the practicum
-            if (practicum_log.isSelected()) {
+            if (jComboBox1.getSelectedItem().toString() == "Practicum Log") {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
@@ -296,7 +259,7 @@ public class GenerateExcel extends javax.swing.JFrame {
             }
 
             // Filtering the List of Student Enrolled in Practicum 1
-            if (StudPrac_List.isSelected()) {
+            if (jComboBox1.getSelectedItem().toString() == "Student List(Practicum 1)") {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
@@ -350,7 +313,7 @@ public class GenerateExcel extends javax.swing.JFrame {
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
             }
-            if (Student_log.isSelected()) {
+            if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                  /* Define the SQL query */
@@ -409,12 +372,13 @@ public class GenerateExcel extends javax.swing.JFrame {
             x.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(GenerateExcel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }      
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void StudPrac_ListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StudPrac_ListActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+                                 
         // TODO add your handling code here:
-    }//GEN-LAST:event_StudPrac_ListActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,15 +417,12 @@ public class GenerateExcel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton StudPrac_List;
-    private javax.swing.JRadioButton Student_log;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JRadioButton itproject_log;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton practicum_log;
     // End of variables declaration//GEN-END:variables
 }
