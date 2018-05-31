@@ -27,21 +27,13 @@ public class AdminMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        generateExcel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        add_remove_subjects = new javax.swing.JButton();
-        add_remove_faculty = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        generateExcel.setText("Generate Excel Files");
-        generateExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generateExcelActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 36)); // NOI18N
         jLabel1.setText("SCIS Student Logbook");
@@ -50,21 +42,13 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel2.setText("Admin Module");
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jLabel3.setText("Functions:");
+        jLabel3.setText("Generate Excel Files");
 
-        add_remove_subjects.setText("Add/Remove Subjects");
-        add_remove_subjects.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_remove_subjectsActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel4.setText("Add/Remove Subjects");
 
-        add_remove_faculty.setText("Add/Remove Faculty");
-        add_remove_faculty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_remove_facultyActionPerformed(evt);
-            }
-        });
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel5.setText("Add/Remove Faculty");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,13 +63,9 @@ public class AdminMain extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(add_remove_subjects)
-                            .addComponent(generateExcel)
-                            .addComponent(add_remove_faculty))))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -95,31 +75,17 @@ public class AdminMain extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(32, 32, 32)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(generateExcel)
-                .addGap(18, 18, 18)
-                .addComponent(add_remove_subjects)
-                .addGap(18, 18, 18)
-                .addComponent(add_remove_faculty)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addGap(93, 93, 93)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(104, 104, 104))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void generateExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateExcelActionPerformed
-        new generate_excel.GenerateExcel().setVisible(true);
-    }//GEN-LAST:event_generateExcelActionPerformed
-
-    private void add_remove_subjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_remove_subjectsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_add_remove_subjectsActionPerformed
-
-    private void add_remove_facultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_remove_facultyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_add_remove_facultyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,11 +123,10 @@ public class AdminMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add_remove_faculty;
-    private javax.swing.JButton add_remove_subjects;
-    private javax.swing.JButton generateExcel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
