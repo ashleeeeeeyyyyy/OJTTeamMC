@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import validation.Validator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Earl
@@ -37,13 +37,18 @@ public class NewAdviser extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        adviserTextField = new javax.swing.JTextField();
+        fnameTextField = new javax.swing.JTextField();
         saveAdviser = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lnameTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel1.setText("Enter name of Adviser:");
+
+        fnameTextField.setDocument(new JTextFieldLimit(30));
 
         saveAdviser.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         saveAdviser.setText("Save");
@@ -53,21 +58,39 @@ public class NewAdviser extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel2.setText("Last Name:");
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel3.setText("First Name:");
+
+        fnameTextField.setDocument(new JTextFieldLimit(30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(saveAdviser)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(55, 55, 55)
-                            .addComponent(adviserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(saveAdviser)
+                        .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel2)))
+                        .addGap(80, 80, 80))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fnameTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lnameTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,10 +98,16 @@ public class NewAdviser extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(adviserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(saveAdviser)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,23 +116,34 @@ public class NewAdviser extends javax.swing.JFrame {
     private void saveAdviserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAdviserActionPerformed
         Connection con;
         PreparedStatement ps;
-        
+
         con = jdbc.connection.DBConnection.connectDB();
-        String query = "INSERT into faculty (fac_name) VALUES (?)";
+        String query = "INSERT into faculty (fac_fname, fac_lname) VALUES (?,?)";
         try {
-            ps = con.prepareStatement(query);
-            ps.setString(1, adviserTextField.getText());
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Adviser name is saved successfully.");          
-            this.dispose();
-            Registration newReg = new Registration();
-            newReg.adviserComboBox.setSelectedItem(adviserTextField.getText());
-            newReg.setVisible(true);
-            
+            if (Validator.checkDigit(fnameTextField.getText()) || Validator.checkDigit(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain numeric characters.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkWhitespace(fnameTextField.getText()) || Validator.checkWhitespace(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not start with a whitespace.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkSymbols(fnameTextField.getText()) || Validator.checkSymbols(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain unnecessary symbols.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ps = con.prepareStatement(query);
+                ps.setString(1, fnameTextField.getText());
+                ps.setString(2, lnameTextField.getText());
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Adviser name is saved successfully.");
+                this.dispose();
+                Registration newReg = new Registration();
+                newReg.adviserComboBox.setSelectedItem(fnameTextField.getText());
+                newReg.setVisible(true);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(NewAdviser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_saveAdviserActionPerformed
+
+    
 
     /**
      * @param args the command line arguments
@@ -141,8 +181,11 @@ public class NewAdviser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField adviserTextField;
+    private javax.swing.JTextField fnameTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField lnameTextField;
     private javax.swing.JButton saveAdviser;
     // End of variables declaration//GEN-END:variables
 }

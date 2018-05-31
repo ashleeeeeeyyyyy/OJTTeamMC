@@ -46,6 +46,8 @@ public class ConfirmPassword extends javax.swing.JFrame {
         pLabel.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         pLabel.setText("Verify your ID.");
 
+        passwordField.setDocument(new JTextFieldLimit(20));
+
         jButton1.setFont(new java.awt.Font("Yu Gothic UI", 0, 20)); // NOI18N
         jButton1.setText("Register");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

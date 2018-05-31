@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import validation.Validator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,9 +23,13 @@ public class Registration extends javax.swing.JFrame {
 
     /**
      * Creates new form Registration
+     *
+     * @throws java.sql.SQLException
      */
     public Registration() throws SQLException {
 //        setUndecorated(true);
+
+        this.setTitle("SCIS Student Logbook");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
@@ -70,14 +75,14 @@ public class Registration extends javax.swing.JFrame {
         jLabel51 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         headTitle = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        home = new javax.swing.JLabel();
 
         popupMenu1.setLabel("popupMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1024, 680));
 
-        jPanel2.setBackground(new java.awt.Color(180, 180, 180));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         subjectComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
         subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Practicum 1", "IT Project" }));
@@ -102,6 +107,7 @@ public class Registration extends javax.swing.JFrame {
         classCodeLabel.setForeground(new java.awt.Color(51, 51, 51));
         classCodeLabel.setText("Class Code:");
 
+        codeTextField.setDocument(new JTextFieldLimit(5));
         codeTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         codeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +115,7 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
+        IDTextField.setDocument(new JTextFieldLimit(7));
         IDTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         IDTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,116 +160,118 @@ public class Registration extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("INSTRUCTIONS:");
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("1. Register your ID Number");
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
         jLabel3.setText("(Skip to #2 if already done.)");
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("a. Click on the \"Register ID Number\"");
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel6.setText("button to open the id registration page.");
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("button to open the ID Registration Page.");
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("2. Register your account for a specific subject");
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setText("2. Register your account for a specific");
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel8.setText("using your registered ID number. ");
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setText("subject using your registered ID number. ");
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("fields blank.");
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel10.setText("a.Fill out the forms and don't leave any");
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setText("a. Fill out the forms and don't leave any");
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel21.setText("b.Input the Class Code where you are ");
+        jLabel21.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel21.setText("b. Input the Class Code where you are ");
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel22.setForeground(new java.awt.Color(51, 51, 51));
         jLabel22.setText("currently enrolled in and select your");
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel23.setForeground(new java.awt.Color(51, 51, 51));
         jLabel23.setText(" adviser for the course.");
 
         jLabel24.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel24.setForeground(new java.awt.Color(51, 51, 51));
         jLabel24.setText("c.If you are unable to find your adviser for");
 
         jLabel25.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel25.setText("the subject,click the text \"adviser not ");
+        jLabel25.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel25.setText("the subject , click the text \"adviser not ");
 
         jLabel50.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel50.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel50.setForeground(new java.awt.Color(51, 51, 51));
         jLabel50.setText("listed and insert your adviser's name.");
 
         jLabel51.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel51.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel51.setText("d.Click \"submit\" to complete your ");
+        jLabel51.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel51.setText("d.Click \"Submit\" to complete your ");
 
         jLabel52.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel52.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel52.setForeground(new java.awt.Color(51, 51, 51));
         jLabel52.setText("registration.");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel24)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel21)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel23)
+                                            .addComponent(jLabel22)))
+                                    .addComponent(jLabel51)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel25)
+                                            .addComponent(jLabel50)
+                                            .addComponent(jLabel52)))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jLabel5))
-                            .addComponent(jLabel3)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel6))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel24)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel21)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel23)
-                                    .addComponent(jLabel22)))
-                            .addComponent(jLabel51)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel25)
-                                    .addComponent(jLabel50)
-                                    .addComponent(jLabel52))))))
-                .addContainerGap())
+                                .addComponent(jLabel8)))
+                        .addContainerGap(33, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(21, 21, 21))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,12 +317,10 @@ public class Registration extends javax.swing.JFrame {
         headTitle.setForeground(new java.awt.Color(51, 51, 51));
         headTitle.setText("account registration");
 
-        jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("Go back to Log in page...");
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/home.png"))); // NOI18N
+        home.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
+                homeMouseClicked(evt);
             }
         });
 
@@ -321,11 +328,14 @@ public class Registration extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(39, 39, 39)
+                        .addComponent(RegisterID))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(registerButton)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -342,24 +352,20 @@ public class Registration extends javax.swing.JFrame {
                                     .addComponent(IDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(codeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(RegisterID)
-                                    .addGap(89, 89, 89))
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(headTitle)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(home))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12)))
-                .addGap(0, 53, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(headTitle)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12)
+                .addComponent(home)
                 .addGap(36, 36, 36)
                 .addComponent(headTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -422,14 +428,18 @@ public class Registration extends javax.swing.JFrame {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         if (!isFilledOut()) {
             JOptionPane.showMessageDialog(this, "Fill out all fields", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!idNumberExists(IDTextField.getText())) {
+        } else if (!Validator.idNumberExists(IDTextField.getText())) {
             JOptionPane.showMessageDialog(this, "ID Number is not yet Registered", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!codeValidator(codeTextField.getText())) {
+        } else if (Validator.checkWhitespace(codeTextField.getText())) {
+            JOptionPane.showMessageDialog(this, "Class Code should not start with a whitespace.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!Validator.codeValidator(codeTextField.getText())) {
             JOptionPane.showMessageDialog(this, "Enter a valid class code", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (IDIsExisting(IDTextField.getText(), subjectComboBox.getSelectedItem().toString())) {
+        } else if (Validator.registeredAlready(IDTextField.getText(), subjectComboBox.getSelectedItem().toString())) {
             JOptionPane.showMessageDialog(this, "ID Number " + IDTextField.getText() + " is already registered"
                     + "\nin the subject " + subjectComboBox.getSelectedItem().toString() + ".", "Error", JOptionPane.ERROR_MESSAGE);
             resetFields();
+        } else if (Validator.checkSymbols(codeTextField.getText())) {
+            JOptionPane.showMessageDialog(this, "Class Code should not contain unnecessary symbols.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             new ConfirmPassword().setVisible(true);
             dispose();
@@ -455,45 +465,11 @@ public class Registration extends javax.swing.JFrame {
         new NewAdviser().setVisible(true);
     }//GEN-LAST:event_adviserNotListedMouseClicked
 
-    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-       new UserLogin().setVisible(true);
-       this.dispose();
-       resetFields();
-    }//GEN-LAST:event_jLabel12MouseClicked
-
-    private Boolean idNumberExists(String idnumber) {
-        boolean res = false;
-
-        Connection con;
-        Statement stmt;
-        ResultSet rs;
-        String query;
-
-        try {
-            con = jdbc.connection.DBConnection.connectDB();
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
-            query = "SELECT idnumber from students where idnumber = " + idnumber;
-
-            rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                res = true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return res;
-    }
-
-    private Boolean codeValidator(String code) {
-        boolean flag = false;
-
-        if (code.length() == 4 && code.charAt(0) == '9') {
-            return true;
-        }
-
-        return flag;
-    }
+    private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
+        new UserLogin().setVisible(true);
+        this.dispose();
+        resetFields();
+    }//GEN-LAST:event_homeMouseClicked
 
     private void resetFields() {
         IDTextField.setText("");
@@ -513,43 +489,13 @@ public class Registration extends javax.swing.JFrame {
         return res;
     }
 
-    private Boolean IDIsExisting(String id, String subject) {
-        boolean res = false;
-        Connection con;
-        PreparedStatement ps;
-        ResultSet rs;
-        String query;
-
-        try {
-            con = jdbc.connection.DBConnection.connectDB();
-
-            query = "SELECT * from `accounts` where `idnumber` = ? and `subject` = ?";
-
-            ps = con.prepareStatement(query);
-            ps.setString(1, id);
-            ps.setString(2, subject);
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                res = true;
-            }
-
-            rs.close();
-            ps.close();
-            con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return res;
-    }
-
     public String[] faculty() throws SQLException {
         Connection con;
         con = jdbc.connection.DBConnection.connectDB();
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE);
 
-        String query = "SELECT fac_name from faculty";
+        String query = "SELECT CONCAT(fac_fname,' ',fac_lname) as fac_name from faculty";
         ResultSet rs = stmt.executeQuery(query);
 
         ArrayList list = new ArrayList();
@@ -616,9 +562,9 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel classCodeLabel;
     protected static final javax.swing.JTextField codeTextField = new javax.swing.JTextField();
     private javax.swing.JLabel headTitle;
+    private javax.swing.JLabel home;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import validation.Validator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,6 +25,8 @@ public class IDRegistration extends javax.swing.JFrame {
      */
     public IDRegistration() {
 //        setUndecorated(true);
+
+        this.setTitle("SCIS Student Logbook");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
@@ -67,26 +70,29 @@ public class IDRegistration extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        headTitle1 = new javax.swing.JLabel();
+        headTitle2 = new javax.swing.JLabel();
         SCISLogo = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         headTitle = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(180, 180, 180));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         IDNumberLabel.setFont(new java.awt.Font("Yu Gothic", 0, 24)); // NOI18N
         IDNumberLabel.setForeground(new java.awt.Color(51, 51, 51));
         IDNumberLabel.setText("ID Number: ");
 
+        IDTextField.setDocument(new JTextFieldLimit(7));
         IDTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
 
         fNameLabel.setFont(new java.awt.Font("Yu Gothic", 0, 24)); // NOI18N
         fNameLabel.setForeground(new java.awt.Color(51, 51, 51));
         fNameLabel.setText("First Name:");
 
+        fNameTextField.setDocument(new JTextFieldLimit(20));
         fNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         fNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +104,7 @@ public class IDRegistration extends javax.swing.JFrame {
         lNameLabel.setForeground(new java.awt.Color(51, 51, 51));
         lNameLabel.setText("Last Name:");
 
+        lNameTextField.setDocument(new JTextFieldLimit(12));
         lNameTextField.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         lNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +130,7 @@ public class IDRegistration extends javax.swing.JFrame {
         pwordLabel.setForeground(new java.awt.Color(51, 51, 51));
         pwordLabel.setText("Password: ");
 
+        pwordField.setDocument(new JTextFieldLimit(20));
         pwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pwordFieldActionPerformed(evt);
@@ -133,6 +141,7 @@ public class IDRegistration extends javax.swing.JFrame {
         confPwordLabel.setForeground(new java.awt.Color(51, 51, 51));
         confPwordLabel.setText("Confirm Password:");
 
+        confPwordField.setDocument(new JTextFieldLimit(20));
         confPwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confPwordFieldActionPerformed(evt);
@@ -147,80 +156,70 @@ public class IDRegistration extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("INSTRUCTIONS:");
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("1. Enter your valid SLU ID Number.");
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("2. Enter your first and last name.");
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("3. Enter your current course and year.");
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("4. Enter your password.");
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Light", 3, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel6.setForeground(new java.awt.Color(204, 0, 0));
         jLabel6.setText("Password should contain:");
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Light", 3, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel8.setForeground(new java.awt.Color(204, 0, 0));
         jLabel8.setText("a. At least 1 uppercase and lowercase");
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Light", 3, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel9.setForeground(new java.awt.Color(204, 0, 0));
         jLabel9.setText("characters");
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Light", 3, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel10.setForeground(new java.awt.Color(204, 0, 0));
         jLabel10.setText("b. At least 1 numeric character.");
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Light", 3, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel11.setForeground(new java.awt.Color(204, 0, 0));
         jLabel11.setText("c. At least 8 characters in total.");
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("5. Confirm password then click on");
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
         jLabel12.setText("the 'Register' button to finish.");
 
-        headTitle1.setFont(new java.awt.Font("Bebas", 0, 80)); // NOI18N
-        headTitle1.setForeground(new java.awt.Color(204, 204, 204));
-        headTitle1.setText("scis");
+        headTitle2.setFont(new java.awt.Font("Bebas", 0, 135)); // NOI18N
+        headTitle2.setForeground(new java.awt.Color(51, 51, 51));
+        headTitle2.setText("scis");
 
         SCISLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/SCIS Logo.png"))); // NOI18N
 
-        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel13.setText("STUDENT LOGBOOK");
+        jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 40)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel14.setText("STUDENT LOGBOOK");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(SCISLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(headTitle1)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,17 +242,30 @@ public class IDRegistration extends javax.swing.JFrame {
                         .addComponent(jLabel12)
                         .addComponent(jLabel7)))
                 .addGap(59, 59, 59))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(SCISLogo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(headTitle2))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel14)
+                        .addGap(17, 17, 17)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(headTitle1)
-                    .addComponent(SCISLogo))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(SCISLogo))
+                    .addComponent(headTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -286,10 +298,19 @@ public class IDRegistration extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel15.setText("Go back to Log in page...");
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/home.png"))); // NOI18N
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel15MouseClicked(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
             }
         });
 
@@ -338,17 +359,21 @@ public class IDRegistration extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(headTitle)
                         .addGap(38, 38, 38))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel15)
-                        .addContainerGap(343, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 499, Short.MAX_VALUE)
+                        .addComponent(jLabel16)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15)
-                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
+                .addGap(32, 32, 32)
                 .addComponent(headTitle)
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -378,7 +403,7 @@ public class IDRegistration extends javax.swing.JFrame {
                     .addComponent(confPwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(registerID)
-                .addGap(118, 118, 118))
+                .addGap(66, 66, 66))
         );
 
         courseComboBox.setSelectedIndex(-1);
@@ -392,9 +417,7 @@ public class IDRegistration extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -426,21 +449,28 @@ public class IDRegistration extends javax.swing.JFrame {
 
             if (!isFilledOut()) {
                 JOptionPane.showMessageDialog(this, "Fill out all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkWhitespace(IDTextField.getText()) || Validator.checkWhitespace(fNameTextField.getText())
+                    || Validator.checkWhitespace(lNameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Entries should not start with a whitespace", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (!Validator.checkDigit(IDTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "ID Number should only contain numeric characters.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkSymbols(fNameTextField.getText()) || Validator.checkSymbols(lNameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain unnecessary symbols.", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (!pwordField.getText().equals(confPwordField.getText())) {
                 JOptionPane.showMessageDialog(this, "Passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
                 pwordField.setText("");
                 confPwordField.setText("");
-            } else if (!idValidator(IDTextField.getText())) {
+            } else if (!Validator.idValidator(IDTextField.getText())) {
                 JOptionPane.showMessageDialog(this, "Not a valid SLU ID Number", "Error", JOptionPane.ERROR_MESSAGE);
                 IDTextField.setText("");
-            } else if (idNumberExists(IDTextField.getText())) {
+            } else if (Validator.idNumberExists(IDTextField.getText())) {
                 JOptionPane.showMessageDialog(this, "ID Number is already Existing", "Error", JOptionPane.ERROR_MESSAGE);
                 resetFields();
             } else if (!passwordValidator(pwordField.getText())) {
                 JOptionPane.showMessageDialog(this, "Password should contain\n"
                         + "1. At least 8 characters.\n"
-                        + "2. At least 1 uppercase and lowercase\n"
-                        + "    characters.\n"
+                        + "2. At least 1 uppercase and 1 lowercase\n"
+                        + "    character.\n"
                         + "3. At least 1 numeric character.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 query = "INSERT into students (idnumber, fname, lname, course_year, password) VALUES (?, ?, ?, ?, aes_encrypt(?,'scis2018'))";
@@ -469,46 +499,16 @@ public class IDRegistration extends javax.swing.JFrame {
         resetFields();
     }//GEN-LAST:event_jLabel15MouseClicked
 
-    private Boolean idNumberExists(String idnumber) {
-        boolean res = false;
-
-        Connection con;
-        Statement stmt;
-        ResultSet rs;
-        String query;
-
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         try {
-            con = jdbc.connection.DBConnection.connectDB();
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
-            query = "SELECT idnumber from students where idnumber = " + idnumber;
-
-            rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                res = true;
-            }
+            new Registration().setVisible(true);
+            this.dispose();
+            resetFields();
         } catch (SQLException ex) {
             Logger.getLogger(IDRegistration.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return res;
-    }
-
-    private Boolean idValidator(String id) {
-        boolean flag = false;
-        int digitCount = 0;
-
-        for (int i = 0; i < id.length(); i++) {
-            if (Character.isDigit(id.charAt(i))) {
-                digitCount++;
-            }
-        }
-
-        if (digitCount == 7 && id.charAt(0) == '2') {
-            return true;
-        }
-
-        return flag;
-    }
+        
+    }//GEN-LAST:event_jLabel16MouseClicked
 
     private Boolean isFilledOut() {
         boolean res = true;
@@ -604,13 +604,14 @@ public class IDRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel fNameLabel;
     private javax.swing.JTextField fNameTextField;
     private javax.swing.JLabel headTitle;
-    private javax.swing.JLabel headTitle1;
+    private javax.swing.JLabel headTitle2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

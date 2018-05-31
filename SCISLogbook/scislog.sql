@@ -26,14 +26,16 @@ DROP TABLE IF EXISTS `accounts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `accounts` (
   `account_id` int(11) NOT NULL AUTO_INCREMENT,
-  `idnumber` int(11) NOT NULL,
-  `subject` varchar(45) NOT NULL,
-  `code` varchar(45) NOT NULL,
-  `adviser` varchar(45) NOT NULL,
+  `idnumber` int(7) NOT NULL,
+  `subject` varchar(20) NOT NULL,
+  `code` varchar(5) NOT NULL,
+  `adviser` varchar(30) NOT NULL,
+  `status` varchar(20) DEFAULT 'active',
   PRIMARY KEY (`account_id`),
+  UNIQUE KEY `account_id_UNIQUE` (`account_id`),
   KEY `idnumber_idx` (`idnumber`),
   CONSTRAINT `idnumber` FOREIGN KEY (`idnumber`) REFERENCES `students` (`idnumber`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +44,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (15,2167978,'Practicum 1','9412','Ma. Concepcion Clemente'),(16,2162322,'Practicum 1','9412','Ma. Concepcion Clemente'),(17,2166167,'Practicum 1','9412','Ma. Concepcion Clemente'),(18,2165775,'Practicum 1','9412','Ma. Concepcion Clemente');
+INSERT INTO `accounts` VALUES (15,2167978,'Practicum 1','9412','Ma. Concepcion Clemente','active'),(16,2162322,'Practicum 1','9412','Ma. Concepcion Clemente','active'),(17,2166167,'Practicum 1','9412','Ma. Concepcion Clemente','active'),(18,2165775,'Practicum 1','9412','Ma. Concepcion Clemente','active'),(19,2165522,'Practicum 1','9875','Ma. Concepcion Clemente','active'),(20,2123456,'Practicum 1','9412','Dr. Cecilia Mercado','active'),(21,2161745,'Practicum 1','9865','Bench Bacani','active'),(23,2165522,'IT Project','9555','Cecilia Mercado','active');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,9 +57,10 @@ DROP TABLE IF EXISTS `faculty`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `faculty` (
   `fac_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fac_name` varchar(45) NOT NULL,
+  `fac_fname` varchar(30) NOT NULL,
+  `fac_lname` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`fac_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +69,7 @@ CREATE TABLE `faculty` (
 
 LOCK TABLES `faculty` WRITE;
 /*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
-INSERT INTO `faculty` VALUES (1,'Ma. Concepcion Clemente'),(2,'Dr. Cecilia Mercado'),(3,'Jonathan Ramirez'),(4,'Ria Andrea Nana'),(5,'Dr. Gerry Paul Genove'),(6,'Randy Domantay'),(7,'Bench Bacani'),(8,'Carlos Ben Montes'),(9,'Landley Bernardo'),(14,'Maam Kasima'),(13,'Earl Jethro');
+INSERT INTO `faculty` VALUES (1,'Ma. Concepcion','Clemente'),(2,'Cecilia','Mercado'),(3,'Jonathan','Ramirez'),(4,'Ria Andrea','Nana'),(5,'Gerry Paul','Genove'),(6,'Randy','Domantay'),(7,'Bench','Bacani'),(8,'Carlos Ben','Montes'),(9,'Landley','Bernardo'),(16,'Francis','Magalona');
 /*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,9 +89,8 @@ CREATE TABLE `logs` (
   `time_out` time DEFAULT NULL,
   `hours_rendered` time DEFAULT NULL,
   PRIMARY KEY (`log_id`),
-  KEY `account_id_idx` (`account_id`),
-  CONSTRAINT `account_id` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+  KEY `account_id_idx` (`account_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +99,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES (19,15,'Open Laboratory (D424)','May 30, 2018','10:50:00',NULL,NULL),(20,16,'Open Laboratory (D424)','May 30, 2018','10:52:02',NULL,NULL),(21,17,'Open Laboratory (D424)','May 30, 2018','10:56:54',NULL,NULL),(22,18,'Open Laboratory (D424)','May 30, 2018','11:00:12',NULL,NULL);
+INSERT INTO `logs` VALUES (19,15,'Open Laboratory (D424)','May 30, 2018','10:50:00',NULL,NULL),(20,16,'Open Laboratory (D424)','May 30, 2018','10:52:02',NULL,NULL),(21,17,'Open Laboratory (D424)','May 30, 2018','10:56:54',NULL,NULL),(22,18,'Open Laboratory (D424)','May 30, 2018','11:00:12',NULL,NULL),(23,19,'Open Laboratory (D424)','May 30, 2018','11:22:40','11:13:08','-00:09:32'),(24,20,'Open Laboratory (D424)','May 30, 2018','11:30:30','11:31:49','00:01:19'),(25,21,'Open Laboratory (D424)','May 31, 2018','10:52:33','10:52:59','00:00:26'),(26,23,'Open Laboratory (D424)','May 31, 2018','14:14:35','14:14:42','00:00:07'),(27,19,'Open Laboratory (D424)','May 31, 2018','20:25:38',NULL,NULL),(28,19,'Open Laboratory (D424)','May 31, 2018','20:26:24',NULL,NULL),(29,19,'Open Laboratory (D424)','May 31, 2018','20:48:41',NULL,NULL);
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,10 +111,10 @@ DROP TABLE IF EXISTS `students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `students` (
-  `idnumber` int(11) NOT NULL,
-  `fname` varchar(45) NOT NULL,
-  `lname` varchar(45) NOT NULL,
-  `course_year` varchar(45) NOT NULL,
+  `idnumber` int(7) NOT NULL,
+  `fname` varchar(20) NOT NULL,
+  `lname` varchar(15) NOT NULL,
+  `course_year` varchar(10) NOT NULL,
   `password` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   PRIMARY KEY (`idnumber`),
   UNIQUE KEY `idnumber_UNIQUE` (`idnumber`)
@@ -125,7 +127,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES (2162322,'Ashley Chester','Pua Phee','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2165522,'Earl','Rimando','BSIT-3','Z‚öa³™†O\rsÑ½VAþC'),(2165775,'Bill Lenard','Hilarion','BSIT-3','ð±âÿ+üN Œ˜E5'),(2166167,'Janxiene Azly','Maniti','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2167978,'Genrie','Gayaso','BSIT-3','xõŸ³ªÇ dZf¯´2DÑ');
+INSERT INTO `students` VALUES (2123456,'Juan','Dela Cruz','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2161745,'Genesis','Soriano','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2162322,'Ashley Chester','Pua Phee','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2165522,'Earl Jethro Aaron','Rimando','BSIT-3','q|dšXZu1>EÛrçMI'),(2165775,'Bill Lenard','Hilarion','BSIT-3','ð±âÿ+üN Œ˜E5'),(2166167,'Janxiene Azly','Maniti','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}'),(2167978,'Genrie','Gayaso','BSIT-3','xõŸ³ªÇ dZf¯´2DÑ');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,4 +224,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-30 11:05:39
+-- Dump completed on 2018-05-31 21:01:10

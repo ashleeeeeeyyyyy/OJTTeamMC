@@ -32,6 +32,7 @@ public final class UserLogin extends javax.swing.JFrame {
      */
     public UserLogin() {
 //        setUndecorated(true);
+        this.setTitle("SCIS Student Logbook");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
@@ -70,7 +71,6 @@ public final class UserLogin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         jPanel3 = new javax.swing.JPanel();
-        idNumber = new javax.swing.JTextField(10);
         logInButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
         passwordLabel = new javax.swing.JLabel();
@@ -92,12 +92,13 @@ public final class UserLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1024, 600));
 
-        jPanel3.setBackground(new java.awt.Color(180, 180, 180));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setForeground(new java.awt.Color(51, 51, 51));
         jPanel3.setMinimumSize(new java.awt.Dimension(1336, 768));
         jPanel3.setPreferredSize(new java.awt.Dimension(1366, 768));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        idNumber.setDocument(new JTextFieldLimit(7));
         idNumber.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         idNumber.setForeground(new java.awt.Color(51, 51, 51));
         idNumber.setBorder(null);
@@ -145,6 +146,7 @@ public final class UserLogin extends javax.swing.JFrame {
         IDLabel.setText("ID Number:");
         jPanel3.add(IDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 280, 130, 20));
 
+        userPassword.setDocument(new JTextFieldLimit(20));
         userPassword.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         userPassword.setForeground(new java.awt.Color(51, 51, 51));
         userPassword.setBorder(null);
@@ -184,20 +186,20 @@ public final class UserLogin extends javax.swing.JFrame {
         jPanel3.add(subjectComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 210, 220, -1));
         subjectComboBox.setSelectedIndex(-1);
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
         SCISLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/SCIS Logo.png"))); // NOI18N
 
-        headTitle.setFont(new java.awt.Font("Bebas", 0, 80)); // NOI18N
-        headTitle.setForeground(new java.awt.Color(204, 204, 204));
+        headTitle.setFont(new java.awt.Font("Bebas", 0, 135)); // NOI18N
+        headTitle.setForeground(new java.awt.Color(51, 51, 51));
         headTitle.setText("scis");
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 40)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("STUDENT LOGBOOK");
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Create an Account");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -209,31 +211,36 @@ public final class UserLogin extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(SCISLogo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(headTitle)
-                        .addGap(121, 121, 121))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(54, 54, 54))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(176, 176, 176)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(headTitle)
-                    .addComponent(SCISLogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(SCISLogo))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(headTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(22, 22, 22))
         );
@@ -268,8 +275,12 @@ public final class UserLogin extends javax.swing.JFrame {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         try {
-            if (!validateAccount(idNumber.getText(), userPassword.getText(), subjectComboBox.getSelectedItem().toString())) {
+            if (validateAccount(idNumber.getText(), userPassword.getText(), subjectComboBox.getSelectedItem().toString()) == null) {
                 JOptionPane.showMessageDialog(this, "Invalid " + subjectComboBox.getSelectedItem().toString() + " Account", "Error", JOptionPane.ERROR_MESSAGE);
+                resetFields();
+            } else if ("blocked".equals(validateAccount(idNumber.getText(), userPassword.getText(), subjectComboBox.getSelectedItem().toString()))) {
+                JOptionPane.showMessageDialog(this, "Your "+subjectComboBox.getSelectedItem().toString()+" account is\n"
+                        + "temporarily unavailable.", "Error", JOptionPane.ERROR_MESSAGE);
                 resetFields();
             } else if (checkIfLoggedIn(idNumber.getText())) {
                 JOptionPane.showMessageDialog(this, "You are already logged in.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -288,7 +299,7 @@ public final class UserLogin extends javax.swing.JFrame {
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         try {
-            if (!validateAccount(idNumber.getText(), userPassword.getText(), subjectComboBox.getSelectedItem().toString())) {
+            if (validateAccount(idNumber.getText(), userPassword.getText(), subjectComboBox.getSelectedItem().toString()) == null) {
                 JOptionPane.showMessageDialog(this, "Invalid " + subjectComboBox.getSelectedItem().toString() + " Account", "Error", JOptionPane.ERROR_MESSAGE);
                 resetFields();
             } else if (!checkIfLoggedIn(idNumber.getText())) {
@@ -327,13 +338,13 @@ public final class UserLogin extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private Boolean validateAccount(String id, String password, String subject) throws SQLException {
-        boolean res = false;
+    private String validateAccount(String id, String password, String subject) throws SQLException {
+        String status = null;
         Connection con;
         PreparedStatement ps;
 
         con = jdbc.connection.DBConnection.connectDB();
-        String query = "SELECT idnumber, password, subject from accounts natural "
+        String query = "SELECT idnumber, password, subject, status from accounts natural "
                 + "join students where idnumber = ? and password = aes_encrypt(?,'scis2018') and subject = ?";
         ps = con.prepareStatement(query);
 
@@ -344,14 +355,14 @@ public final class UserLogin extends javax.swing.JFrame {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            res = true;
+            status = rs.getString("status");
         }
 
         rs.close();
         ps.close();
         con.close();
 
-        return res;
+        return status;
     }
 
     private String getAccountID(String idnumber, String subject) throws SQLException {
@@ -515,7 +526,7 @@ public final class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel SCISLogo;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel headTitle;
-    public static javax.swing.JTextField idNumber;
+    protected static final javax.swing.JTextField idNumber = new javax.swing.JTextField(10);
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
