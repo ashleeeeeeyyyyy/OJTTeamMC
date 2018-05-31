@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package generate_excel1;
+import generate_excel.GenerateExcel;
 /**
  *
  * @author janxienemaniti
+ *//**
+ *
+ * @author janxienemaniti
  */
-public class Generate_Excel1 {
+public class SCISLogbookAdmin {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MainWindow filter = new MainWindow();
-        filter.setVisible(true);
+        new main.AdminMain().setVisible(true);
     }
 }

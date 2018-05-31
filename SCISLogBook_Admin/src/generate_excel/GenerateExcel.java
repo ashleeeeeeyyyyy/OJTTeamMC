@@ -1,4 +1,4 @@
-package generate_excel1;
+package generate_excel;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,12 +23,12 @@ import org.apache.poi.ss.usermodel.Row;
  *
  * @author janxienemaniti
  */
-public class MainWindow extends javax.swing.JFrame {
+public class GenerateExcel extends javax.swing.JFrame {
 
     /**
      * Creates new form MainWindow
      */
-    public MainWindow() {
+    public GenerateExcel() {
         initComponents();
     }
 
@@ -175,9 +175,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection conn;
         try {
-            // Connection for the Database.
-            String conStr = "jdbc:mysql://localhost:8889/scislog?user=root&password=";
-            conn = DriverManager.getConnection(conStr);
+            conn = jdbc.connection.DBConnection.connectDB();
             Statement stmt = conn.createStatement();
 
             //Filtering for the Log of IT Project
@@ -410,7 +408,7 @@ public class MainWindow extends javax.swing.JFrame {
         } catch (SQLException x) {
             x.printStackTrace();
         } catch (IOException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GenerateExcel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -435,20 +433,21 @@ public class MainWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateExcel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateExcel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateExcel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateExcel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainWindow().setVisible(true);
+                new GenerateExcel().setVisible(true);
             }
         });
     }
