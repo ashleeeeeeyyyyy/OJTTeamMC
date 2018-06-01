@@ -85,7 +85,7 @@ public class Registration extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         subjectComboBox.setFont(new java.awt.Font("Yu Gothic Light", 0, 18)); // NOI18N
-        subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Practicum 1", "IT Project" }));
+        subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Practicum 1", "IT Project", " " }));
         subjectComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subjectComboBoxActionPerformed(evt);
@@ -397,7 +397,7 @@ public class Registration extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 119, Short.MAX_VALUE))
         );
 
         subjectComboBox.setSelectedIndex(-1);
@@ -411,7 +411,7 @@ public class Registration extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -556,7 +556,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JLabel IDLabel;
     protected static final javax.swing.JTextField IDTextField = new javax.swing.JTextField();
     private javax.swing.JButton RegisterID;
-    protected static final javax.swing.JComboBox<String> adviserComboBox = new javax.swing.JComboBox<>();
+    protected static final javax.swing.JComboBox<String> adviserComboBox = new javax.swing.JComboBox<String>();
     private javax.swing.JLabel adviserLabel;
     private javax.swing.JLabel adviserNotListed;
     private javax.swing.JLabel classCodeLabel;
@@ -585,7 +585,7 @@ public class Registration extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JButton registerButton;
-    protected static final javax.swing.JComboBox<String> subjectComboBox = new javax.swing.JComboBox<>();
+    protected static final javax.swing.JComboBox<String> subjectComboBox = new javax.swing.JComboBox<String>();
     private javax.swing.JLabel subjectLabel;
     // End of variables declaration//GEN-END:variables
 }

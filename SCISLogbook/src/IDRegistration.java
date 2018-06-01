@@ -49,9 +49,9 @@ public class IDRegistration extends javax.swing.JFrame {
         lNameLabel = new javax.swing.JLabel();
         lNameTextField = new javax.swing.JTextField();
         courseLabel = new javax.swing.JLabel();
-        courseComboBox = new javax.swing.JComboBox<>();
+        courseComboBox = new javax.swing.JComboBox<String>();
         yearLabel = new javax.swing.JLabel();
-        yearComboBox = new javax.swing.JComboBox<>();
+        yearComboBox = new javax.swing.JComboBox<String>();
         pwordLabel = new javax.swing.JLabel();
         pwordField = new javax.swing.JPasswordField();
         confPwordLabel = new javax.swing.JLabel();
@@ -117,14 +117,19 @@ public class IDRegistration extends javax.swing.JFrame {
         courseLabel.setText("Course:");
 
         courseComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        courseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BSIT", "BSCS", "BSMATH", "BLIS" }));
+        courseComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BSIT", "BSCS", "BSMATH", "BLIS" }));
+        courseComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseComboBoxActionPerformed(evt);
+            }
+        });
 
         yearLabel.setFont(new java.awt.Font("Yu Gothic", 0, 24)); // NOI18N
         yearLabel.setForeground(new java.awt.Color(51, 51, 51));
         yearLabel.setText("Year:");
 
         yearComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        yearComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        yearComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
 
         pwordLabel.setFont(new java.awt.Font("Yu Gothic", 0, 24)); // NOI18N
         pwordLabel.setForeground(new java.awt.Color(51, 51, 51));
@@ -361,7 +366,7 @@ public class IDRegistration extends javax.swing.JFrame {
                         .addGap(38, 38, 38))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 499, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel16)
                         .addContainerGap())))
         );
@@ -417,7 +422,7 @@ public class IDRegistration extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -509,6 +514,10 @@ public class IDRegistration extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void courseComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_courseComboBoxActionPerformed
 
     private Boolean isFilledOut() {
         boolean res = true;

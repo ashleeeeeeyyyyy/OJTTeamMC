@@ -4,14 +4,17 @@
  * and open the template in the editor.
  */
 package main;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +25,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import validation.Validator;
+
 /**
  *
  * @author Earl
@@ -31,8 +36,10 @@ public class AdminMain extends javax.swing.JFrame {
     /**
      * Creates new form AdminMain
      */
-    public AdminMain() {
+    public AdminMain() throws SQLException {
         initComponents();
+        adviserComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
+        adviserComboBox.setSelectedIndex(-1);
     }
 
     /**
@@ -44,13 +51,21 @@ public class AdminMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        textsubject = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        fnameTextField = new javax.swing.JTextField();
+        lnameTextField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        addName = new javax.swing.JToggleButton();
+        adviserComboBox = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,11 +78,8 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel3.setText("Generate Excel Files");
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jLabel4.setText("Add/Remove Subjects");
-
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jLabel5.setText("Add/Remove Faculty");
+        jLabel5.setText("Add Faculty");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IT Project Log", "Practicum Log", "Student List(Practicum 1)", "Student List(IT Project)" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +92,35 @@ public class AdminMain extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel6.setText("First Name:");
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel7.setText("Last Name:");
+
+        addName.setText("Add");
+        addName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNameActionPerformed(evt);
+            }
+        });
+
+        adviserComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adviserComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel8.setText("Remove Faculty");
+
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
             }
         });
 
@@ -97,10 +138,29 @@ public class AdminMain extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))))
+                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
+                                        .addComponent(addName))
+                                    .addComponent(jLabel8)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteButton)
+                                .addGap(147, 147, 147)))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,11 +176,25 @@ public class AdminMain extends javax.swing.JFrame {
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addGap(104, 104, 104))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(fnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adviserComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteButton))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,7 +215,7 @@ public class AdminMain extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                 /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER","First Name","Last Name","ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT",};
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT",};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
@@ -149,7 +223,7 @@ public class AdminMain extends javax.swing.JFrame {
                     cell.setCellValue((String) headers[rn]);
                 }
                 ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname, adviser, office, code, date,"
-                    + " time_in, time_out FROM logs natural join accounts natural join students where subject = 'IT Project';");
+                        + " time_in, time_out FROM logs natural join accounts natural join students where subject = 'IT Project';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -165,7 +239,7 @@ public class AdminMain extends javax.swing.JFrame {
                     String date = query_set.getString("date");
                     String time_in = query_set.getString("time_in");
                     String time_out = query_set.getString("time_out");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum,fname,lname, adviser, office, class_code, date, time_in, time_out});
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, class_code, date, time_in, time_out});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -200,7 +274,7 @@ public class AdminMain extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                 /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER","First Name","Last Name","ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT"};
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
@@ -223,7 +297,7 @@ public class AdminMain extends javax.swing.JFrame {
                     String date = query_set.getString("date");
                     String time_in = query_set.getString("time_in");
                     String time_out = query_set.getString("time_out");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum,fname,lname, adviser, office, code, date, time_in, time_out});
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, date, time_in, time_out});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -281,94 +355,144 @@ public class AdminMain extends javax.swing.JFrame {
                     String adviser = query_set.getString("adviser");
                     excel_data.put(Integer.toString(row_counter), new Object[]{idnum, name, course_year,
                         subject, code, adviser});
-            }
-            /* Close all DB related objects */
-            query_set.close();
-            stmt.close();
-            conn.close();
+                }
+                /* Close all DB related objects */
+                query_set.close();
+                stmt.close();
+                conn.close();
 
-            /* Load data into logical worksheet */
-            Set<String> keyset = excel_data.keySet();
-            int rownum = 1;
-            for (String key : keyset) { //loop through the data and add them to the cell
-                Row row = sheet.createRow(rownum++);
-                Object[] objArr = excel_data.get(key);
-                int cellnum = 0;
-                for (Object obj : objArr) {
-                    Cell cell = row.createCell(cellnum++);
-                    if (obj instanceof Double) {
-                        cell.setCellValue((Double) obj);
-                    } else {
-                        cell.setCellValue((String) obj);
+                /* Load data into logical worksheet */
+                Set<String> keyset = excel_data.keySet();
+                int rownum = 1;
+                for (String key : keyset) { //loop through the data and add them to the cell
+                    Row row = sheet.createRow(rownum++);
+                    Object[] objArr = excel_data.get(key);
+                    int cellnum = 0;
+                    for (Object obj : objArr) {
+                        Cell cell = row.createCell(cellnum++);
+                        if (obj instanceof Double) {
+                            cell.setCellValue((Double) obj);
+                        } else {
+                            cell.setCellValue((String) obj);
+                        }
                     }
                 }
-            }
 
-            FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_Practicum.xls")); //create XLS file
-            new_workbook.write(output_file);//write excel document to output stream
-            output_file.close(); //close the file
-        }
-        if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
-            HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
-            HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_Practicum.xls")); //create XLS file
+                new_workbook.write(output_file);//write excel document to output stream
+                output_file.close(); //close the file
+            }
+            if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
+                HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
+                HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
             /* Define the SQL query */
-            String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
-                "SUBJECT", "CODE", "ADVISER"};
-            int rownumber = 0;
-            Row r = sheet.createRow(rownumber);
-            for (int rn = 0; rn < headers.length; rn++) {
-                Cell cell = r.createCell(rn);
-                cell.setCellValue((String) headers[rn]);
-            }
-            ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subject, code, adviser FROM accounts natural join students WHERE subject = 'IT Project';");
-            /* Create Map for Excel Data */
-            Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
-            int row_counter = 0;
-            /* Populate data into the Map */
-            while (query_set.next()) {
-                row_counter = row_counter + 1;
-                String idnumber = query_set.getString("idnumber");
-                String name = query_set.getString("name");
-                String course_year = query_set.getString("course_year");
-                String subject = query_set.getString("subject");
-                String code = query_set.getString("code");
-                String adviser = query_set.getString("adviser");
-                excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year,
-                    subject, code, adviser});
-        }
-        /* Close all DB related objects */
-        query_set.close();
-        stmt.close();
-        conn.close();
-
-        /* Load data into logical worksheet */
-        Set<String> keyset = excel_data.keySet();
-        int rownum = 1;
-        for (String key : keyset) { //loop through the data and add them to the cell
-            Row row = sheet.createRow(rownum++);
-            Object[] objArr = excel_data.get(key);
-            int cellnum = 0;
-            for (Object obj : objArr) {
-                Cell cell = row.createCell(cellnum++);
-                if (obj instanceof Double) {
-                    cell.setCellValue((Double) obj);
-                } else {
-                    cell.setCellValue((String) obj);
+                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
+                    "SUBJECT", "CODE", "ADVISER"};
+                int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
+                for (int rn = 0; rn < headers.length; rn++) {
+                    Cell cell = r.createCell(rn);
+                    cell.setCellValue((String) headers[rn]);
                 }
-            }
-        }
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subject, code, adviser FROM accounts natural join students WHERE subject = 'IT Project';");
+                /* Create Map for Excel Data */
+                Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
+                int row_counter = 0;
+                /* Populate data into the Map */
+                while (query_set.next()) {
+                    row_counter = row_counter + 1;
+                    String idnumber = query_set.getString("idnumber");
+                    String name = query_set.getString("name");
+                    String course_year = query_set.getString("course_year");
+                    String subject = query_set.getString("subject");
+                    String code = query_set.getString("code");
+                    String adviser = query_set.getString("adviser");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year,
+                        subject, code, adviser});
+                }
+                /* Close all DB related objects */
+                query_set.close();
+                stmt.close();
+                conn.close();
 
-        FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_ITproject.xls")); //create XLS file
-        new_workbook.write(output_file);//write excel document to output stream
-        output_file.close(); //close the file
-        }
-        JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
+                /* Load data into logical worksheet */
+                Set<String> keyset = excel_data.keySet();
+                int rownum = 1;
+                for (String key : keyset) { //loop through the data and add them to the cell
+                    Row row = sheet.createRow(rownum++);
+                    Object[] objArr = excel_data.get(key);
+                    int cellnum = 0;
+                    for (Object obj : objArr) {
+                        Cell cell = row.createCell(cellnum++);
+                        if (obj instanceof Double) {
+                            cell.setCellValue((Double) obj);
+                        } else {
+                            cell.setCellValue((String) obj);
+                        }
+                    }
+                }
+
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_ITproject.xls")); //create XLS file
+                new_workbook.write(output_file);//write excel document to output stream
+                output_file.close(); //close the file
+            }
+            JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
         } catch (SQLException x) {
             x.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void addNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNameActionPerformed
+        Connection con;
+        PreparedStatement ps;
+
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "INSERT into faculty (fac_fname, fac_lname) VALUES (?,?)";
+        try {
+            if (Validator.checkDigit(fnameTextField.getText()) || Validator.checkDigit(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain numeric characters.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkWhitespace(fnameTextField.getText()) || Validator.checkWhitespace(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not start with a whitespace.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkSymbols(fnameTextField.getText()) || Validator.checkSymbols(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain unnecessary symbols.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ps = con.prepareStatement(query);
+                ps.setString(1, fnameTextField.getText());
+                ps.setString(2, lnameTextField.getText());
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Adviser is saved successfully.");
+                this.dispose();
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_addNameActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        try {
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            String toDelete = adviserComboBox.getSelectedItem().toString(); 
+            String parts [] = toDelete.split(" ");
+            String lastname = parts[1];
+            String query = "DELETE FROM `scislog`.`faculty` WHERE fac_lname ='"+lastname+"';";
+            stmt.executeUpdate(query);
+         
+            this.dispose();
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void adviserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adviserComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adviserComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -400,18 +524,51 @@ public class AdminMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMain().setVisible(true);
+                try {
+                    new AdminMain().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
+    public String[] faculty() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+
+        String query = "SELECT CONCAT(fac_fname,' ',fac_lname) as fac_name from faculty";
+        ResultSet rs = stmt.executeQuery(query);
+
+        ArrayList list = new ArrayList();
+
+        while (rs.next()) {
+            list.add(rs.getString("fac_name"));
+        }
+        String[] fac = new String[list.size()];
+        list.toArray(fac);
+
+        return fac;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton addName;
+    private javax.swing.JComboBox adviserComboBox;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JTextField fnameTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField lnameTextField;
+    private javax.swing.JTextField textsubject;
     // End of variables declaration//GEN-END:variables
 }
