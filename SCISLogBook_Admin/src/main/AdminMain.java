@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,7 +55,7 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         fnameTextField = new javax.swing.JTextField();
@@ -82,6 +81,7 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel5.setText("Add Faculty");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IT Project Log", "Practicum Log", "Student List(Practicum 1)", "Student List(IT Project)" }));
+        jComboBox1.setSelectedIndex(-1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -385,7 +385,7 @@ public class AdminMain extends javax.swing.JFrame {
             if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
-            /* Define the SQL query */
+                /* Define the SQL query */
                 String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
                     "SUBJECT", "CODE", "ADVISER"};
                 int rownumber = 0;
@@ -473,26 +473,60 @@ public class AdminMain extends javax.swing.JFrame {
     }//GEN-LAST:event_addNameActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        Connection con;
-        con = jdbc.connection.DBConnection.connectDB();
+
         try {
-            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
-            String toDelete = adviserComboBox.getSelectedItem().toString(); 
-            String parts [] = toDelete.split(" ");
-            String lastname = parts[1];
-            String query = "DELETE FROM `scislog`.`faculty` WHERE fac_lname ='"+lastname+"';";
-            stmt.executeUpdate(query);
-         
+            String fac_name = adviserComboBox.getSelectedItem().toString();
+            Connection con;
+            PreparedStatement ps;
+            con = jdbc.connection.DBConnection.connectDB();
+            String fac_id = "";
+            int counter = 0;
+            do {
+                fac_id += fac_name.charAt(counter);
+                counter++;
+            } while (Character.isDigit(fac_name.charAt(counter)));
+            
+            String query = "DELETE FROM `faculty` WHERE `fac_id` = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, fac_id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Removed faculty successfully.");
             this.dispose();
-        } catch (Exception x) {
-            x.printStackTrace();
+            new AdminMain().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void adviserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adviserComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adviserComboBoxActionPerformed
+
+    private void removeFaculty(String fac_name) throws SQLException {
+
+    }
+
+    public String[] faculty() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+
+        String query = "SELECT CONCAT(fac_id,'. ',fac_fname,' ',fac_lname) as fac_name from faculty";
+        ResultSet rs = stmt.executeQuery(query);
+
+        ArrayList list = new ArrayList();
+
+        while (rs.next()) {
+            list.add(rs.getString("fac_name"));
+        }
+        String[] fac = new String[list.size()];
+        list.toArray(fac);
+
+        return fac;
+    }
 
     /**
      * @param args the command line arguments
@@ -531,26 +565,6 @@ public class AdminMain extends javax.swing.JFrame {
                 }
             }
         });
-    }
-
-    public String[] faculty() throws SQLException {
-        Connection con;
-        con = jdbc.connection.DBConnection.connectDB();
-        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE);
-
-        String query = "SELECT CONCAT(fac_fname,' ',fac_lname) as fac_name from faculty";
-        ResultSet rs = stmt.executeQuery(query);
-
-        ArrayList list = new ArrayList();
-
-        while (rs.next()) {
-            list.add(rs.getString("fac_name"));
-        }
-        String[] fac = new String[list.size()];
-        list.toArray(fac);
-
-        return fac;
     }
 
 
