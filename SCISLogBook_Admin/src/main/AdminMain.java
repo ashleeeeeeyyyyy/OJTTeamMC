@@ -39,6 +39,7 @@ public class AdminMain extends javax.swing.JFrame {
         initComponents();
         adviserComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
         adviserComboBox.setSelectedIndex(-1);
+        SubjectDropDown.setModel(new javax.swing.DefaultComboBoxModel(subjects()));
     }
 
     /**
@@ -51,6 +52,9 @@ public class AdminMain extends javax.swing.JFrame {
     private void initComponents() {
 
         textsubject = new javax.swing.JTextField();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -63,12 +67,31 @@ public class AdminMain extends javax.swing.JFrame {
         adviserComboBox = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        deleteDropdown = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        SubjectTitle = new javax.swing.JTextField();
+        AddSubject = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        SubjectDropDown = new javax.swing.JComboBox();
+        deleteSubjectButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         SCISLogo = new javax.swing.JLabel();
         headTitle = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1024, 690));
@@ -76,14 +99,15 @@ public class AdminMain extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 28)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel3.setText("Generate Excel Files");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 28)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel5.setText("Add Faculty");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 260, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
 
+        jComboBox1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IT Project Log", "Practicum Log", "Student List(Practicum 1)", "Student List(IT Project)" }));
         jComboBox1.setSelectedIndex(-1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -91,51 +115,116 @@ public class AdminMain extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 238, 30));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 238, 20));
 
         jButton1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
         jButton1.setText("Generate Excel File");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, 160, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("First Name:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, -1, -1));
-        jPanel1.add(fnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 310, 260, 30));
-        jPanel1.add(lnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 260, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        fnameTextField.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        jPanel1.add(fnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 344, 180, 20));
+
+        lnameTextField.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        jPanel1.add(lnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 384, 180, 20));
+
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Last Name:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 360, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 380, -1, -1));
 
-        adviserComboBox.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
+        adviserComboBox.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         adviserComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adviserComboBoxActionPerformed(evt);
             }
         });
-        jPanel1.add(adviserComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 540, 230, 30));
+        jPanel1.add(adviserComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 340, 217, 20));
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 28)); // NOI18N
-        jLabel8.setText("Remove Faculty");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, -1, -1));
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel8.setText("Remove Subject:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 490, -1, -1));
 
         deleteButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        deleteButton.setForeground(new java.awt.Color(51, 51, 51));
         deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 590, 120, -1));
+        jPanel1.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 370, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel4.setText("Select Account to Activate/Deactivate:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, -1, -1));
+
+        jButton2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        jButton2.setText("Deactivate");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, -1, -1));
+
+        deleteDropdown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        deleteDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteDropdownActionPerformed(evt);
+            }
+        });
+        jPanel1.add(deleteDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 240, 20));
+
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel9.setText("Add Subject:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, -1, -1));
+
+        SubjectTitle.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        SubjectTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubjectTitleActionPerformed(evt);
+            }
+        });
+        jPanel1.add(SubjectTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 240, 20));
+
+        AddSubject.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        AddSubject.setText("Add");
+        AddSubject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddSubjectActionPerformed(evt);
+            }
+        });
+        jPanel1.add(AddSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 560, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel10.setText("Remove Faculty");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 290, -1, -1));
+
+        SubjectDropDown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        SubjectDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubjectDropDownActionPerformed(evt);
+            }
+        });
+        jPanel1.add(SubjectDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 530, 260, 20));
+
+        deleteSubjectButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        deleteSubjectButton.setText("Remove");
+        deleteSubjectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteSubjectButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(deleteSubjectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 560, -1, 29));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -149,12 +238,12 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("STUDENT LOGBOOK");
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Admin");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel13.setText("Admin");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
+                jLabel13MouseClicked(evt);
             }
         });
 
@@ -172,10 +261,10 @@ public class AdminMain extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel2)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(172, 172, 172))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(jLabel13)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,42 +279,146 @@ public class AdminMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
+                .addComponent(jLabel13)
                 .addContainerGap(224, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 690));
 
-        jButton2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(51, 51, 51));
-        jButton2.setText("Add");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        jButton3.setText("Add");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, 120, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 420, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 560, 20));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 560, 20));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 560, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void deleteSubjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSubjectButtonActionPerformed
+        try {
+            String subjname = SubjectDropDown.getSelectedItem().toString();
+            Connection con;
+            PreparedStatement ps;
+            con = jdbc.connection.DBConnection.connectDB();
+            String subjid = "";
+            int counter = 0;
+            do {
+                subjid += subjname.charAt(counter);
+                counter++;
+            } while (Character.isDigit(subjname.charAt(counter)));
 
+            String query = "DELETE FROM `scislog`.`subject` WHERE `subjid`=?;";
+            ps = con.prepareStatement(query);
+            ps.setString(1, subjid);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Removed faculty successfully.");
+            this.dispose();
+            new AdminMain().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteSubjectButtonActionPerformed
+
+    private void AddSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSubjectActionPerformed
+        Connection con;
+        PreparedStatement ps;
+
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "INSERT INTO `scislog`.`subject` (`subj_title`) VALUES ('"+SubjectTitle.getText()+"');";
+        try {
+            if (Validator.checkDigit(SubjectTitle.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain numeric characters.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkSymbols(SubjectTitle.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain unnecessary symbols.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ps = con.prepareStatement(query);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Subject is saved successfully.");
+                this.dispose();
+                new AdminMain().setVisible(true);
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_AddSubjectActionPerformed
+
+    private void SubjectTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubjectTitleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_SubjectTitleActionPerformed
+
+    private void deleteDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteDropdownActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteDropdownActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Connection con;
+        PreparedStatement ps = null;
+        con = jdbc.connection.DBConnection.connectDB();
+
+        try {
+
+            String[] accIDs = getAccountIDs(deleteDropdown.getSelectedItem().toString());
+            String query = "UPDATE `scislog`.`accounts` SET `status`='inactive' WHERE `account_id`=?;";
+            for (int i = 0; accIDs.length > i; i++) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, accIDs[i]);
+                ps.executeUpdate();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+
+        try {
+            String fac_name = adviserComboBox.getSelectedItem().toString();
+            Connection con;
+            PreparedStatement ps;
+            con = jdbc.connection.DBConnection.connectDB();
+            String fac_id = "";
+            int counter = 0;
+            do {
+                fac_id += fac_name.charAt(counter);
+                counter++;
+            } while (Character.isDigit(fac_name.charAt(counter)));
+
+            String query = "DELETE FROM `faculty` WHERE `fac_id` = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, fac_id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Removed faculty successfully.");
+            this.dispose();
+            new AdminMain().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void adviserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adviserComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adviserComboBoxActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection conn;
@@ -233,19 +426,18 @@ public class AdminMain extends javax.swing.JFrame {
             conn = jdbc.connection.DBConnection.connectDB();
             Statement stmt = conn.createStatement();
             //Filtering for the Log of IT Project
-            if (jComboBox1.getSelectedItem().toString() == "IT Project Log") {
+            if (jComboBox1.getSelectedItem().toString() == "ITProject 1") {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                 /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT",};
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname, adviser, office, code, date,"
-                        + " time_in, time_out FROM logs natural join accounts natural join students where subject = 'IT Project';");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname,adviser,office,code,subj_title,date,time_in,time_out,hours_rendered from students natural join accounts natural join subject natural join  logs where subj_title = 'ITProject 1';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -257,11 +449,12 @@ public class AdminMain extends javax.swing.JFrame {
                     String lname = query_set.getString("lname");
                     String adviser = query_set.getString("adviser");
                     String office = query_set.getString("office");
-                    String class_code = query_set.getString("code");
+                    String code = query_set.getString("code");
+                    String subj_title = query_set.getString("subj_title");
                     String date = query_set.getString("date");
                     String time_in = query_set.getString("time_in");
                     String time_out = query_set.getString("time_out");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, class_code, date, time_in, time_out});
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, subj_title, date, time_in, time_out});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -286,7 +479,7 @@ public class AdminMain extends javax.swing.JFrame {
                     }
                 }
 
-                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject_Logs.xls")); //create XLS file
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject1_Logs.xls")); //create XLS file
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
             }
@@ -296,14 +489,14 @@ public class AdminMain extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                 /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT"};
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname, adviser, office, code,date, time_in, time_out FROM logs natural join accounts natural join students where subject = 'Practicum 1';");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname,adviser,office,code,subj_title,date,time_in,time_out,hours_rendered from students natural join accounts natural join subject natural join  logs where subj_title = 'Practicum 1';");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -316,10 +509,11 @@ public class AdminMain extends javax.swing.JFrame {
                     String adviser = query_set.getString("adviser");
                     String office = query_set.getString("office");
                     String code = query_set.getString("code");
+                    String subj_title = query_set.getString("subj_title");
                     String date = query_set.getString("date");
                     String time_in = query_set.getString("time_in");
                     String time_out = query_set.getString("time_out");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, date, time_in, time_out});
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, subj_title, date, time_in, time_out});
                 }
                 /* Close all DB related objects */
                 query_set.close();
@@ -362,7 +556,7 @@ public class AdminMain extends javax.swing.JFrame {
                     Cell cell = r.createCell(rn);
                     cell.setCellValue((String) headers[rn]);
                 }
-                ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subject, code, adviser FROM accounts natural join students WHERE subject = 'Practicum 1'");
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subj_title, code, adviser FROM accounts natural join students natural join subject WHERE subj_title = 'Practicum 1'");
                 /* Create Map for Excel Data */
                 Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
                 int row_counter = 0;
@@ -372,93 +566,93 @@ public class AdminMain extends javax.swing.JFrame {
                     String idnum = query_set.getString("idnumber");
                     String name = query_set.getString("name");
                     String course_year = query_set.getString("course_year");
-                    String subject = query_set.getString("subject");
+                    String subj_title = query_set.getString("subj_title");
                     String code = query_set.getString("code");
                     String adviser = query_set.getString("adviser");
                     excel_data.put(Integer.toString(row_counter), new Object[]{idnum, name, course_year,
-                        subject, code, adviser});
-                }
-                /* Close all DB related objects */
-                query_set.close();
-                stmt.close();
-                conn.close();
+                        subj_title, code, adviser});
+            }
+            /* Close all DB related objects */
+            query_set.close();
+            stmt.close();
+            conn.close();
 
-                /* Load data into logical worksheet */
-                Set<String> keyset = excel_data.keySet();
-                int rownum = 1;
-                for (String key : keyset) { //loop through the data and add them to the cell
-                    Row row = sheet.createRow(rownum++);
-                    Object[] objArr = excel_data.get(key);
-                    int cellnum = 0;
-                    for (Object obj : objArr) {
-                        Cell cell = row.createCell(cellnum++);
-                        if (obj instanceof Double) {
-                            cell.setCellValue((Double) obj);
-                        } else {
-                            cell.setCellValue((String) obj);
-                        }
+            /* Load data into logical worksheet */
+            Set<String> keyset = excel_data.keySet();
+            int rownum = 1;
+            for (String key : keyset) { //loop through the data and add them to the cell
+                Row row = sheet.createRow(rownum++);
+                Object[] objArr = excel_data.get(key);
+                int cellnum = 0;
+                for (Object obj : objArr) {
+                    Cell cell = row.createCell(cellnum++);
+                    if (obj instanceof Double) {
+                        cell.setCellValue((Double) obj);
+                    } else {
+                        cell.setCellValue((String) obj);
                     }
                 }
-
-                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_Practicum.xls")); //create XLS file
-                new_workbook.write(output_file);//write excel document to output stream
-                output_file.close(); //close the file
             }
-            if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
-                HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
-                HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
-                /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
-                    "SUBJECT", "CODE", "ADVISER"};
-                int rownumber = 0;
-                Row r = sheet.createRow(rownumber);
-                for (int rn = 0; rn < headers.length; rn++) {
-                    Cell cell = r.createCell(rn);
-                    cell.setCellValue((String) headers[rn]);
-                }
-                ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subject, code, adviser FROM accounts natural join students WHERE subject = 'IT Project';");
-                /* Create Map for Excel Data */
-                Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
-                int row_counter = 0;
-                /* Populate data into the Map */
-                while (query_set.next()) {
-                    row_counter = row_counter + 1;
-                    String idnumber = query_set.getString("idnumber");
-                    String name = query_set.getString("name");
-                    String course_year = query_set.getString("course_year");
-                    String subject = query_set.getString("subject");
-                    String code = query_set.getString("code");
-                    String adviser = query_set.getString("adviser");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year,
-                        subject, code, adviser});
-                }
-                /* Close all DB related objects */
-                query_set.close();
-                stmt.close();
-                conn.close();
 
-                /* Load data into logical worksheet */
-                Set<String> keyset = excel_data.keySet();
-                int rownum = 1;
-                for (String key : keyset) { //loop through the data and add them to the cell
-                    Row row = sheet.createRow(rownum++);
-                    Object[] objArr = excel_data.get(key);
-                    int cellnum = 0;
-                    for (Object obj : objArr) {
-                        Cell cell = row.createCell(cellnum++);
-                        if (obj instanceof Double) {
-                            cell.setCellValue((Double) obj);
-                        } else {
-                            cell.setCellValue((String) obj);
-                        }
-                    }
-                }
-
-                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_ITproject.xls")); //create XLS file
-                new_workbook.write(output_file);//write excel document to output stream
-                output_file.close(); //close the file
+            FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_Practicum.xls")); //create XLS file
+            new_workbook.write(output_file);//write excel document to output stream
+            output_file.close(); //close the file
+        }
+        if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
+            HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
+            HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
+            /* Define the SQL query */
+            String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
+                "SUBJECT", "CODE", "ADVISER"};
+            int rownumber = 0;
+            Row r = sheet.createRow(rownumber);
+            for (int rn = 0; rn < headers.length; rn++) {
+                Cell cell = r.createCell(rn);
+                cell.setCellValue((String) headers[rn]);
             }
-            JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
+            ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subj_title, code, adviser FROM accounts natural join students natural join subject WHERE subj_title = 'ITProject 1'");
+            /* Create Map for Excel Data */
+            Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
+            int row_counter = 0;
+            /* Populate data into the Map */
+            while (query_set.next()) {
+                row_counter = row_counter + 1;
+                String idnumber = query_set.getString("idnumber");
+                String name = query_set.getString("name");
+                String course_year = query_set.getString("course_year");
+                String subj_title = query_set.getString("subj_title");
+                String code = query_set.getString("code");
+                String adviser = query_set.getString("adviser");
+                excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year,
+                    subj_title, code, adviser});
+        }
+        /* Close all DB related objects */
+        query_set.close();
+        stmt.close();
+        conn.close();
+
+        /* Load data into logical worksheet */
+        Set<String> keyset = excel_data.keySet();
+        int rownum = 1;
+        for (String key : keyset) { //loop through the data and add them to the cell
+            Row row = sheet.createRow(rownum++);
+            Object[] objArr = excel_data.get(key);
+            int cellnum = 0;
+            for (Object obj : objArr) {
+                Cell cell = row.createCell(cellnum++);
+                if (obj instanceof Double) {
+                    cell.setCellValue((Double) obj);
+                } else {
+                    cell.setCellValue((String) obj);
+                }
+            }
+        }
+
+        FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_ITproject.xls")); //create XLS file
+        new_workbook.write(output_file);//write excel document to output stream
+        output_file.close(); //close the file
+        }
+        JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
         } catch (SQLException x) {
             x.printStackTrace();
         } catch (IOException ex) {
@@ -466,49 +660,45 @@ public class AdminMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Connection con;
+        PreparedStatement ps;
+
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "INSERT into faculty (fac_fname, fac_lname) VALUES (?,?)";
         try {
-            String fac_name = adviserComboBox.getSelectedItem().toString();
-            Connection con;
-            PreparedStatement ps;
-            con = jdbc.connection.DBConnection.connectDB();
-            String fac_id = "";
-            int counter = 0;
-            do {
-                fac_id += fac_name.charAt(counter);
-                counter++;
-            } while (Character.isDigit(fac_name.charAt(counter)));
-            
-            String query = "DELETE FROM `faculty` WHERE `fac_id` = ?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, fac_id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Removed faculty successfully.");
-            this.dispose();
-            new AdminMain().setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            if (Validator.checkDigit(fnameTextField.getText()) || Validator.checkDigit(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain numeric characters.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkSymbols(fnameTextField.getText()) || Validator.checkSymbols(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain unnecessary symbols.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ps = con.prepareStatement(query);
+                ps.setString(1, fnameTextField.getText());
+                ps.setString(2, lnameTextField.getText());
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Adviser is saved successfully.");
+                this.dispose();
+                new AdminMain().setVisible(true);
 
+            }
 
-    }//GEN-LAST:event_deleteButtonActionPerformed
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void adviserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adviserComboBoxActionPerformed
+    private void SubjectDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubjectDropDownActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_adviserComboBoxActionPerformed
-
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-
-    }//GEN-LAST:event_jLabel9MouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void removeFaculty(String fac_name) throws SQLException {
-
-    }
+    }//GEN-LAST:event_SubjectDropDownActionPerformed
 
     public String[] faculty() throws SQLException {
         Connection con;
@@ -521,13 +711,76 @@ public class AdminMain extends javax.swing.JFrame {
 
         ArrayList list = new ArrayList();
 
-        while (rs.next()) {
-            list.add(rs.getString("fac_name"));
-        }
         String[] fac = new String[list.size()];
         list.toArray(fac);
 
         return fac;
+    }
+    
+
+    public String[] getAccountIDs(String subject) throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        PreparedStatement ps = null;
+
+        String query = "SELECT account_id from accounts where subjid = ?";
+
+        ps = con.prepareStatement(query);
+        ps.setString(1, getSubjectID(subject));
+
+        ResultSet rs = ps.executeQuery();
+
+        ArrayList list = new ArrayList();
+
+        while (rs.next()) {
+            list.add(rs.getString("account_id"));
+        }
+        String[] accountIDs = new String[list.size()];
+        list.toArray(accountIDs);
+
+        return accountIDs;
+    }
+
+    private String getSubjectID(String subject) throws SQLException {
+        String subjid = null;
+        Connection con;
+        PreparedStatement ps;
+
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "select subjid from subject where subj_title = ?";
+        ps = con.prepareStatement(query);
+
+        ps.setString(1, subject);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            subjid = rs.getString("subjid");
+        }
+
+        rs.close();
+        ps.close();
+        con.close();
+
+        return subjid;
+    }
+
+    public String[] subjects() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+
+        String query = "select concat (subjid,'. ',subj_title) AS subjs from subject ORDER by 1;";
+        ResultSet rs = stmt.executeQuery(query);
+        ArrayList list = new ArrayList();
+        while (rs.next()) {
+            list.add(rs.getString("subjs"));
+        }
+        String[] subj = new String[list.size()];
+        list.toArray(subj);
+
+        return subj;
     }
 
     /**
@@ -571,23 +824,38 @@ public class AdminMain extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddSubject;
     private javax.swing.JLabel SCISLogo;
+    private javax.swing.JComboBox SubjectDropDown;
+    private javax.swing.JTextField SubjectTitle;
     private javax.swing.JComboBox adviserComboBox;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JComboBox deleteDropdown;
+    private javax.swing.JButton deleteSubjectButton;
     private javax.swing.JTextField fnameTextField;
     private javax.swing.JLabel headTitle;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField lnameTextField;
     private javax.swing.JTextField textsubject;
     // End of variables declaration//GEN-END:variables

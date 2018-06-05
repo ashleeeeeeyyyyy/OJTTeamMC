@@ -29,7 +29,7 @@ public class Validator {
         return res;
     }
 
-    public static Boolean checkWhitespace(String text) {
+    /*public static Boolean checkWhitespace(String text) {
         boolean res = false;
 
         if (Character.isWhitespace(text.charAt(0))) {
@@ -38,7 +38,7 @@ public class Validator {
 
         return res;
     }
-
+*/
     public static Boolean checkSymbols(String text) {
         boolean res = false;
 
