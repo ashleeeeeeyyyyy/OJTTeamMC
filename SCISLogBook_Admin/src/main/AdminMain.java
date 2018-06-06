@@ -37,9 +37,16 @@ public class AdminMain extends javax.swing.JFrame {
      */
     public AdminMain() throws SQLException {
         initComponents();
-        adviserComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
-        adviserComboBox.setSelectedIndex(-1);
+        facultyComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
+        deleteDropdown.setModel(new javax.swing.DefaultComboBoxModel(subjects_status()));
         SubjectDropDown.setModel(new javax.swing.DefaultComboBoxModel(subjects()));
+        termDropDown.setModel(new javax.swing.DefaultComboBoxModel(term()));
+        termDropDown.setSelectedIndex(-1);
+        jComboBox1.setSelectedIndex(-1);
+        deleteDropdown.setSelectedIndex(-1);
+        facultyComboBox.setSelectedIndex(-1);
+        SubjectDropDown.setSelectedIndex(-1);
+
     }
 
     /**
@@ -59,12 +66,12 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<String>();
-        jButton1 = new javax.swing.JButton();
+        termDropDown = new javax.swing.JComboBox();
+        GenerateExcelButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         fnameTextField = new javax.swing.JTextField();
         lnameTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        adviserComboBox = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -85,6 +92,10 @@ public class AdminMain extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        facultyComboBox = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        forgotPass = new javax.swing.JTextField();
+        RecoveryCode = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -94,7 +105,6 @@ public class AdminMain extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1024, 690));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,14 +127,16 @@ public class AdminMain extends javax.swing.JFrame {
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 238, 20));
 
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        jButton1.setText("Generate Excel File");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.add(termDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 120, -1));
+
+        GenerateExcelButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        GenerateExcelButton.setText("Generate Excel File");
+        GenerateExcelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                GenerateExcelButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
+        jPanel1.add(GenerateExcelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
@@ -142,17 +154,9 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel7.setText("Last Name:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 380, -1, -1));
 
-        adviserComboBox.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        adviserComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adviserComboBoxActionPerformed(evt);
-            }
-        });
-        jPanel1.add(adviserComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 340, 217, 20));
-
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
-        jLabel8.setText("Remove Subject:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 490, -1, -1));
+        jLabel8.setText("Forgot Password:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 600, -1, -1));
 
         deleteButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         deleteButton.setText("Delete");
@@ -280,10 +284,10 @@ public class AdminMain extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(243, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 690));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 710));
 
         jButton3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         jButton3.setText("Add");
@@ -297,15 +301,46 @@ public class AdminMain extends javax.swing.JFrame {
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 560, 20));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 560, -1));
 
+        facultyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facultyComboBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(facultyComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 340, 180, -1));
+
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel11.setText("Remove Subject:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 490, -1, -1));
+
+        forgotPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forgotPassActionPerformed(evt);
+            }
+        });
+        jPanel1.add(forgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 630, 230, 40));
+
+        RecoveryCode.setText("Get Recovery Code");
+        RecoveryCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecoveryCodeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(RecoveryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 640, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -341,7 +376,7 @@ public class AdminMain extends javax.swing.JFrame {
         PreparedStatement ps;
 
         con = jdbc.connection.DBConnection.connectDB();
-        String query = "INSERT INTO `scislog`.`subject` (`subj_title`) VALUES ('"+SubjectTitle.getText()+"');";
+        String query = "INSERT INTO `scislog`.`subject` (`subj_title`) VALUES ('" + SubjectTitle.getText() + "');";
         try {
             if (Validator.checkDigit(SubjectTitle.getText())) {
                 JOptionPane.showMessageDialog(this, "Name should not contain numeric characters.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -383,6 +418,7 @@ public class AdminMain extends javax.swing.JFrame {
                 ps.setString(1, accIDs[i]);
                 ps.executeUpdate();
             }
+            JOptionPane.showMessageDialog(this, "Successfuly deactivated", "Error", JOptionPane.ERROR_MESSAGE);
 
         } catch (SQLException ex) {
             Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,7 +428,7 @@ public class AdminMain extends javax.swing.JFrame {
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
 
         try {
-            String fac_name = adviserComboBox.getSelectedItem().toString();
+            String fac_name = facultyComboBox.getSelectedItem().toString();
             Connection con;
             PreparedStatement ps;
             con = jdbc.connection.DBConnection.connectDB();
@@ -416,11 +452,7 @@ public class AdminMain extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void adviserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adviserComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adviserComboBoxActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void GenerateExcelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateExcelButtonActionPerformed
         Connection conn;
         try {
             conn = jdbc.connection.DBConnection.connectDB();
@@ -430,7 +462,7 @@ public class AdminMain extends javax.swing.JFrame {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
                 HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
                 /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "SCHOOL YEAR", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
                 int rownumber = 0;
                 Row r = sheet.createRow(rownumber);
                 for (int rn = 0; rn < headers.length; rn++) {
@@ -571,94 +603,94 @@ public class AdminMain extends javax.swing.JFrame {
                     String adviser = query_set.getString("adviser");
                     excel_data.put(Integer.toString(row_counter), new Object[]{idnum, name, course_year,
                         subj_title, code, adviser});
-            }
-            /* Close all DB related objects */
-            query_set.close();
-            stmt.close();
-            conn.close();
+                }
+                /* Close all DB related objects */
+                query_set.close();
+                stmt.close();
+                conn.close();
 
-            /* Load data into logical worksheet */
-            Set<String> keyset = excel_data.keySet();
-            int rownum = 1;
-            for (String key : keyset) { //loop through the data and add them to the cell
-                Row row = sheet.createRow(rownum++);
-                Object[] objArr = excel_data.get(key);
-                int cellnum = 0;
-                for (Object obj : objArr) {
-                    Cell cell = row.createCell(cellnum++);
-                    if (obj instanceof Double) {
-                        cell.setCellValue((Double) obj);
-                    } else {
-                        cell.setCellValue((String) obj);
+                /* Load data into logical worksheet */
+                Set<String> keyset = excel_data.keySet();
+                int rownum = 1;
+                for (String key : keyset) { //loop through the data and add them to the cell
+                    Row row = sheet.createRow(rownum++);
+                    Object[] objArr = excel_data.get(key);
+                    int cellnum = 0;
+                    for (Object obj : objArr) {
+                        Cell cell = row.createCell(cellnum++);
+                        if (obj instanceof Double) {
+                            cell.setCellValue((Double) obj);
+                        } else {
+                            cell.setCellValue((String) obj);
+                        }
                     }
                 }
-            }
 
-            FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_Practicum.xls")); //create XLS file
-            new_workbook.write(output_file);//write excel document to output stream
-            output_file.close(); //close the file
-        }
-        if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
-            HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
-            HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_Practicum.xls")); //create XLS file
+                new_workbook.write(output_file);//write excel document to output stream
+                output_file.close(); //close the file
+            }
+            if (jComboBox1.getSelectedItem().toString() == "Student List(IT Project)") {
+                HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
+                HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
             /* Define the SQL query */
-            String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
-                "SUBJECT", "CODE", "ADVISER"};
-            int rownumber = 0;
-            Row r = sheet.createRow(rownumber);
-            for (int rn = 0; rn < headers.length; rn++) {
-                Cell cell = r.createCell(rn);
-                cell.setCellValue((String) headers[rn]);
-            }
-            ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subj_title, code, adviser FROM accounts natural join students natural join subject WHERE subj_title = 'ITProject 1'");
-            /* Create Map for Excel Data */
-            Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
-            int row_counter = 0;
-            /* Populate data into the Map */
-            while (query_set.next()) {
-                row_counter = row_counter + 1;
-                String idnumber = query_set.getString("idnumber");
-                String name = query_set.getString("name");
-                String course_year = query_set.getString("course_year");
-                String subj_title = query_set.getString("subj_title");
-                String code = query_set.getString("code");
-                String adviser = query_set.getString("adviser");
-                excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year,
-                    subj_title, code, adviser});
-        }
-        /* Close all DB related objects */
-        query_set.close();
-        stmt.close();
-        conn.close();
-
-        /* Load data into logical worksheet */
-        Set<String> keyset = excel_data.keySet();
-        int rownum = 1;
-        for (String key : keyset) { //loop through the data and add them to the cell
-            Row row = sheet.createRow(rownum++);
-            Object[] objArr = excel_data.get(key);
-            int cellnum = 0;
-            for (Object obj : objArr) {
-                Cell cell = row.createCell(cellnum++);
-                if (obj instanceof Double) {
-                    cell.setCellValue((Double) obj);
-                } else {
-                    cell.setCellValue((String) obj);
+                String[] headers = new String[]{"ID NUMBER", "NAME", "COURSE AND YEAR",
+                    "SUBJECT", "CODE", "ADVISER"};
+                int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
+                for (int rn = 0; rn < headers.length; rn++) {
+                    Cell cell = r.createCell(rn);
+                    cell.setCellValue((String) headers[rn]);
                 }
-            }
-        }
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(lname, ', ', fname) AS 'name', course_year, subj_title, code, adviser FROM accounts natural join students natural join subject WHERE subj_title = 'ITProject 1'");
+                /* Create Map for Excel Data */
+                Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
+                int row_counter = 0;
+                /* Populate data into the Map */
+                while (query_set.next()) {
+                    row_counter = row_counter + 1;
+                    String idnumber = query_set.getString("idnumber");
+                    String name = query_set.getString("name");
+                    String course_year = query_set.getString("course_year");
+                    String subj_title = query_set.getString("subj_title");
+                    String code = query_set.getString("code");
+                    String adviser = query_set.getString("adviser");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnumber, name, course_year,
+                        subj_title, code, adviser});
+                }
+                /* Close all DB related objects */
+                query_set.close();
+                stmt.close();
+                conn.close();
 
-        FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_ITproject.xls")); //create XLS file
-        new_workbook.write(output_file);//write excel document to output stream
-        output_file.close(); //close the file
-        }
-        JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
+                /* Load data into logical worksheet */
+                Set<String> keyset = excel_data.keySet();
+                int rownum = 1;
+                for (String key : keyset) { //loop through the data and add them to the cell
+                    Row row = sheet.createRow(rownum++);
+                    Object[] objArr = excel_data.get(key);
+                    int cellnum = 0;
+                    for (Object obj : objArr) {
+                        Cell cell = row.createCell(cellnum++);
+                        if (obj instanceof Double) {
+                            cell.setCellValue((Double) obj);
+                        } else {
+                            cell.setCellValue((String) obj);
+                        }
+                    }
+                }
+
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentList_ITproject.xls")); //create XLS file
+                new_workbook.write(output_file);//write excel document to output stream
+                output_file.close(); //close the file
+            }
+            JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
         } catch (SQLException x) {
             x.printStackTrace();
         } catch (IOException ex) {
             Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_GenerateExcelButtonActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
@@ -700,6 +732,61 @@ public class AdminMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SubjectDropDownActionPerformed
 
+    private void facultyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facultyComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_facultyComboBoxActionPerformed
+
+    private void forgotPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_forgotPassActionPerformed
+
+    private void RecoveryCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecoveryCodeActionPerformed
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = null;
+        try {
+            String code = null;
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            if(validateAccount(forgotPass.getText())){
+            String query = "SELECT cast(aes_decrypt(recovery_pass,'scis2018') as char (100)) as recoverykey from students where idnumber='" + forgotPass.getText() + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                code = rs.getString("recoverykey");                   
+            }
+                JOptionPane.showMessageDialog(this, "Recovery Key for "+forgotPass.getText()+" is "+code+"");   
+                forgotPass.setText("");
+            }else if (!validateAccount(forgotPass.getText())){
+                JOptionPane.showMessageDialog(this, "ID number is not incorrect or does not exist");   
+                forgotPass.setText("");
+            }else if (validateAccount(forgotPass.getText()) == null){
+                JOptionPane.showMessageDialog(this, "This field should not be empty");  
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_RecoveryCodeActionPerformed
+    private Boolean validateAccount(String id) throws SQLException {
+        String status = null;
+        Connection con;
+        PreparedStatement ps;
+        boolean condition = false;
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "SELECT idnumber FROM students where idnumber= ? ; ";
+        ps = con.prepareStatement(query);
+        ps.setString(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            condition = true;
+        }
+        rs.close();
+        ps.close();
+        con.close();
+
+        return condition;
+    }
+    
+
     public String[] faculty() throws SQLException {
         Connection con;
         con = jdbc.connection.DBConnection.connectDB();
@@ -711,12 +798,32 @@ public class AdminMain extends javax.swing.JFrame {
 
         ArrayList list = new ArrayList();
 
+        while (rs.next()) {
+            list.add(rs.getString("fac_name"));
+        }
         String[] fac = new String[list.size()];
         list.toArray(fac);
-
         return fac;
     }
-    
+
+    public String[] term() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+        String query = "SELECT DISTINCT term FROM logs";
+        ResultSet rs = stmt.executeQuery(query);
+
+        ArrayList list = new ArrayList();
+
+        while (rs.next()) {
+            list.add(rs.getString("term"));
+        }
+        String[] term = new String[list.size()];
+        list.toArray(term);
+        return term;
+
+    }
 
     public String[] getAccountIDs(String subject) throws SQLException {
         Connection con;
@@ -783,6 +890,24 @@ public class AdminMain extends javax.swing.JFrame {
         return subj;
     }
 
+    public String[] subjects_status() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+
+        String query = "select subj_title from subject ORDER by 1;";
+        ResultSet rs = stmt.executeQuery(query);
+        ArrayList list = new ArrayList();
+        while (rs.next()) {
+            list.add(rs.getString("subj_title"));
+        }
+        String[] subj = new String[list.size()];
+        list.toArray(subj);
+
+        return subj;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -825,21 +950,24 @@ public class AdminMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddSubject;
+    private javax.swing.JButton GenerateExcelButton;
+    private javax.swing.JButton RecoveryCode;
     private javax.swing.JLabel SCISLogo;
     private javax.swing.JComboBox SubjectDropDown;
     private javax.swing.JTextField SubjectTitle;
-    private javax.swing.JComboBox adviserComboBox;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton deleteButton;
     private javax.swing.JComboBox deleteDropdown;
     private javax.swing.JButton deleteSubjectButton;
+    private javax.swing.JComboBox facultyComboBox;
     private javax.swing.JTextField fnameTextField;
+    private javax.swing.JTextField forgotPass;
     private javax.swing.JLabel headTitle;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -857,6 +985,7 @@ public class AdminMain extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField lnameTextField;
+    private javax.swing.JComboBox termDropDown;
     private javax.swing.JTextField textsubject;
     // End of variables declaration//GEN-END:variables
 }
