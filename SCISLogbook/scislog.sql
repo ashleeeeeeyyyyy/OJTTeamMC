@@ -1,8 +1,10 @@
+CREATE DATABASE  IF NOT EXISTS `scislog` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `scislog`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: scislog
 -- ------------------------------------------------------
--- Server version	5.7.19
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,13 +31,14 @@ CREATE TABLE `accounts` (
   `adviser` varchar(30) NOT NULL,
   `status` varchar(20) DEFAULT 'active',
   `subjid` int(11) NOT NULL,
+  `term` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `account_id_UNIQUE` (`account_id`),
   KEY `idnumber_idx` (`idnumber`),
   KEY `subjid_idx` (`subjid`),
   CONSTRAINT `idnumber` FOREIGN KEY (`idnumber`) REFERENCES `students` (`idnumber`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `subjid` FOREIGN KEY (`subjid`) REFERENCES `subject` (`subjid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +47,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (24,2123456,'9456','Cecilia Mercado','active',4);
+INSERT INTO `accounts` VALUES (26,2123456,'9874','Cecilia Mercado','active',1,'Short Term, A.Y. 2017-2018'),(27,2123457,'9865','Ria Andrea Nana','active',2,'Short Term, A.Y. 2017-2018'),(28,2123458,'9854','Ria Andrea Nana','active',3,'Short Term, A.Y. 2017-2018'),(29,2165522,'9123','Ria Andrea Nana','active',2,'Short Term, A.Y. 2017-2018');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,8 +74,33 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'Benz','Servidad','ray','rayray');
+INSERT INTO `admin` VALUES (1,'Tony','Stark','ironman','•‰…k6‘ëâŸ±›Lò9Œ}');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `current_term`
+--
+
+DROP TABLE IF EXISTS `current_term`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `current_term` (
+  `term_id` int(11) NOT NULL,
+  `semester` varchar(45) NOT NULL,
+  `academic_year` varchar(45) NOT NULL,
+  PRIMARY KEY (`term_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `current_term`
+--
+
+LOCK TABLES `current_term` WRITE;
+/*!40000 ALTER TABLE `current_term` DISABLE KEYS */;
+INSERT INTO `current_term` VALUES (1,'Short Term','2017-2018');
+/*!40000 ALTER TABLE `current_term` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -115,10 +143,9 @@ CREATE TABLE `logs` (
   `time_in` time NOT NULL,
   `time_out` time DEFAULT NULL,
   `hours_rendered` time DEFAULT NULL,
-  `term` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`),
   KEY `account_id_idx` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +154,7 @@ CREATE TABLE `logs` (
 
 LOCK TABLES `logs` WRITE;
 /*!40000 ALTER TABLE `logs` DISABLE KEYS */;
-INSERT INTO `logs` VALUES (19,15,'Open Laboratory (D424)','May 30, 2018','10:50:00',NULL,NULL,'Short Term'),(20,16,'Open Laboratory (D424)','May 30, 2018','10:52:02',NULL,NULL,'First Sem'),(21,17,'Open Laboratory (D424)','May 30, 2018','10:56:54',NULL,NULL,'Second Sem'),(22,18,'Open Laboratory (D424)','May 30, 2018','11:00:12',NULL,NULL,'Second Sem'),(23,19,'Open Laboratory (D424)','May 30, 2018','11:22:40','11:13:08','-00:09:32','Short Term'),(24,20,'Open Laboratory (D424)','May 30, 2018','11:30:30','11:31:49','00:01:19','Short Term'),(25,21,'Open Laboratory (D424)','May 31, 2018','10:52:33','10:52:59','00:00:26','First Sem'),(26,23,'Open Laboratory (D424)','May 31, 2018','14:14:35','14:14:42','00:00:07','Short Term'),(27,19,'Open Laboratory (D424)','May 31, 2018','20:25:38',NULL,NULL,'Second Sem'),(28,19,'Open Laboratory (D424)','May 31, 2018','20:26:24',NULL,NULL,'Second Sem'),(29,19,'Open Laboratory (D424)','May 31, 2018','20:48:41',NULL,NULL,'First Sem'),(30,24,'Open Laboratory (D424)','June 04, 2018','14:23:04','14:23:15','00:00:11','Short Term');
+INSERT INTO `logs` VALUES (19,15,'Open Laboratory (D424)','May 30, 2018','10:50:00',NULL,NULL),(20,16,'Open Laboratory (D424)','May 30, 2018','10:52:02',NULL,NULL),(21,17,'Open Laboratory (D424)','May 30, 2018','10:56:54',NULL,NULL),(22,18,'Open Laboratory (D424)','May 30, 2018','11:00:12',NULL,NULL),(23,19,'Open Laboratory (D424)','May 30, 2018','11:22:40','11:13:08','-00:09:32'),(24,20,'Open Laboratory (D424)','May 30, 2018','11:30:30','11:31:49','00:01:19'),(25,21,'Open Laboratory (D424)','May 31, 2018','10:52:33','10:52:59','00:00:26'),(26,23,'Open Laboratory (D424)','May 31, 2018','14:14:35','14:14:42','00:00:07'),(27,19,'Open Laboratory (D424)','May 31, 2018','20:25:38',NULL,NULL),(28,19,'Open Laboratory (D424)','May 31, 2018','20:26:24',NULL,NULL),(29,19,'Open Laboratory (D424)','May 31, 2018','20:48:41',NULL,NULL),(30,24,'Open Laboratory (D424)','June 04, 2018','14:23:04','14:23:15','00:00:11'),(31,25,'Open Laboratory (D424)','June 05, 2018','13:44:58','13:45:07','00:00:09'),(32,29,'Open Laboratory (D424)','June 06, 2018','14:56:47','14:56:54','00:00:07'),(33,29,'Open Laboratory (D424)','June 06, 2018','14:57:04','14:57:10','00:00:06');
 /*!40000 ALTER TABLE `logs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +171,7 @@ CREATE TABLE `students` (
   `lname` varchar(15) NOT NULL,
   `course_year` varchar(10) NOT NULL,
   `password` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
-  `recovery_pass` varchar(45) DEFAULT NULL,
+  `recovery_pass` varchar(45) CHARACTER SET latin1 COLLATE latin1_general_cs DEFAULT NULL,
   PRIMARY KEY (`idnumber`),
   UNIQUE KEY `idnumber_UNIQUE` (`idnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -156,7 +183,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES (2123456,'Juan','Dela Cruz','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}',NULL),(2161745,'Genesis','Soriano','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}',NULL),(2162322,'Ashley Chester','Pua Phee','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}',NULL),(2165522,'Earl Jethro Aaron','Rimando','BSIT-3','q|dšXZu1>EÛrçMI',NULL),(2165775,'Bill Lenard','Hilarion','BSIT-3','ð±âÿ+üN Œ˜E5',NULL),(2166167,'Janxiene Azly','Maniti','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}',NULL),(2167978,'Genrie','Gayaso','BSIT-3','xõŸ³ªÇ dZf¯´2DÑ',NULL),(2789456,'Try LAng','Ulit Ulit','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}',NULL);
+INSERT INTO `students` VALUES (2123456,'Juan','Luna','BSIT-3','•‰…k6‘ëâŸ±›Lò9Œ}','ž\0ÍÅWÝ0Mbm±­‹Ï\''),(2123457,'Apolinario','Mabini','BSCS-3','•‰…k6‘ëâŸ±›Lò9Œ}','£dk)tN‡Ýþ¢©'),(2123458,'Jose','Rizal','BSMATH-4','•‰…k6‘ëâŸ±›Lò9Œ}','ÙšÈö!Þã$Î‚Ûk“ Ñ'),(2165522,'Earl Jethro Aaron','Rimando','BSIT-3','q|dšXZu1>EÛrçMI','f›£yÍ•<¨nµ+\\@3Ö');
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,6 +210,10 @@ LOCK TABLES `subject` WRITE;
 INSERT INTO `subject` VALUES (1,'IT Project 1'),(2,'Practicum 1'),(3,'Practicum 2'),(4,'IT Project 2');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'scislog'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -193,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-06 11:09:21
+-- Dump completed on 2018-06-06 16:34:40
