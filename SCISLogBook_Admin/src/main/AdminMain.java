@@ -65,7 +65,7 @@ public class AdminMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         termDropDown = new javax.swing.JComboBox();
         GenerateExcelButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -118,7 +118,7 @@ public class AdminMain extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
 
         jComboBox1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IT Project Log", "Practicum Log", "Student List(Practicum 1)", "Student List(IT Project)" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IT Project 1 Log", "IT Project 2 Log", "Practicum 1 Log", "Practicum 2 Log", "Student List(Practicum 1)", "Student List(IT Project)" }));
         jComboBox1.setSelectedIndex(-1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +127,11 @@ public class AdminMain extends javax.swing.JFrame {
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 238, 20));
 
+        termDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                termDropDownActionPerformed(evt);
+            }
+        });
         jPanel1.add(termDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 120, -1));
 
         GenerateExcelButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
@@ -256,11 +261,11 @@ public class AdminMain extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(SCISLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(headTitle)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel2)
@@ -284,7 +289,7 @@ public class AdminMain extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 710));
@@ -457,65 +462,6 @@ public class AdminMain extends javax.swing.JFrame {
         try {
             conn = jdbc.connection.DBConnection.connectDB();
             Statement stmt = conn.createStatement();
-            //Filtering for the Log of IT Project
-            if (jComboBox1.getSelectedItem().toString() == "ITProject 1") {
-                HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
-                HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
-                /* Define the SQL query */
-                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "SCHOOL YEAR", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
-                int rownumber = 0;
-                Row r = sheet.createRow(rownumber);
-                for (int rn = 0; rn < headers.length; rn++) {
-                    Cell cell = r.createCell(rn);
-                    cell.setCellValue((String) headers[rn]);
-                }
-                ResultSet query_set = stmt.executeQuery("SELECT idnumber,fname,lname,adviser,office,code,subj_title,date,time_in,time_out,hours_rendered from students natural join accounts natural join subject natural join  logs where subj_title = 'ITProject 1';");
-                /* Create Map for Excel Data */
-                Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
-                int row_counter = 0;
-                /* Populate data into the Map */
-                while (query_set.next()) {
-                    row_counter = row_counter + 1;
-                    String idnum = query_set.getString("idnumber");
-                    String fname = query_set.getString("fname");
-                    String lname = query_set.getString("lname");
-                    String adviser = query_set.getString("adviser");
-                    String office = query_set.getString("office");
-                    String code = query_set.getString("code");
-                    String subj_title = query_set.getString("subj_title");
-                    String date = query_set.getString("date");
-                    String time_in = query_set.getString("time_in");
-                    String time_out = query_set.getString("time_out");
-                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, subj_title, date, time_in, time_out});
-                }
-                /* Close all DB related objects */
-                query_set.close();
-                stmt.close();
-                conn.close();
-
-                /* Load data into logical worksheet */
-                Set<String> keyset = excel_data.keySet();
-                int rownum = 1;
-                for (String key : keyset) { //loop through the data and add them to the cell
-
-                    Row row = sheet.createRow(rownum++);
-                    Object[] objArr = excel_data.get(key);
-                    int cellnum = 0;
-                    for (Object obj : objArr) {
-                        Cell cell = row.createCell(cellnum++);
-                        if (obj instanceof Double) {
-                            cell.setCellValue((Double) obj);
-                        } else {
-                            cell.setCellValue((String) obj);
-                        }
-                    }
-                }
-
-                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject1_Logs.xls")); //create XLS file
-                new_workbook.write(output_file);//write excel document to output stream
-                output_file.close(); //close the file
-            }
-
             // Filtering the log for the practicum
             if (jComboBox1.getSelectedItem().toString() == "Practicum Log") {
                 HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
@@ -684,6 +630,188 @@ public class AdminMain extends javax.swing.JFrame {
                 new_workbook.write(output_file);//write excel document to output stream
                 output_file.close(); //close the file
             }
+            //Filtering IT Project 1 for First Semester
+            if (jComboBox1.getSelectedItem().toString() == "IT Project 1 Log" && termDropDown.getSelectedItem().toString() == "First Semester") {
+                HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
+                HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
+                /* Define the SQL query */
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "SUBJECT", "TERM", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
+                int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
+                for (int rn = 0; rn < headers.length; rn++) {
+                    Cell cell = r.createCell(rn);
+                    cell.setCellValue((String) headers[rn]);
+                }
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, fname, lname, adviser, office, code, subj_title, term, date, time_in, time_out, hours_rendered FROM accounts natural join students natural join logs natural join subject WHERE subj_title = 'IT Project 1' and term = 'First Semester';");
+                /* Create Map for Excel Data */
+                Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
+                int row_counter = 0;
+                /* Populate data into the Map */
+                while (query_set.next()) {
+                    row_counter = row_counter + 1;
+                    String idnum = query_set.getString("idnumber");
+                    String fname = query_set.getString("fname");
+                    String lname = query_set.getString("lname");
+                    String adviser = query_set.getString("adviser");
+                    String office = query_set.getString("office");
+                    String code = query_set.getString("code");
+                    String subj_title = query_set.getString("subj_title");
+                    String term = query_set.getString("term");
+                    String date = query_set.getString("date");
+                    String time_in = query_set.getString("time_in");
+                    String time_out = query_set.getString("time_out");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, subj_title, term, date, time_in, time_out});
+                }
+                /* Close all DB related objects */
+                query_set.close();
+                stmt.close();
+                conn.close();
+
+                /* Load data into logical worksheet */
+                Set<String> keyset = excel_data.keySet();
+                int rownum = 1;
+                for (String key : keyset) { //loop through the data and add them to the cell
+
+                    Row row = sheet.createRow(rownum++);
+                    Object[] objArr = excel_data.get(key);
+                    int cellnum = 0;
+                    for (Object obj : objArr) {
+                        Cell cell = row.createCell(cellnum++);
+                        if (obj instanceof Double) {
+                            cell.setCellValue((Double) obj);
+                        } else {
+                            cell.setCellValue((String) obj);
+                        }
+                    }
+                }
+
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject1_Logs(First Sem).xls")); //create XLS file
+                new_workbook.write(output_file);//write excel document to output stream
+                output_file.close(); //close the file
+            }
+            
+            
+            //Filtering IT Project 1 Logs for Second Semester
+            if (jComboBox1.getSelectedItem().toString() == "IT Project 1 Log" && termDropDown.getSelectedItem().toString() == "Second Semester") {
+                HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
+                HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
+                /* Define the SQL query */
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "SUBJECT", "TERM", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
+                int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
+                for (int rn = 0; rn < headers.length; rn++) {
+                    Cell cell = r.createCell(rn);
+                    cell.setCellValue((String) headers[rn]);
+                }
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, fname, lname, adviser, office, code, subj_title, term, date, time_in, time_out, hours_rendered FROM accounts natural join students natural join logs natural join subject WHERE subj_title = 'IT Project 1' and term = 'Second Semester';");
+                /* Create Map for Excel Data */
+                Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
+                int row_counter = 0;
+                /* Populate data into the Map */
+                while (query_set.next()) {
+                    row_counter = row_counter + 1;
+                    String idnum = query_set.getString("idnumber");
+                    String fname = query_set.getString("fname");
+                    String lname = query_set.getString("lname");
+                    String adviser = query_set.getString("adviser");
+                    String office = query_set.getString("office");
+                    String code = query_set.getString("code");
+                    String subj_title = query_set.getString("subj_title");
+                    String term = query_set.getString("term");
+                    String date = query_set.getString("date");
+                    String time_in = query_set.getString("time_in");
+                    String time_out = query_set.getString("time_out");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, subj_title, term, date, time_in, time_out});
+                }
+                /* Close all DB related objects */
+                query_set.close();
+                stmt.close();
+                conn.close();
+
+                /* Load data into logical worksheet */
+                Set<String> keyset = excel_data.keySet();
+                int rownum = 1;
+                for (String key : keyset) { //loop through the data and add them to the cell
+
+                    Row row = sheet.createRow(rownum++);
+                    Object[] objArr = excel_data.get(key);
+                    int cellnum = 0;
+                    for (Object obj : objArr) {
+                        Cell cell = row.createCell(cellnum++);
+                        if (obj instanceof Double) {
+                            cell.setCellValue((Double) obj);
+                        } else {
+                            cell.setCellValue((String) obj);
+                        }
+                    }
+                }
+
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject1_Logs(Second Sem).xls")); //create XLS file
+                new_workbook.write(output_file);//write excel document to output stream
+                output_file.close(); //close the file
+            }
+            
+            //Filtering IT Project 1 Logs for Short Term
+            if (jComboBox1.getSelectedItem().toString() == "IT Project 1 Log" && termDropDown.getSelectedItem().toString() == "Short Term") {
+                HSSFWorkbook new_workbook = new HSSFWorkbook(); //create a blank workbook object
+                HSSFSheet sheet = new_workbook.createSheet("Logbook_Report");  //create a worksheet with caption score_details
+                /* Define the SQL query */
+                String[] headers = new String[]{"ID NUMBER", "First Name", "Last Name", "ADVISER", "OFFICE", "CLASS CODE", "SUBJECT", "TERM", "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
+                int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
+                for (int rn = 0; rn < headers.length; rn++) {
+                    Cell cell = r.createCell(rn);
+                    cell.setCellValue((String) headers[rn]);
+                }
+                ResultSet query_set = stmt.executeQuery("SELECT idnumber, fname, lname, adviser, office, code, subj_title, term, date, time_in, time_out, hours_rendered FROM accounts natural join students natural join logs natural join subject WHERE subj_title = 'IT Project 1' and term = 'Short Term';");
+                /* Create Map for Excel Data */
+                Map<String, Object[]> excel_data = new HashMap<>(); //create a map and define data
+                int row_counter = 0;
+                /* Populate data into the Map */
+                while (query_set.next()) {
+                    row_counter = row_counter + 1;
+                    String idnum = query_set.getString("idnumber");
+                    String fname = query_set.getString("fname");
+                    String lname = query_set.getString("lname");
+                    String adviser = query_set.getString("adviser");
+                    String office = query_set.getString("office");
+                    String code = query_set.getString("code");
+                    String subj_title = query_set.getString("subj_title");
+                    String term = query_set.getString("term");
+                    String date = query_set.getString("date");
+                    String time_in = query_set.getString("time_in");
+                    String time_out = query_set.getString("time_out");
+                    excel_data.put(Integer.toString(row_counter), new Object[]{idnum, fname, lname, adviser, office, code, subj_title, term, date, time_in, time_out});
+                }
+                /* Close all DB related objects */
+                query_set.close();
+                stmt.close();
+                conn.close();
+
+                /* Load data into logical worksheet */
+                Set<String> keyset = excel_data.keySet();
+                int rownum = 1;
+                for (String key : keyset) { //loop through the data and add them to the cell
+
+                    Row row = sheet.createRow(rownum++);
+                    Object[] objArr = excel_data.get(key);
+                    int cellnum = 0;
+                    for (Object obj : objArr) {
+                        Cell cell = row.createCell(cellnum++);
+                        if (obj instanceof Double) {
+                            cell.setCellValue((Double) obj);
+                        } else {
+                            cell.setCellValue((String) obj);
+                        }
+                    }
+                }
+
+                FileOutputStream output_file = new FileOutputStream(new File("Excel Files/ITProject1_Logs(Short Term).xls")); //create XLS file
+                new_workbook.write(output_file);//write excel document to output stream
+                output_file.close(); //close the file
+            }
+            
+            
             JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
         } catch (SQLException x) {
             x.printStackTrace();
@@ -766,6 +894,10 @@ public class AdminMain extends javax.swing.JFrame {
             Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_RecoveryCodeActionPerformed
+
+    private void termDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_termDropDownActionPerformed
+        
+    }//GEN-LAST:event_termDropDownActionPerformed
     private Boolean validateAccount(String id) throws SQLException {
         String status = null;
         Connection con;
