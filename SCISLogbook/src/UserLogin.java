@@ -1,7 +1,6 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,9 +83,10 @@ public final class UserLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        term = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         forgotPassword = new javax.swing.JButton();
+        term = new javax.swing.JLabel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -198,21 +198,18 @@ public final class UserLogin extends javax.swing.JFrame {
         jLabel1.setText("Copyright © 2018 SCISLogbook");
 
         jButton1.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
-        jButton1.setText("Developers");
+        jButton1.setText("Privacy Policy");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        term.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
-        term.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        term.setText("Term");
-        term.setToolTipText("");
-        term.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        term.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                termMouseClicked(evt);
+        jButton2.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
+        jButton2.setText("Developers");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -234,14 +231,12 @@ public final class UserLogin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(125, 125, 125))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(170, 170, 170)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(term)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(107, 107, 107))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,10 +250,10 @@ public final class UserLogin extends javax.swing.JFrame {
                         .addComponent(headTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(term)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addGap(25, 25, 25))
@@ -284,6 +279,18 @@ public final class UserLogin extends javax.swing.JFrame {
             }
         });
         jPanel3.add(forgotPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 640, -1, -1));
+
+        term.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
+        term.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        term.setText("Term");
+        term.setToolTipText("");
+        term.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        term.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                termMouseClicked(evt);
+            }
+        });
+        jPanel3.add(term, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -373,7 +380,7 @@ public final class UserLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new AboutUS().setVisible(true);
+        new PrivacyPolicy().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void termMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termMouseClicked
@@ -383,6 +390,10 @@ public final class UserLogin extends javax.swing.JFrame {
     private void forgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPasswordActionPerformed
         new RecoveryConfirmation().setVisible(true);
     }//GEN-LAST:event_forgotPasswordActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new AboutUS().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private String getSubjectID(String subject) throws SQLException {
         String subjid = null;
@@ -631,6 +642,7 @@ public final class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel headTitle;
     protected static final javax.swing.JTextField idNumber = new javax.swing.JTextField(10);
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -470,7 +470,7 @@ public class IDRegistration extends javax.swing.JFrame {
                         + "    character.\n"
                         + "3. At least 1 numeric character.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                query = "INSERT into students (idnumber, fname, lname, course_year, password, recovery_pass) VALUES (?, ?, ?, ?, aes_encrypt(?,'scis2018'), aes_encrypt(?,'scis2018'))";
+                query = "INSERT into students (idnumber, fname, lname, course_year, password, recovery_pass) VALUES (?, aes_encrypt(?,'scis2018'), aes_encrypt(?,'scis2018'), ?, aes_encrypt(?,'scis2018'), aes_encrypt(?,'scis2018'))";
                 ps = con.prepareStatement(query);
                 ps.setString(1, IDTextField.getText());
                 ps.setString(2, fNameTextField.getText());

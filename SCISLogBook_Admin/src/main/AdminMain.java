@@ -5,6 +5,8 @@
  */
 package main;
 
+import functions.Registration;
+import functions.UpdateTerm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +22,7 @@ import validation.Validator;
  *
  * @author Earl
  */
-public class AdminMain extends javax.swing.JFrame {
+public final class AdminMain extends javax.swing.JFrame {
 
     /**
      * Creates new form AdminMain
@@ -31,12 +33,12 @@ public class AdminMain extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         facultyComboBox.setModel(new javax.swing.DefaultComboBoxModel(faculty()));
-        deleteDropdown.setModel(new javax.swing.DefaultComboBoxModel(subjects_status()));
+        accountsDropdown.setModel(new javax.swing.DefaultComboBoxModel(subjects_status()));
         SubjectDropDown.setModel(new javax.swing.DefaultComboBoxModel(subjects()));
-        deleteDropdown.setSelectedIndex(-1);
+        accountsDropdown.setSelectedIndex(-1);
         facultyComboBox.setSelectedIndex(-1);
         SubjectDropDown.setSelectedIndex(-1);
-
+        term.setText(getTerm());
     }
 
     /**
@@ -62,8 +64,8 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        deleteDropdown = new javax.swing.JComboBox();
+        deactivateAccounts = new javax.swing.JButton();
+        accountsDropdown = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         SubjectTitle = new javax.swing.JTextField();
         AddSubject = new javax.swing.JButton();
@@ -75,6 +77,15 @@ public class AdminMain extends javax.swing.JFrame {
         headTitle = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        term = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        generateExcelFilesButton = new javax.swing.JButton();
+        activateDeactivateAccountsButton = new javax.swing.JButton();
+        addRemoveFacultyButton = new javax.swing.JButton();
+        addRemoveSubjectsButton = new javax.swing.JButton();
+        viewCodeButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -85,6 +96,8 @@ public class AdminMain extends javax.swing.JFrame {
         RecoveryCode = new javax.swing.JButton();
         generateLogsButton = new javax.swing.JButton();
         generateStudentsListButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        activateAccounts = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -100,31 +113,31 @@ public class AdminMain extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel3.setText("Generate Excel Files");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel5.setText("Add Faculty");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("First Name:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
 
         fnameTextField.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        jPanel1.add(fnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 344, 180, 20));
+        jPanel1.add(fnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 310, 180, 30));
 
         lnameTextField.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        jPanel1.add(lnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 384, 180, 20));
+        jPanel1.add(lnameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, 180, 30));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Last Name:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 380, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
-        jLabel8.setText("Forgot Password:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 600, -1, -1));
+        jLabel8.setText("Generate Recovery Password");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 590, -1, -1));
 
         deleteButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         deleteButton.setText("Delete");
@@ -133,32 +146,32 @@ public class AdminMain extends javax.swing.JFrame {
                 deleteButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 370, -1, -1));
+        jPanel1.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 350, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel4.setText("Select Account to Activate/Deactivate:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        jButton2.setText("Deactivate");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        deactivateAccounts.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        deactivateAccounts.setText("Deactivate");
+        deactivateAccounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                deactivateAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, -1, -1));
+        jPanel1.add(deactivateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 190, -1, -1));
 
-        deleteDropdown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        deleteDropdown.addActionListener(new java.awt.event.ActionListener() {
+        accountsDropdown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        accountsDropdown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteDropdownActionPerformed(evt);
+                accountsDropdownActionPerformed(evt);
             }
         });
-        jPanel1.add(deleteDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 240, 20));
+        jPanel1.add(accountsDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 240, 30));
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel9.setText("Add Subject:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, -1, -1));
 
         SubjectTitle.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         SubjectTitle.addActionListener(new java.awt.event.ActionListener() {
@@ -166,7 +179,7 @@ public class AdminMain extends javax.swing.JFrame {
                 SubjectTitleActionPerformed(evt);
             }
         });
-        jPanel1.add(SubjectTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 240, 20));
+        jPanel1.add(SubjectTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 500, 240, 30));
 
         AddSubject.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         AddSubject.setText("Add");
@@ -175,11 +188,11 @@ public class AdminMain extends javax.swing.JFrame {
                 AddSubjectActionPerformed(evt);
             }
         });
-        jPanel1.add(AddSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 560, -1, -1));
+        jPanel1.add(AddSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 540, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel10.setText("Remove Faculty");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 290, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, -1, -1));
 
         SubjectDropDown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         SubjectDropDown.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +200,7 @@ public class AdminMain extends javax.swing.JFrame {
                 SubjectDropDownActionPerformed(evt);
             }
         });
-        jPanel1.add(SubjectDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 530, 260, 20));
+        jPanel1.add(SubjectDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 500, 260, 30));
 
         deleteSubjectButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         deleteSubjectButton.setText("Remove");
@@ -196,7 +209,7 @@ public class AdminMain extends javax.swing.JFrame {
                 deleteSubjectButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(deleteSubjectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 560, -1, 29));
+        jPanel1.add(deleteSubjectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 540, -1, 29));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -210,12 +223,83 @@ public class AdminMain extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("STUDENT LOGBOOK");
 
-        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel13.setText("Admin");
+        jLabel13.setText("Admin Module");
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel13MouseClicked(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel12.setText("LOGOUT");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        jButton1.setText("Create an Admin Account");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        term.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        term.setForeground(new java.awt.Color(255, 255, 255));
+        term.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        term.setText("Term");
+        term.setToolTipText("");
+        term.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        term.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                termMouseClicked(evt);
+            }
+        });
+
+        jButton4.setText("Update Academic Term");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        generateExcelFilesButton.setText("Generate Excel Files");
+        generateExcelFilesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateExcelFilesButtonActionPerformed(evt);
+            }
+        });
+
+        activateDeactivateAccountsButton.setText("Activate/Deactivate Accounts");
+        activateDeactivateAccountsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activateDeactivateAccountsButtonActionPerformed(evt);
+            }
+        });
+
+        addRemoveFacultyButton.setText("Add/Remove Faculty");
+        addRemoveFacultyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRemoveFacultyButtonActionPerformed(evt);
+            }
+        });
+
+        addRemoveSubjectsButton.setText("Add/Remove Subjects");
+        addRemoveSubjectsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRemoveSubjectsButtonActionPerformed(evt);
+            }
+        });
+
+        viewCodeButton.setText("View Password Recovery Code");
+        viewCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCodeButtonActionPerformed(evt);
             }
         });
 
@@ -223,39 +307,77 @@ public class AdminMain extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(SCISLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(headTitle)
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel2)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(term)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(SCISLogo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(headTitle))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(generateExcelFilesButton)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(activateDeactivateAccountsButton))
+                                            .addComponent(jLabel2)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(addRemoveFacultyButton)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(addRemoveSubjectsButton))
+                                            .addComponent(viewCodeButton))))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(251, 251, 251)))
+                            .addComponent(jButton4))
+                        .addGap(22, 22, 22))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(term)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
+                        .addGap(18, 18, 18)
                         .addComponent(SCISLogo))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(headTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(headTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generateExcelFilesButton)
+                    .addComponent(activateDeactivateAccountsButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addRemoveFacultyButton)
+                    .addComponent(addRemoveSubjectsButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewCodeButton)
+                .addGap(71, 71, 71)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 710));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 460, 710));
 
         jButton3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         jButton3.setText("Add");
@@ -264,45 +386,50 @@ public class AdminMain extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 420, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 560, 20));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, 560, 20));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 560, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 390, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 560, 20));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 560, 20));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, 560, 10));
 
+        facultyComboBox.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         facultyComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 facultyComboBoxActionPerformed(evt);
             }
         });
-        jPanel1.add(facultyComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 340, 180, -1));
+        jPanel1.add(facultyComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 310, 180, 30));
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel11.setText("Remove Subject:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 490, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 460, -1, -1));
 
+        forgotPass.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         forgotPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 forgotPassActionPerformed(evt);
             }
         });
-        jPanel1.add(forgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 630, 230, 40));
+        jPanel1.add(forgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 660, 250, 30));
 
+        RecoveryCode.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         RecoveryCode.setText("Get Recovery Code");
         RecoveryCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RecoveryCodeActionPerformed(evt);
             }
         });
-        jPanel1.add(RecoveryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 640, -1, -1));
+        jPanel1.add(RecoveryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 660, -1, -1));
 
+        generateLogsButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         generateLogsButton.setText("Logs");
         generateLogsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateLogsButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(generateLogsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, -1, 30));
+        jPanel1.add(generateLogsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, -1, 30));
 
+        generateStudentsListButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         generateStudentsListButton.setText("Student List");
         generateStudentsListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,6 +437,19 @@ public class AdminMain extends javax.swing.JFrame {
             }
         });
         jPanel1.add(generateStudentsListButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, 30));
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel1.setText("Enter ID Number:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 630, -1, -1));
+
+        activateAccounts.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        activateAccounts.setText("Activate");
+        activateAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activateAccountsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(activateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -319,9 +459,7 @@ public class AdminMain extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -381,30 +519,30 @@ public class AdminMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SubjectTitleActionPerformed
 
-    private void deleteDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteDropdownActionPerformed
+    private void accountsDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountsDropdownActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteDropdownActionPerformed
+    }//GEN-LAST:event_accountsDropdownActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void deactivateAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deactivateAccountsActionPerformed
         Connection con;
         PreparedStatement ps = null;
         con = jdbc.connection.DBConnection.connectDB();
 
         try {
 
-            String[] accIDs = getAccountIDs(deleteDropdown.getSelectedItem().toString());
+            String[] accIDs = getAccountIDs(accountsDropdown.getSelectedItem().toString());
             String query = "UPDATE `scislog`.`accounts` SET `status`='inactive' WHERE `account_id`=?;";
             for (int i = 0; accIDs.length > i; i++) {
                 ps = con.prepareStatement(query);
                 ps.setString(1, accIDs[i]);
                 ps.executeUpdate();
             }
-            JOptionPane.showMessageDialog(this, "Successfuly deactivated", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Successfuly deactivated " + accountsDropdown.getSelectedItem().toString() + " accounts.", "Error", JOptionPane.ERROR_MESSAGE);
 
         } catch (SQLException ex) {
             Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_deactivateAccountsActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
 
@@ -505,7 +643,7 @@ public class AdminMain extends javax.swing.JFrame {
 
     private void generateLogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateLogsButtonActionPerformed
         try {
-            new generate.GenerateLogs().setVisible(true);
+            new functions.GenerateLogs().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -513,11 +651,78 @@ public class AdminMain extends javax.swing.JFrame {
 
     private void generateStudentsListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateStudentsListButtonActionPerformed
         try {
-            new generate.GenerateStudentList().setVisible(true);
+            new functions.GenerateStudentList().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_generateStudentsListButtonActionPerformed
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        new LoginAdmin().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Registration reg = null;
+        try {
+            reg = new Registration();
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        reg.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void termMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_termMouseClicked
+
+    }//GEN-LAST:event_termMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        new UpdateTerm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void activateAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateAccountsActionPerformed
+        Connection con;
+        PreparedStatement ps = null;
+        con = jdbc.connection.DBConnection.connectDB();
+
+        try {
+
+            String[] accIDs = getAccountIDs(accountsDropdown.getSelectedItem().toString());
+            String query = "UPDATE `scislog`.`accounts` SET `status`='active' WHERE `account_id`=?;";
+            for (int i = 0; accIDs.length > i; i++) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, accIDs[i]);
+                ps.executeUpdate();
+            }
+            JOptionPane.showMessageDialog(this, "Successfuly activated " + accountsDropdown.getSelectedItem().toString() + " accounts.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_activateAccountsActionPerformed
+
+    private void generateExcelFilesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateExcelFilesButtonActionPerformed
+        new functions.GenerateExcelFiles().setVisible(true);
+    }//GEN-LAST:event_generateExcelFilesButtonActionPerformed
+
+    private void activateDeactivateAccountsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateDeactivateAccountsButtonActionPerformed
+        new functions.ActivateDeactivateAccounts().setVisible(true);
+    }//GEN-LAST:event_activateDeactivateAccountsButtonActionPerformed
+
+    private void addRemoveFacultyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRemoveFacultyButtonActionPerformed
+        new functions.AddRemoveFaculty().setVisible(true);
+    }//GEN-LAST:event_addRemoveFacultyButtonActionPerformed
+
+    private void addRemoveSubjectsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRemoveSubjectsButtonActionPerformed
+        new functions.AddRemoveSubjects().setVisible(true);
+    }//GEN-LAST:event_addRemoveSubjectsButtonActionPerformed
+
+    private void viewCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCodeButtonActionPerformed
+        new functions.ViewPasswordRecovery().setVisible(true);
+    }//GEN-LAST:event_viewCodeButtonActionPerformed
+
     private Boolean validateAccount(String id) throws SQLException {
         String status = null;
         Connection con;
@@ -647,7 +852,7 @@ public class AdminMain extends javax.swing.JFrame {
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE);
 
-        String query = "select subj_title from subject ORDER by 1;";
+        String query = "select distinct subj_title from subject natural join accounts ORDER by 1;";
         ResultSet rs = stmt.executeQuery(query);
         ArrayList list = new ArrayList();
         while (rs.next()) {
@@ -657,6 +862,21 @@ public class AdminMain extends javax.swing.JFrame {
         list.toArray(subj);
 
         return subj;
+    }
+
+    private String getTerm() throws SQLException {
+        Connection con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+        String current_term = null;
+
+        String query = "SELECT * from current_term where term_id = 1";
+        ResultSet rs = stmt.executeQuery(query);
+
+        if (rs.next()) {
+            current_term = rs.getString("semester") + ", A.Y. " + rs.getString("academic_year");
+        }
+        return current_term;
     }
 
     /**
@@ -706,20 +926,29 @@ public class AdminMain extends javax.swing.JFrame {
     private javax.swing.JLabel SCISLogo;
     private javax.swing.JComboBox SubjectDropDown;
     private javax.swing.JTextField SubjectTitle;
+    private javax.swing.JComboBox accountsDropdown;
+    private javax.swing.JButton activateAccounts;
+    private javax.swing.JButton activateDeactivateAccountsButton;
+    private javax.swing.JButton addRemoveFacultyButton;
+    private javax.swing.JButton addRemoveSubjectsButton;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton deactivateAccounts;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JComboBox deleteDropdown;
     private javax.swing.JButton deleteSubjectButton;
     private javax.swing.JComboBox facultyComboBox;
     private javax.swing.JTextField fnameTextField;
     private javax.swing.JTextField forgotPass;
+    private javax.swing.JButton generateExcelFilesButton;
     private javax.swing.JButton generateLogsButton;
     private javax.swing.JButton generateStudentsListButton;
     private javax.swing.JLabel headTitle;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -737,6 +966,9 @@ public class AdminMain extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField lnameTextField;
+    private javax.swing.JLabel term;
     private javax.swing.JTextField textsubject;
+    private javax.swing.JButton viewCodeButton;
     // End of variables declaration//GEN-END:variables
+
 }
