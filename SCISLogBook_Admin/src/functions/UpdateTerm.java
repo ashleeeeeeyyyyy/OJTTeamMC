@@ -69,6 +69,7 @@ public class UpdateTerm extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         jButton1.setText("Update Term");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +111,7 @@ public class UpdateTerm extends javax.swing.JFrame {
                                 .addGap(56, 56, 56)
                                 .addComponent(ayField, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
                         .addComponent(jLabel16)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
@@ -131,7 +132,7 @@ public class UpdateTerm extends javax.swing.JFrame {
                 .addComponent(ayField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,12 +165,7 @@ public class UpdateTerm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        try {
-            new AdminMain().setVisible(true);
-            this.dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateTerm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.dispose();
     }//GEN-LAST:event_jLabel16MouseClicked
 
     /**

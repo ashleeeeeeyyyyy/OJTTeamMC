@@ -5,6 +5,11 @@
  */
 package functions;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import main.AdminMain;
+
 /**
  *
  * @author Earl
@@ -15,7 +20,10 @@ public class GenerateExcelFiles extends javax.swing.JFrame {
      * Creates new form GenerateExcelFiles
      */
     public GenerateExcelFiles() {
+        setUndecorated(true);
+        setResizable(false);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,21 +35,97 @@ public class GenerateExcelFiles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        generateLogsButton = new javax.swing.JButton();
+        generateStudentsListButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 36)); // NOI18N
+        jLabel1.setText("Generate Excel File");
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+        });
+
+        generateLogsButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        generateLogsButton.setText("Logs");
+        generateLogsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateLogsButtonActionPerformed(evt);
+            }
+        });
+
+        generateStudentsListButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        generateStudentsListButton.setText("Student List");
+        generateStudentsListButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateStudentsListButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(generateLogsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(generateStudentsListButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(343, 343, 343)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(generateStudentsListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generateLogsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(99, 99, 99))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void generateLogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateLogsButtonActionPerformed
+        try {
+            new functions.GenerateLogs().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_generateLogsButtonActionPerformed
+
+    private void generateStudentsListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateStudentsListButtonActionPerformed
+        try {
+            new functions.GenerateStudentList().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_generateStudentsListButtonActionPerformed
+
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabel16MouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +163,9 @@ public class GenerateExcelFiles extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton generateLogsButton;
+    private javax.swing.JButton generateStudentsListButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
     // End of variables declaration//GEN-END:variables
 }

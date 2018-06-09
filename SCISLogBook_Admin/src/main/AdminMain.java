@@ -137,7 +137,7 @@ public final class AdminMain extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel8.setText("Generate Recovery Password");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 590, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 590, -1, -1));
 
         deleteButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         deleteButton.setText("Delete");
@@ -159,7 +159,7 @@ public final class AdminMain extends javax.swing.JFrame {
                 deactivateAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(deactivateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 190, -1, -1));
+        jPanel1.add(deactivateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 180, -1, -1));
 
         accountsDropdown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         accountsDropdown.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +167,7 @@ public final class AdminMain extends javax.swing.JFrame {
                 accountsDropdownActionPerformed(evt);
             }
         });
-        jPanel1.add(accountsDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 240, 30));
+        jPanel1.add(accountsDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 240, 30));
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel9.setText("Add Subject:");
@@ -192,7 +192,7 @@ public final class AdminMain extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
         jLabel10.setText("Remove Faculty");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 270, -1, -1));
 
         SubjectDropDown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         SubjectDropDown.addActionListener(new java.awt.event.ActionListener() {
@@ -320,7 +320,7 @@ public final class AdminMain extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(term)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(SCISLogo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -328,16 +328,16 @@ public final class AdminMain extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(generateExcelFilesButton)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(activateDeactivateAccountsButton))
                                             .addComponent(jLabel2)
+                                            .addComponent(viewCodeButton)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(addRemoveFacultyButton)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(addRemoveSubjectsButton))
-                                            .addComponent(viewCodeButton))))
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(generateExcelFilesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(addRemoveFacultyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addGap(28, 28, 28)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(activateDeactivateAccountsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                                                    .addComponent(addRemoveSubjectsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel13)
                                     .addGap(251, 251, 251)))
@@ -409,7 +409,7 @@ public final class AdminMain extends javax.swing.JFrame {
                 forgotPassActionPerformed(evt);
             }
         });
-        jPanel1.add(forgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 660, 250, 30));
+        jPanel1.add(forgotPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 660, 250, 30));
 
         RecoveryCode.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         RecoveryCode.setText("Get Recovery Code");
@@ -418,7 +418,7 @@ public final class AdminMain extends javax.swing.JFrame {
                 RecoveryCodeActionPerformed(evt);
             }
         });
-        jPanel1.add(RecoveryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 660, -1, -1));
+        jPanel1.add(RecoveryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 660, -1, -1));
 
         generateLogsButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         generateLogsButton.setText("Logs");
@@ -427,7 +427,7 @@ public final class AdminMain extends javax.swing.JFrame {
                 generateLogsButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(generateLogsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, -1, 30));
+        jPanel1.add(generateLogsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 90, 30));
 
         generateStudentsListButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         generateStudentsListButton.setText("Student List");
@@ -436,11 +436,11 @@ public final class AdminMain extends javax.swing.JFrame {
                 generateStudentsListButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(generateStudentsListButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, 30));
+        jPanel1.add(generateStudentsListButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, -1, 30));
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         jLabel1.setText("Enter ID Number:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 630, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 630, -1, -1));
 
         activateAccounts.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         activateAccounts.setText("Activate");
@@ -449,7 +449,7 @@ public final class AdminMain extends javax.swing.JFrame {
                 activateAccountsActionPerformed(evt);
             }
         });
-        jPanel1.add(activateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, -1, -1));
+        jPanel1.add(activateAccounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 180, 100, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

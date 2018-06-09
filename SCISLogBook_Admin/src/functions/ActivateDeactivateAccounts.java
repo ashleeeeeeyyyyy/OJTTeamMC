@@ -6,6 +6,16 @@
 
 package functions;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import main.AdminMain;
+
 /**
  *
  * @author Earl
@@ -14,7 +24,10 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
 
     /** Creates new form ActivateDeactivateAccounts */
     public ActivateDeactivateAccounts() {
+        setUndecorated(true);
+        setResizable(false);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -26,21 +39,186 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel4 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        activateAccounts = new javax.swing.JButton();
+        deactivateAccounts = new javax.swing.JButton();
+        accountsDropdown = new javax.swing.JComboBox();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jLabel4.setText("Select Account to Activate/Deactivate:");
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+        });
+
+        activateAccounts.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        activateAccounts.setText("Activate");
+        activateAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activateAccountsActionPerformed(evt);
+            }
+        });
+
+        deactivateAccounts.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        deactivateAccounts.setText("Deactivate");
+        deactivateAccounts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deactivateAccountsActionPerformed(evt);
+            }
+        });
+
+        accountsDropdown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        accountsDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accountsDropdownActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(activateAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(deactivateAccounts))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(accountsDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel4)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addGap(49, 49, 49)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(accountsDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(activateAccounts)
+                    .addComponent(deactivateAccounts))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        this.dispose();                                  
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void activateAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateAccountsActionPerformed
+        Connection con;
+        PreparedStatement ps = null;
+        con = jdbc.connection.DBConnection.connectDB();
+
+        try {
+
+            String[] accIDs = getAccountIDs(accountsDropdown.getSelectedItem().toString());
+            String query = "UPDATE `scislog`.`accounts` SET `status`='active' WHERE `account_id`=?;";
+            for (int i = 0; accIDs.length > i; i++) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, accIDs[i]);
+                ps.executeUpdate();
+            }
+            JOptionPane.showMessageDialog(this, "Successfuly activated " + accountsDropdown.getSelectedItem().toString() + " accounts.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_activateAccountsActionPerformed
+    
+    public String[] getAccountIDs(String subject) throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        PreparedStatement ps = null;
+
+        String query = "SELECT account_id from accounts where subjid = ?";
+
+        ps = con.prepareStatement(query);
+        ps.setString(1, getSubjectID(subject));
+
+        ResultSet rs = ps.executeQuery();
+
+        ArrayList list = new ArrayList();
+
+        while (rs.next()) {
+            list.add(rs.getString("account_id"));
+        }
+        String[] accountIDs = new String[list.size()];
+        list.toArray(accountIDs);
+
+        return accountIDs;
+    }
+    
+    private String getSubjectID(String subject) throws SQLException {
+        String subjid = null;
+        Connection con;
+        PreparedStatement ps;
+
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "select subjid from subject where subj_title = ?";
+        ps = con.prepareStatement(query);
+
+        ps.setString(1, subject);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            subjid = rs.getString("subjid");
+        }
+
+        rs.close();
+        ps.close();
+        con.close();
+
+        return subjid;
+    }
+    
+    private void deactivateAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deactivateAccountsActionPerformed
+        Connection con;
+        PreparedStatement ps = null;
+        con = jdbc.connection.DBConnection.connectDB();
+
+        try {
+
+            String[] accIDs = getAccountIDs(accountsDropdown.getSelectedItem().toString());
+            String query = "UPDATE `scislog`.`accounts` SET `status`='inactive' WHERE `account_id`=?;";
+            for (int i = 0; accIDs.length > i; i++) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, accIDs[i]);
+                ps.executeUpdate();
+            }
+            JOptionPane.showMessageDialog(this, "Successfuly deactivated " + accountsDropdown.getSelectedItem().toString() + " accounts.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deactivateAccountsActionPerformed
+
+    private void accountsDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountsDropdownActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_accountsDropdownActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,6 +256,11 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox accountsDropdown;
+    private javax.swing.JButton activateAccounts;
+    private javax.swing.JButton deactivateAccounts;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -5,6 +5,16 @@
  */
 package functions;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import main.AdminMain;
+
 /**
  *
  * @author Earl
@@ -15,7 +25,10 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
      * Creates new form ViewPasswordRecovery
      */
     public ViewPasswordRecovery() {
+        setUndecorated(true);
+        setResizable(false);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,22 +40,141 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel8 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        forgotPass = new javax.swing.JTextField();
+        RecoveryCode = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jLabel8.setText("Generate Recovery Password");
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        jLabel1.setText("Enter ID Number:");
+
+        forgotPass.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        forgotPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forgotPassActionPerformed(evt);
+            }
+        });
+
+        RecoveryCode.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        RecoveryCode.setText("Get Recovery Code");
+        RecoveryCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecoveryCodeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel8))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(forgotPass, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(RecoveryCode)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel8)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(forgotPass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(RecoveryCode)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void forgotPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_forgotPassActionPerformed
+
+    private void RecoveryCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecoveryCodeActionPerformed
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = null;
+        try {
+            String code = null;
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+            if (validateAccount(forgotPass.getText())) {
+                String query = "SELECT cast(aes_decrypt(recovery_pass,'scis2018') as char (100)) as recoverykey from students where idnumber='" + forgotPass.getText() + "'";
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    code = rs.getString("recoverykey");
+                }
+                JOptionPane.showMessageDialog(this, "Recovery Key for " + forgotPass.getText() + " is " + code + "");
+                forgotPass.setText("");
+            } else if (!validateAccount(forgotPass.getText())) {
+                JOptionPane.showMessageDialog(this, "ID number is not incorrect or does not exist");
+                forgotPass.setText("");
+            } else if (validateAccount(forgotPass.getText()) == null) {
+                JOptionPane.showMessageDialog(this, "This field should not be empty");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_RecoveryCodeActionPerformed
+    
+    private Boolean validateAccount(String id) throws SQLException {
+        String status = null;
+        Connection con;
+        PreparedStatement ps;
+        boolean condition = false;
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "SELECT idnumber FROM students where idnumber= ? ; ";
+        ps = con.prepareStatement(query);
+        ps.setString(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            condition = true;
+        }
+        rs.close();
+        ps.close();
+        con.close();
+
+        return condition;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -79,5 +211,11 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton RecoveryCode;
+    private javax.swing.JTextField forgotPass;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
+
 }

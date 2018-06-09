@@ -5,6 +5,18 @@
  */
 package functions;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import main.AdminMain;
+import validation.Validator;
+
 /**
  *
  * @author Earl
@@ -15,7 +27,10 @@ public class AddRemoveFaculty extends javax.swing.JFrame {
      * Creates new form AddRemoveFaculty
      */
     public AddRemoveFaculty() {
+        setUndecorated(true);
+        setResizable(false);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,21 +42,203 @@ public class AddRemoveFaculty extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        fnameTextField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        lnameTextField = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        facultyComboBox = new javax.swing.JComboBox();
+        deleteButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel5.setText("Add Faculty");
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("First Name:");
+
+        fnameTextField.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setText("Last Name:");
+
+        lnameTextField.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+
+        jButton3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        jButton3.setText("Add");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        jLabel10.setText("Remove Faculty");
+
+        facultyComboBox.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        facultyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facultyComboBoxActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(facultyComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(facultyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(lnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Connection con;
+        PreparedStatement ps;
+
+        con = jdbc.connection.DBConnection.connectDB();
+        String query = "INSERT into faculty (fac_fname, fac_lname) VALUES (?,?)";
+        try {
+            if (Validator.checkDigit(fnameTextField.getText()) || Validator.checkDigit(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain numeric characters.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (Validator.checkSymbols(fnameTextField.getText()) || Validator.checkSymbols(lnameTextField.getText())) {
+                JOptionPane.showMessageDialog(this, "Name should not contain unnecessary symbols.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ps = con.prepareStatement(query);
+                ps.setString(1, fnameTextField.getText());
+                ps.setString(2, lnameTextField.getText());
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Adviser is saved successfully.");
+                this.dispose();
+                new AdminMain().setVisible(true);
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void facultyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facultyComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_facultyComboBoxActionPerformed
+    
+    public String[] faculty() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+
+        String query = "SELECT CONCAT(fac_id,'. ',fac_fname,' ',fac_lname) as fac_name from faculty";
+        ResultSet rs = stmt.executeQuery(query);
+
+        ArrayList list = new ArrayList();
+
+        while (rs.next()) {
+            list.add(rs.getString("fac_name"));
+        }
+        String[] fac = new String[list.size()];
+        list.toArray(fac);
+        return fac;
+    }
+    
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        try {
+            String fac_name = facultyComboBox.getSelectedItem().toString();
+            Connection con;
+            PreparedStatement ps;
+            con = jdbc.connection.DBConnection.connectDB();
+            String fac_id = "";
+            int counter = 0;
+            do {
+                fac_id += fac_name.charAt(counter);
+                counter++;
+            } while (Character.isDigit(fac_name.charAt(counter)));
+
+            String query = "DELETE FROM `faculty` WHERE `fac_id` = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, fac_id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Removed faculty successfully.");
+            this.dispose();
+            new AdminMain().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +276,15 @@ public class AddRemoveFaculty extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JComboBox facultyComboBox;
+    private javax.swing.JTextField fnameTextField;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField lnameTextField;
     // End of variables declaration//GEN-END:variables
 }
