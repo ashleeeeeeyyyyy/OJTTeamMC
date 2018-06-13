@@ -12,10 +12,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -34,7 +38,7 @@ public class GenerateStudentList extends javax.swing.JFrame {
      * Creates new form GenerateLogs
      */
     public GenerateStudentList() throws SQLException {
-        setUndecorated(true);
+        this.setTitle("Generate Student List");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
@@ -60,12 +64,11 @@ public class GenerateStudentList extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         termDropdown = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
         jButton2.setText("jButton2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         subjectDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -75,7 +78,7 @@ public class GenerateStudentList extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel2.setText("Subject: ");
 
-        jButton1.setText("Generate");
+        jButton1.setText("Generate Selected");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -86,15 +89,6 @@ public class GenerateStudentList extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel3.setText("Term:");
-
-        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
-        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel16MouseClicked(evt);
-            }
-        });
 
         jButton3.setText("Generate List Of All Students");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -110,50 +104,42 @@ public class GenerateStudentList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(subjectDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(termDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(subjectDropdown, 0, 259, Short.MAX_VALUE)
+                                .addComponent(termDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(subjectDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(termDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,8 +199,11 @@ public class GenerateStudentList extends javax.swing.JFrame {
                     }
                 }
             }
-
-            try (FileOutputStream output_file = new FileOutputStream(new File("Excel Files/"+subjectDropdown.getSelectedItem()+"("+termDropdown.getSelectedItem()+").xls"))) {
+            Date date = new Date();
+            DateFormat s = new SimpleDateFormat("MMddyyyy_km");
+            s.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+            try (FileOutputStream output_file = new FileOutputStream(new File("Excel Files/" + subjectDropdown.getSelectedItem()
+                    + "(" + termDropdown.getSelectedItem() + "_" + s.format(date) + ").xls"))) {
                 new_workbook.write(output_file);
                 JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
                 this.dispose();
@@ -273,8 +262,10 @@ public class GenerateStudentList extends javax.swing.JFrame {
                     }
                 }
             }
-
-            try (FileOutputStream output_file = new FileOutputStream(new File("Excel Files/AllStudentsList.xls"))) {
+            Date date = new Date();
+            DateFormat s = new SimpleDateFormat("MMddyyyy_km");
+            s.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+            try (FileOutputStream output_file = new FileOutputStream(new File("Excel Files/StudentsList_" + s.format(date) + ".xls"))) {
                 new_workbook.write(output_file);
                 JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
                 this.dispose();
@@ -283,10 +274,6 @@ public class GenerateStudentList extends javax.swing.JFrame {
             Logger.getLogger(GenerateStudentList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        this.dispose();
-    }//GEN-LAST:event_jLabel16MouseClicked
 
     private String[] subjects() throws SQLException {
         Connection con;
@@ -370,7 +357,6 @@ public class GenerateStudentList extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JComboBox<String> subjectDropdown;

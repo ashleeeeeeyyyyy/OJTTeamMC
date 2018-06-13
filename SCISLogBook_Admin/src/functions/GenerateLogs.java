@@ -12,10 +12,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -34,7 +38,7 @@ public class GenerateLogs extends javax.swing.JFrame {
      * Creates new form GenerateLogs
      */
     public GenerateLogs() throws SQLException {
-        setUndecorated(true);
+        this.setTitle("Generate Logs");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
@@ -56,12 +60,12 @@ public class GenerateLogs extends javax.swing.JFrame {
         subjectDropdown = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        generateSelected = new javax.swing.JButton();
         termDropdown = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        generateAll = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         subjectDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -71,10 +75,10 @@ public class GenerateLogs extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel2.setText("Subject: ");
 
-        jButton1.setText("Generate");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        generateSelected.setText("Generate Selected");
+        generateSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                generateSelectedActionPerformed(evt);
             }
         });
 
@@ -83,12 +87,10 @@ public class GenerateLogs extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel3.setText("Term:");
 
-        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
-        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel16MouseClicked(evt);
+        generateAll.setText("Generate All Logs");
+        generateAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateAllActionPerformed(evt);
             }
         });
 
@@ -110,22 +112,19 @@ public class GenerateLogs extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(termDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(termDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(generateAll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(generateSelected, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16)))
+                        .addComponent(jLabel1)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel2)
@@ -135,15 +134,17 @@ public class GenerateLogs extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(termDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(generateSelected)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(generateAll)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void generateSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateSelectedActionPerformed
         try {
             HSSFWorkbook new_workbook;
             HSSFSheet sheet;
@@ -199,8 +200,11 @@ public class GenerateLogs extends javax.swing.JFrame {
                     }
                 }
             }
-
-            FileOutputStream output_file = new FileOutputStream(new File("Excel Files/"+subjectDropdown.getSelectedItem()+"("+termDropdown.getSelectedItem()+").xls")); //create XLS file
+            Date date = new Date();
+            DateFormat s = new SimpleDateFormat("MMddyyyy_km");
+            s.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+            FileOutputStream output_file = new FileOutputStream(new File("Excel Files/" + subjectDropdown.getSelectedItem() + 
+                    "(" + termDropdown.getSelectedItem() + "_" + s.format(date) + ").xls")); //create XLS file
             new_workbook.write(output_file);
             output_file.close();
             JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
@@ -209,12 +213,75 @@ public class GenerateLogs extends javax.swing.JFrame {
             Logger.getLogger(GenerateLogs.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_generateSelectedActionPerformed
 
-    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+    private void generateAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateAllActionPerformed
+        try {
+            HSSFWorkbook new_workbook;
+            HSSFSheet sheet;
+            Map<String, Object[]> excel_data;
+            try (Connection conn = jdbc.connection.DBConnection.connectDB(); Statement stmt = conn.createStatement()) {
+                new_workbook = new HSSFWorkbook();
+                sheet = new_workbook.createSheet("Logbook_Report");
+                String[] headers = new String[]{"ID NUMBER", "STUDENT NAME", "ADVISER", "OFFICE", "CLASS CODE",
+                    "DATE", "TIME IN", "TIME OUT", "HOURS RENDERED"};
+                int rownumber = 0;
+                Row r = sheet.createRow(rownumber);
+                for (int rn = 0; rn < headers.length; rn++) {
+                    Cell cell = r.createCell(rn);
+                    cell.setCellValue((String) headers[rn]);
+                }
+                try (ResultSet query_set = stmt.executeQuery("SELECT idnumber, CONCAT(cast(aes_decrypt(lname, 'scis2018') as char(100))"
+                        + ",', ',cast(aes_decrypt(fname, 'scis2018') as char(100))) as stud_name,adviser,office,code,subj_title,date,time_in,time_out,"
+                        + "hours_rendered from students natural join accounts natural join subject natural join logs")) {
 
-        this.dispose();
-    }//GEN-LAST:event_jLabel16MouseClicked
+                    excel_data = new HashMap<>();
+                    int row_counter = 0;
+
+                    while (query_set.next()) {
+                        row_counter = row_counter + 1;
+                        String idnum = query_set.getString("idnumber");
+                        String studname = query_set.getString("stud_name");
+                        String adviser = query_set.getString("adviser");
+                        String office = query_set.getString("office");
+                        String code = query_set.getString("code");
+                        String subj_title = query_set.getString("subj_title");
+                        String date = query_set.getString("date");
+                        String time_in = query_set.getString("time_in");
+                        String time_out = query_set.getString("time_out");
+                        excel_data.put(Integer.toString(row_counter), new Object[]{idnum, studname, adviser, office, code, subj_title, date, time_in, time_out});
+                    }
+                }
+            }
+
+            Set<String> keyset = excel_data.keySet();
+            int rownum = 1;
+            for (String key : keyset) {
+
+                Row row = sheet.createRow(rownum++);
+                Object[] objArr = excel_data.get(key);
+                int cellnum = 0;
+                for (Object obj : objArr) {
+                    Cell cell = row.createCell(cellnum++);
+                    if (obj instanceof Double) {
+                        cell.setCellValue((Double) obj);
+                    } else {
+                        cell.setCellValue((String) obj);
+                    }
+                }
+            }
+            Date date = new Date();
+            DateFormat s = new SimpleDateFormat("MMddyyyy_km");
+            s.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+            FileOutputStream output_file = new FileOutputStream(new File("Excel Files/Logs_" + s.format(date) + ".xls")); //create XLS file
+            new_workbook.write(output_file);
+            output_file.close();
+            JOptionPane.showMessageDialog(this, "Excel File Generated Successfully.");
+            this.dispose();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(GenerateLogs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_generateAllActionPerformed
 
     private String[] subjects() throws SQLException {
         Connection con;
@@ -293,9 +360,9 @@ public class GenerateLogs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton generateAll;
+    private javax.swing.JButton generateSelected;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JComboBox<String> subjectDropdown;

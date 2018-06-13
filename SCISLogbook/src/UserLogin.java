@@ -1,4 +1,7 @@
 
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -14,6 +17,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -34,14 +38,23 @@ public final class UserLogin extends javax.swing.JFrame {
      * Creates new form UserLogin
      */
     public UserLogin() throws SQLException {
-//        setUndecorated(true);
-        this.setTitle("SCIS Student Logbook");
-        setResizable(false);
+       
+
+
+        setUndecorated(true);
+        this.setAlwaysOnTop(true);
+        this.setResizable(false);
         subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel(subjects()));
         initComponents();
-        setLocationRelativeTo(null);
+        this.add(jPanel3,BorderLayout.CENTER);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xsize = (int) tk.getScreenSize().getWidth();
+        int ysize = (int) tk.getScreenSize().getHeight(); 
+        this.setSize(xsize, ysize);
+        this.setLocationRelativeTo(null);
         showDateTime();
         term.setText(getTerm());
+
     }
 
     void showDateTime() {
@@ -87,6 +100,7 @@ public final class UserLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         forgotPassword = new javax.swing.JButton();
         term = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -259,7 +273,7 @@ public final class UserLogin extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 690));
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
@@ -292,18 +306,27 @@ public final class UserLogin extends javax.swing.JFrame {
         });
         jPanel3.add(term, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, -1, -1));
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/exit.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 680, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void idNumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idNumberMouseClicked
@@ -394,6 +417,10 @@ public final class UserLogin extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new AboutUS().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     private String getSubjectID(String subject) throws SQLException {
         String subjid = null;
@@ -647,6 +674,7 @@ public final class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

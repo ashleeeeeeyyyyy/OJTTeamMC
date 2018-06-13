@@ -25,7 +25,7 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
      * Creates new form ViewPasswordRecovery
      */
     public ViewPasswordRecovery() {
-        setUndecorated(true);
+        this.setTitle("View Password Recovery Code");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
@@ -41,24 +41,14 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel8 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         forgotPass = new javax.swing.JTextField();
         RecoveryCode = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jLabel8.setText("Generate Recovery Password");
-
-        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
-        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel16MouseClicked(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         jLabel1.setText("Enter ID Number:");
@@ -85,9 +75,6 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel8))
                     .addGroup(layout.createSequentialGroup()
@@ -104,9 +91,7 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16)
-                .addGap(27, 27, 27)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel8)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
@@ -114,15 +99,11 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
                 .addComponent(forgotPass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(RecoveryCode)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        this.dispose();
-    }//GEN-LAST:event_jLabel16MouseClicked
 
     private void forgotPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPassActionPerformed
         // TODO add your handling code here:
@@ -214,7 +195,6 @@ public class ViewPasswordRecovery extends javax.swing.JFrame {
     private javax.swing.JButton RecoveryCode;
     private javax.swing.JTextField forgotPass;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 

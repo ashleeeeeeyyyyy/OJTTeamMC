@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,11 +24,13 @@ import main.AdminMain;
 public class ActivateDeactivateAccounts extends javax.swing.JFrame {
 
     /** Creates new form ActivateDeactivateAccounts */
-    public ActivateDeactivateAccounts() {
-        setUndecorated(true);
+    public ActivateDeactivateAccounts() throws SQLException {
+        this.setTitle("Activate/Deactivate Accounts");
         setResizable(false);
         initComponents();
         setLocationRelativeTo(null);
+        accountsDropdown.setModel(new javax.swing.DefaultComboBoxModel(subjects_status()));
+        accountsDropdown.setSelectedIndex(-1);
     }
 
     /** This method is called from within the constructor to
@@ -40,24 +43,15 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel4 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         activateAccounts = new javax.swing.JButton();
         deactivateAccounts = new javax.swing.JButton();
         accountsDropdown = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
-        jLabel4.setText("Select Account to Activate/Deactivate:");
-
-        jLabel16.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/left-arrow.png"))); // NOI18N
-        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel16MouseClicked(evt);
-            }
-        });
+        jLabel4.setText("Select Account to");
 
         activateAccounts.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         activateAccounts.setText("Activate");
@@ -82,6 +76,9 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jLabel5.setText("Activate/Deactivate:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,43 +86,39 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(activateAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(deactivateAccounts))
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(accountsDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(activateAccounts, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(deactivateAccounts))
+                            .addComponent(accountsDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addGap(69, 69, 69)
                         .addComponent(jLabel4)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16)
-                .addGap(49, 49, 49)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(accountsDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(activateAccounts)
                     .addComponent(deactivateAccounts))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        this.dispose();                                  
-    }//GEN-LAST:event_jLabel16MouseClicked
 
     private void activateAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateAccountsActionPerformed
         Connection con;
@@ -220,6 +213,24 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_accountsDropdownActionPerformed
 
+
+    private String[] subjects_status() throws SQLException {
+        Connection con;
+        con = jdbc.connection.DBConnection.connectDB();
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+
+        String query = "select distinct subj_title from subject natural join accounts ORDER by 1;";
+        ResultSet rs = stmt.executeQuery(query);
+        ArrayList list = new ArrayList();
+        while (rs.next()) {
+            list.add(rs.getString("subj_title"));
+        }
+        String[] subj = new String[list.size()];
+        list.toArray(subj);
+
+        return subj;
+    }
     /**
      * @param args the command line arguments
      */
@@ -250,7 +261,11 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActivateDeactivateAccounts().setVisible(true);
+                try {
+                    new ActivateDeactivateAccounts().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ActivateDeactivateAccounts.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -259,8 +274,8 @@ public class ActivateDeactivateAccounts extends javax.swing.JFrame {
     private javax.swing.JComboBox accountsDropdown;
     private javax.swing.JButton activateAccounts;
     private javax.swing.JButton deactivateAccounts;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 
 }

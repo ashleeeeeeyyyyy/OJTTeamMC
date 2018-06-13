@@ -23,8 +23,6 @@ public class IDRegistration extends javax.swing.JFrame {
      * Creates new form IDRegistration
      */
     public IDRegistration() {
-//        setUndecorated(true);
-
         this.setTitle("SCIS Student Logbook");
         setResizable(false);
         initComponents();
@@ -524,16 +522,22 @@ public class IDRegistration extends javax.swing.JFrame {
 
         return res;
     }
-    
+
     protected String getSaltString() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String SALTNUM = "1234567890";
         StringBuilder salt = new StringBuilder();
+        StringBuilder salt2 = new StringBuilder();
         Random rnd = new Random();
-        while (salt.length() < 12) { // length of the random string.
+        while (salt.length() < 3) {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
-        String saltStr = salt.toString();
+        while (salt2.length() < 3) {
+            int index = (int) (rnd.nextFloat() * SALTNUM.length());
+            salt2.append(SALTNUM.charAt(index));
+        }
+        String saltStr = salt.toString() + salt2.toString();
         return saltStr;
 
     }
